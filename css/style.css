@@ -1,0 +1,592 @@
+@charset "UTF-8";
+
+/* ------------------
+---- Common Part ----
+------------------ */
+html {
+    font-size: 100%;
+}
+body {
+    font-family:"Yu Gothic Medium", "游ゴシック Medium", YuGothic, "游ゴシック体", "ヒラギノ角ゴ Pro W3", sans-serif;
+    line-height: 1.7;
+    color: #432;
+}
+a {
+    text-decoration: none;
+}
+img {
+    max-width: 100%;
+}
+.wrapper {
+    width: 90%;
+    margin-bottom: 6%;
+}
+.subtitle-container {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 0.5%;
+}
+.subtitle-line {
+    height: 40px;
+    width: 0;
+    border-left: thick solid #432;
+    align-self: center;
+}
+.subtitle {
+    font-size: 32px;
+    padding-left: 16px;
+    align-self: center;
+}
+
+/* ----------
+---- NAV ----
+------------- */
+nav {
+    width: 40%;
+    min-width: 220px;
+    height: 100vh;
+    background: #eef0f3;
+    margin-right: 5%;
+    position: sticky;
+    top: 0; /* Fix to the top of the page when scrolling */
+}
+
+#home {
+    display: flex;
+    justify-content: space-between;
+}
+
+/* main logo */
+.logo_bg-container {
+    padding: 40px 0 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.logo_bg {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    background: #eef0f3;
+    box-shadow: inset 5px 5px 8px #bec0c2, inset -5px -5px 8px #ffffff;
+}
+.logo {
+    width: 85%;
+    height: 85%;
+    border-radius: 50%;
+    overflow: hidden; /* Ensure that the image does not extend outside the circle */
+    margin-top: 12px;
+    margin-left: 12px;
+    position: relative;
+}
+/* main logo + related links for me */
+.affiliate-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.affiliate-container-item {
+    align-self: center;
+}
+.affiliate-container .bio-belongings {
+    text-align: center;
+    font-size: 14px;
+}
+/* related links logo for me */
+.list-inline{
+    width: 55%;
+    min-width: 180px;
+    height: 30px;
+    margin: 20px auto;
+    display: flex;
+    justify-content: space-around;
+}
+.list-inline-item {
+    list-style: none;
+}
+.list-inline-item .logo-list {
+    width: 26px;
+    height: 26px;
+}
+#email-text{
+    display: none;
+}
+
+/* other links */
+.nav-item-list-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.nav-item-list {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 75%;
+    margin: 10px;
+    list-style: none;
+}
+.nav-item {
+    width: 160px;
+    text-align: left;
+    font-size: 16px;
+    margin: 5px 0;
+}
+.nav-item-list .nav-item .nav-link {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+.nav-item-list .nav-item .logo-list {
+    width: 22px;
+    height: 22px;
+    margin-right: 6px;
+}
+.nav-item-list .nav-item span {
+    color: #432;
+}
+.nav-item-list .nav-item span:hover {
+    color: rgb(145, 180, 200);
+}
+/* for line */
+.nav-item-list-line {
+    width: 75%;
+    height: 6px;
+    border-radius: 5px;
+    background: #eef0f3;
+    box-shadow: inset 2px 2px 4.5px #bec0c2, inset -2px -2px 4.5px #ffffff;
+}
+
+
+/* --------------
+---- ARTICLE ----
+--------------- */
+article {
+    margin: 50px 0 100px;
+}
+
+.interests {
+    list-style-position: inside;
+}
+
+
+
+/* for Bio
+------------------------------- */
+.timeline {
+    margin-top: 2%;
+}
+.timeline li {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    overflow: hidden;
+    margin: 0;
+}
+.timeline-date {
+    position: relative;
+    width: 100px;
+    font-weight: bold;
+    font-size: 16px;
+    color: #787880;
+    margin-top: 25px;
+}
+.timeline-content-wrapper {
+    width: 75%;
+    float: left;
+    border-left: 3px #eef0f3 solid;
+    padding: 0 0 0 40px;
+}
+.timeline-content {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-top: 25px;
+}
+.timeline-content-wrapper .end {
+    margin-bottom: 35px;
+}
+
+.timeline-content h3 {
+    font-weight: bold;
+    font-size: 20px;
+    line-height: 1.4;
+    margin-bottom: 0.1rem;
+}
+.timeline-content p {
+    font-size: 14px;
+    line-height: 1.5;
+    color: #686870;
+}
+.timeline-date:before {
+    content: '';
+    width: 12px;
+    height: 12px;
+    background:rgb(145, 180, 200);
+    position: absolute;
+    left: 96px;
+    top: 8px;
+    border-radius: 100%;
+}
+
+
+.content-list {
+    list-style-position: inside;
+}
+.content-list .other-item {
+    text-indent: -1em;
+    padding-left: 1em;
+}
+.content-list .bib-item {
+    margin-bottom: 1.5rem;
+    list-style-type: none;
+}
+.content-list .bib-item .paper-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+.content-list .bib-item .paper-title {
+    font-weight: bold;
+    font-size: 18px;
+    line-height: 1.4;
+    margin-bottom: 0.4rem;
+}
+.content-list .bib-item .paper-info-container {
+    line-height: 1.5;
+}
+.content-list .bib-item .paper-info {
+    font-size: 14px;
+    color: #686870;
+}
+
+.sub-subtitle-container {
+    margin-bottom: 1.5rem;
+}
+.sub-subtitle {
+    font-size: 20px;
+}
+
+/* for Button
+------------------------------- */
+.button-container-2 {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 145px;
+}
+.button-container-3 {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 225px;
+}
+
+/* pdf-button */
+.pdf-button a span{
+    font-size: 0.875rem;
+    color: #432;
+}
+.pdf-button a {
+    position: relative;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin: 0.25rem 0 0 0;
+    height: 28px;
+    width: 65px;
+    padding: 0;
+    transition: 0.3s ease-in-out;
+    background: #ccc;
+    border-radius: 4%;
+    z-index:0;
+    overflow: hidden;
+}
+.pdf-button a:after {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left:0;
+    width: 0;
+    display: block;
+    background: #999;
+    transition: .3s;
+}
+.pdf-button a:hover:after {
+    width: 100%;
+    z-index: -1;
+}
+
+/* slide-button */
+.slide-button a span{
+    font-size: 0.875rem;
+    color: #432;
+}
+.slide-button a {
+    position: relative;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin: 0.25rem 0 0 0;
+    height: 28px;
+    width: 70px;
+    padding: 0;
+    transition: 0.3s ease-in-out;
+    background: #ccc;
+    border-radius: 4%;
+    z-index:0;
+    overflow: hidden;
+}
+.slide-button a:after {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left:0;
+    width: 0;
+    display: block;
+    background: #999;
+    transition: .3s;
+}
+.slide-button a:hover:after {
+    width: 100%;
+    z-index: -1;
+}
+
+/* prize-button */
+.prize-button span{
+    font-size: 0.875rem;
+    color: #432;
+}
+.prize-button {
+    position: relative;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin: 0.25rem 0 0 0;
+    height: 28px;
+    width: 70px;
+    padding: 0;
+    transition: 0.3s ease-in-out;
+    background: rgb(215, 234, 244);
+    border-radius: 4%;
+    z-index:0;
+    overflow: hidden;
+}
+
+
+/* --------------
+---- FOOTER ----
+--------------- */
+footer {
+    /* height: 0px; */
+    background: #432;
+    text-align: center;
+    padding: 18px 0;
+}
+footer p {
+    color: #fff;
+    font-size: 0.875rem;
+}
+
+
+
+
+/* -------------------------------------------
+--------------- Mobile version ---------------
+------------------------------------------- */
+@media (max-width: 600px) {
+    #home {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    .wrapper {
+        width: 95%;
+        margin-left: 0;
+    }
+
+    /* ----------
+    ---- NAV ----
+    ------------- */
+    nav {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        align-items: center;
+        height: 100vh;
+        width: 100%;
+        background: #eef0f3;
+        margin-right: 0;
+        position: relative;
+        top: auto;
+    }
+
+    /* main logo */
+    .logo_bg-container {
+        padding: 10% 0 15px;
+    }
+    .logo_bg {
+        width: 200px;
+        height: 200px;
+    }
+    .logo {
+        width: 85%;
+        height: 85%;
+        margin-top: 15px;
+        margin-left: 15px;
+    }
+
+    /* related links logo for me */
+    .affiliate-container .bio-myname {
+        text-align: center;
+        font-size: 30px;
+    }
+    .affiliate-container .bio-belongings {
+        text-align: center;
+        font-size: 18px;
+    }
+    .list-inline{
+        width: 260px;
+        height: 35px;
+        margin: 10px;
+    }
+    .list-inline-item {
+        list-style: none;
+    }
+    .list-inline-item .logo-list {
+        width: 30px;
+        height: 35px;
+    }
+    /* other links */
+    .nav-item {
+        width: 180px;
+        text-align: left;
+        font-size: 18px;
+        margin: 2px 0;
+    }
+    .nav-item-list-container {
+        width: 100%;
+    }
+    .nav-item-list-line {
+        width: 70%;
+    }
+
+    /* for scroll animation */
+    .scroll-vector-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    .scroll-vector {
+        width: 60px;
+        height: 60px;
+        border: none;
+        border-radius: 50%;
+        background: linear-gradient(145deg, #ffffff, #d6d8db);
+        box-shadow:  6px 6px 12px #77787a, -6px -6px 12px #ffffff;
+        position: relative;
+        animation: down 1.5s infinite;
+        -webkit-animation: down 1.5s infinite;
+        &::before {
+            content: '';
+            position: absolute;
+            top: 15px;
+            left: 21px;
+            width: 18px;
+            height: 18px;
+            border-left: 2px solid #333;
+            border-bottom: 2px solid #333;
+            transform: rotate(-45deg);
+        }
+    }
+    @keyframes down {
+        0% {
+            transform: translate(0);
+        }
+        20% {
+            transform: translateY(15px);
+        }
+        40% {
+            transform: translate(0);
+        }
+    }
+    @-webkit-keyframes down {
+        0% {
+            transform: translate(0);
+        }
+        20% {
+            transform: translateY(15px);
+        }
+        40% {
+            transform: translate(0);
+        }
+    }
+
+
+    /* --------------
+    ---- ARTICLE ----
+    --------------- */
+    article {
+        width: 100%;
+        margin: 0;
+        padding: 8% 0 8% 20px;
+    }
+
+    /* for Bio
+    ------------------------------- */
+    .timeline {
+        margin-top: 4%;
+    }
+    .timeline-date {
+        position: relative;
+        width: 90px;
+    }
+    .timeline-date:before {
+        left: 85px;
+    }
+    .timeline-content-wrapper {
+        padding: 0 0 0 30px;
+    }
+    .timeline-content h3 {
+        font-size: 18px;
+    }
+    .timeline-content p {
+        font-size: 12px;
+        line-height: 1.5;
+    }
+
+
+    .content-list .bib-item .paper-title {
+        font-size: 16px;
+        margin-bottom: 0.2rem;
+    }
+    .content-list .bib-item .paper-info {
+        font-size: 12px;
+    }
+    .subtitle {
+        font-size: 22px;
+    }
+    .sub-subtitle-container {
+        margin-bottom: 1.2rem;
+    }
+    .sub-subtitle {
+        font-size: 18px;
+    }
+    .content-list li {
+        font-size: 14px;
+    }
+    .subtitle-container .subtitle-en {
+        font-size: 18px;
+    }
+
+    /* --------------
+    ---- FOOTER ----
+    --------------- */
+    footer {
+        padding: 12px 0;
+    }
+}
