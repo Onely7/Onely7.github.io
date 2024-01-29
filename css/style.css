@@ -283,6 +283,10 @@ article {
     align-items: center;
     width: 225px;
 }
+.small-logo {
+    width: 15px;
+    height: 15px;
+}
 
 /* pdf-button */
 .pdf-button a span{
