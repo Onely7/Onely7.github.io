@@ -45,6 +45,7 @@ nav {
     width: 40%;
     min-width: 220px;
     height: 100vh;
+    font-family: 'Zen Maru Gothic', "Yu Gothic Medium", "游ゴシック Medium", YuGothic, "游ゴシック体", "ヒラギノ角ゴ Pro W3", sans-serif;
     background: #eef0f3;
     margin-right: 5%;
     position: sticky;
@@ -90,7 +91,8 @@ nav {
 }
 .affiliate-container .bio-belongings {
     text-align: center;
-    font-size: 14px;
+    font-weight: 500;
+    font-size: 15px;
 }
 /* related links logo for me */
 .list-inline{
@@ -129,6 +131,7 @@ nav {
 .nav-item {
     width: 160px;
     text-align: left;
+    font-weight: 500;
     font-size: 16px;
     margin: 5px 0;
 }
@@ -233,7 +236,8 @@ article {
 .content-list {
     list-style-position: inside;
 }
-.content-list .other-item {
+.content-list .other-list-item {
+
     text-indent: -1em;
     padding-left: 1em;
 }
@@ -260,11 +264,48 @@ article {
     color: #686870;
 }
 
+.activity-wrapper .content-list {
+    margin-bottom: 2rem;
+}
+.content-list .other-item {
+    margin-bottom: 1.2rem;
+    list-style-type: none;
+}
+.content-list .other-item .other-item-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+.content-list .other-item .other-item-title {
+    font-weight: bold;
+    font-size: 18px;
+    line-height: 1.4;
+    margin-bottom: 0.2rem;
+}
+.content-list .other-item .other-item-info-container {
+    line-height: 1.5;
+}
+.content-list .other-item .other-item-info {
+    font-size: 14px;
+    color: #686870;
+}
+
+
 .sub-subtitle-container {
-    margin-bottom: 1.5rem;
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 0.5%;
+}
+.sub-subtitle-line {
+    height: 30px;
+    width: 0;
+    border-left: thick solid #caccce;
+    align-self: center;
 }
 .sub-subtitle {
-    font-size: 20px;
+    font-size: 22px;
+    padding-left: 16px;
+    align-self: center;
 }
 
 /* for Button
@@ -573,18 +614,30 @@ footer p {
     }
     .subtitle {
         font-size: 22px;
+        padding-left: 12px;
     }
     .sub-subtitle-container {
-        margin-bottom: 1.2rem;
+        margin-bottom: 2%;
     }
     .sub-subtitle {
         font-size: 18px;
+        padding-left: 12px;
     }
     .content-list li {
         font-size: 14px;
     }
+    .subtitle-container {
+        margin-bottom: 2%;
+    }
     .subtitle-container .subtitle-en {
         font-size: 18px;
+    }
+    .content-list .other-item .other-item-title {
+        font-size: 16px;
+        margin-bottom: 0.1rem;
+    }
+    .content-list .other-item .other-item-info {
+        font-size: 12px;
     }
 
     /* --------------
