@@ -303,6 +303,7 @@ article {
     align-self: center;
 }
 .sub-subtitle {
+    color: #505052;
     font-size: 22px;
     padding-left: 16px;
     align-self: center;
@@ -420,6 +421,29 @@ article {
     border-radius: 4%;
     z-index:0;
     overflow: hidden;
+}
+
+
+/* for Skills
+------------------------------- */
+.skill-logo {
+    width: 22px;
+    height: 22px;
+}
+.skill-item-wrapper span{
+    font-size: 1rem;
+    color: #432;
+}
+.skill-item-wrapper {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0.25rem 0 0 0;
+    height: 28px;
+    width: 82px;
+    padding: 0;
+    background: rgb(215, 234, 244);
 }
 
 
