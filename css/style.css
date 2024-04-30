@@ -289,6 +289,9 @@ article {
     font-size: 14px;
     color: #686870;
 }
+.content-list .other-item a {
+    color: #432;
+}
 
 
 .sub-subtitle-container {
