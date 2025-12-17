@@ -306,6 +306,7 @@ activities:
       - title_html: "Research Intern @ <a href=\"https://tur.ing/\">Turing Inc.</a>"
         lines:
           - "Member of Fundamental AI Group"
+          - "Responsible for work related to <a href=\"https://huggingface.co/turing-motors/Heron-Idefics2-8B-v0.1\">training large-scale vision-language models (LVLMs)</a> / <a href=\"https://huggingface.co/datasets/turing-motors/MOMIJI\">building a large-scale Japanese vision-language pretraining dataset</a> / <a href=\"https://huggingface.co/datasets/turing-motors/Cauldron-JA\">building a Japanese visual instruction-tuning dataset</a>."
           - "April 2024 - present"
       - title_html: "Machine Learning Engineer Part-time @ <a href=\"https://www.future.co.jp/\">Future Inc.</a>"
         lines:
