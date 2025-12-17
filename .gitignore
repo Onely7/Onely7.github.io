@@ -1,0 +1,6 @@
+*_old.html
+.ruby-version
+Gemfile
+Gemfile.lock
+.jekyll-cache
+_site

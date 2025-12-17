@@ -1,602 +1,545 @@
-<!doctype html>
+---
+layout: none
+---
+
+{% assign data = site.data.publications_ja %} {% comment %} 内部リンクは
+relative_url をかけたいので、"http" を含むかで分岐する小技を使う {% endcomment
+%}
+
+<!DOCTYPE html>
 <html lang="ja">
-    <head>
-        <meta charset="utf-8">
-        <title>塩野 大輝 | Daiki Shiono</title>
-        <meta name="description" content="塩野大輝のポートフォリオサイトです。東北大学大学院情報科学研究科にて、Vision & Language、自然言語処理、機械学習、人工知能に関する研究をしています。">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <!-- settings for favicon -->
-        <link rel="stylesheet" href="https://unpkg.com/ress/dist/ress.min/css">
-        <link rel="apple-touch-icon" sizes="180x180" href="./favicon_images/apple-touch-icon.png">
-        <link rel="icon" type="image/png" sizes="32x32" href="./favicon_images/favicon-32x32.png">
-        <link rel="icon" type="image/png" sizes="16x16" href="./favicon_images/favicon-16x16.png">
-        <link rel="manifest" href="./favicon_images/site.webmanifest">
-        <link rel="mask-icon" href="./favicon_images/safari-pinned-tab.svg" color="#2fa1c2">
-        <meta name="msapplication-TileColor" content="#00bbdd">
-        <meta name="theme-color" content="#ffffff">
-        <!-- reset default css -->
-        <link rel="stylesheet" href="https://unpkg.com/ress/dist/ress.min.css">
-        <!-- settings for google fonts -->
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Philosopher">
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@400;500&display=swap" rel="stylesheet">
-        <!-- apply css -->
-        <link rel="stylesheet" href="css/style.css">
-        <!-- apply javascript -->
-        <script src="js/style.js" defer></script>
-    </head>
+  <head>
+    <meta charset="utf-8" />
+    <title>{{ data.site.title }}</title>
+    <meta name="description" content="{{ data.site.description }}" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <body>
-        <div id="home" class="big-bg">
-            <!-- (left column): natigation column -->
-            <nav class="nav-column">
-                <div class="affiliate-container">
-                    <div class="logo_bg-container affiliate-container-item">
-                        <div class="logo_bg">
-                            <h1><a href="index.html"><img class="logo" src="images/logo.png" alt="Daiki Shiono Logo"></a></h1>
-                        </div>
-                    </div>
-                    <h2 class="bio-myname affiliate-container-item">塩野 大輝</h2>
-                    <p class="bio-belongings affiliate-container-item">Tohoku NLP Group</p>
-                    <!-- related links for me -->
-                    <ul class="list-inline affiliate-container-item">
-                        <p id="email-text">daiki.shiono.s1@dc.tohoku.ac.jp</p>
-                        <li class="list-inline-item"><button id="email-button"><img src="images/envelope-regular.svg" class="logo-list"></img></a></li>
-                        <li class="list-inline-item"><a href="https://www.linkedin.com/in/onely7"><img src="images/linkedin.svg" class="logo-list"></img></a></li>
-                        <li class="list-inline-item"><a href="https://twitter.com/onely7_deep"><img src="images/x-twitter.svg" class="logo-list"></img></a></li>
-                        <li class="list-inline-item"><a href="https://github.com/Onely7"><img src="images/github.svg" class="logo-list"></img></a></li>
-                        <li class="list-inline-item"><a href="https://speakerdeck.com/onely7"><img src="images/speaker-deck.svg" class="logo-list"></img></a></li>
-                    </ul>
-                </div>
-                <!-- other links -->
-                <div class="nav-item-list-container">
-                    <!-- tag for line -->
-                    <div class="nav-item-list-line"></div>
-                    <ul class="nav-item-list">
-                        <li class="nav-item">
-                            <a class="nav-link" href="index.ja.html">
-                                <img src="images/house-solid.svg" class="logo-list"></img>
-                                <span>ホーム</span>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="https://www.nlp.ecei.tohoku.ac.jp/">
-                                <img src="images/tohoku-nlp_logo.svg" class="logo-list"></img>
-                                <span>Tohoku NLP</span>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="https://www.fai.cds.tohoku.ac.jp/">
-                                <img src="images/failab_logo.svg" class="logo-list"></img>
-                                <span>鈴木(潤)研究室</span>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="index.html">
-                                <img src="images/language-solid.svg" class="logo-list"></img>
-                                <span>English</span>
-                            </a>
-                        </li>
-                    </ul>
-                    <!-- tag for line -->
-                    <div class="nav-item-list-line"></div>
-                </div>
-                <!-- for scroll animation -->
-                <div class="scroll-vector-container">
-                    <div class="scroll-vector"></div>
-                </div>
-            </nav>
+    <!-- google search console -->
+    <meta
+      name="google-site-verification"
+      content="{{ data.site.google_site_verification }}"
+    />
 
-            <!-- (right column): article column -->
-            <article>
-                <div class="wrapper">
-                    <div class="subtitle-container">
-                        <div class="subtitle-line"></div>
-                        <h2 class="subtitle">Research Interests</h2>
-                    </div>
-                    <ul class="interests content-list">
-                        <li class="other-list-item">Vision & Language</li>
-                        <li class="other-list-item">NLP</li>
-                    </ul>
-                </div>
+    <!-- settings for favicon -->
+    <link rel="stylesheet" href="https://unpkg.com/ress/dist/ress.min.css" />
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="{{ '/favicon_images/apple-touch-icon.png' | relative_url }}"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="{{ '/favicon_images/favicon-32x32.png' | relative_url }}"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="{{ '/favicon_images/favicon-16x16.png' | relative_url }}"
+    />
+    <link
+      rel="manifest"
+      href="{{ '/favicon_images/site.webmanifest' | relative_url }}"
+    />
+    <link
+      rel="mask-icon"
+      href="{{ '/favicon_images/safari-pinned-tab.svg' | relative_url }}"
+      color="#2fa1c2"
+    />
+    <meta name="msapplication-TileColor" content="#00bbdd" />
+    <meta name="theme-color" content="#ffffff" />
 
-                <div class="wrapper">
-                    <div class="subtitle-container">
-                        <div class="subtitle-line"></div>
-                        <h2 class="subtitle">略歴</h2>
-                    </div>
-                    <ul class="short-cv timeline content-list">
-                        <li>
-                            <p class="timeline-date">2018.04</p>
-                            <div class="timeline-content-wrapper">
-                                <div class="timeline-content">
-                                    <h3>東北大学（学士）</h3>
-                                    <p>電気情報物理工学科</p>
-                                    <p>April 2018 - March 2022</p>
-                                </div>
-                            </div>
-                        </li>
-                        <li>
-                            <p class="timeline-date">2022.04</p>
-                            <div class="timeline-content-wrapper">
-                                <div class="timeline-content">
-                                    <h3>東北大学（修士）</h3>
-                                    <p>情報科学研究科 システム情報科学専攻 鈴木(潤)研究室</p>
-                                    <p>April 2022 -  March 2024</p>
-                                </div>
-                            </div>
-                        </li>
-                        <li>
-                            <p class="timeline-date">2024.04</p>
-                            <div class="timeline-content-wrapper">
-                                <div class="timeline-content end">
-                                    <h3>東北大学（博士）</h3>
-                                    <p>情報科学研究科 システム情報科学専攻 鈴木(潤)研究室</p>
-                                    <p>April 2024 - present</p>
-                                </div>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
+    <!-- settings for google fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
 
-                <div class="wrapper">
-                    <div class="subtitle-container">
-                        <div class="subtitle-line"></div>
-                        <h2 class="subtitle">ジャーナル（査読あり）</h2>
-                    </div>
-                    <ul class="journal content-list">
-                        <li class="bib-item">
-                            <div class="paper-container">
-                                <p class="paper-title">Aoba_v3 bot: a multimodal chatbot system combining rules and various response generation models</p>
-                                <div class="paper-info-container">
-                                    <p class="paper-info">Shoji Moriya*, <u>Daiki Shiono*</u>, Riki Fujihara, Yosuke Kishinami, Subaru Kimura, Shusaku Sone, Reina Akama, Yuta Matsumoto, Jun Suzuki and Kentaro Inui. (*: equal contribution)</p>
-                                    <p class="paper-info"><em>Advanced Robotics</em>, Volume 37, Issue 21, pp.1392-1405, August 2023.</p>
-                                </div>
-                                <div class="pdf-button">
-                                    <a href="https://www.tandfonline.com/doi/full/10.1080/01691864.2023.2240883">
-                                        <img src="images/file-pdf-solid.svg" class="small-logo"></img><span>pdf</span>
-                                    </a>
-                                </div>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-                <div class="wrapper">
-                    <div class="subtitle-container">
-                        <div class="subtitle-line"></div>
-                        <h2 class="subtitle">国際会議（査読あり）</h2>
-                    </div>
-                    <ul class="international-conferences content-list">
-                        <li class="bib-item">
-                            <div class="paper-container">
-                                <p class="paper-title">Evaluating Model Alignment with Human Perception: A Study on Shitsukan in LLMs and LVLMs</p>
-                                <div class="paper-info-container">
-                                    <p class="paper-info"><u>Daiki Shiono</u>, Ana Brassard, Yukiko Ishizuki, Jun Suzuki.</p>
-                                    <p class="paper-info">Proceedings of <em>the 31st International Conference on Computational Linguistics (COLING 2025)</em>, Abu Dhabi, UAE, January 2025.</p>
-                                </div>
-                                <div class="button-container-2">
-                                    <div class="pdf-button">
-                                        <a href="https://aclanthology.org/2025.coling-main.757/">
-                                            <img src="images/file-pdf-solid.svg" class="small-logo"></img><span>pdf</span>
-                                        </a>
-                                    </div>
-                                    <div class="slide-button">
-                                        <a href="materials/coling2025_poster_shiono.pdf">
-                                            <img src="images/file-regular.svg" class="small-logo"></img><span>poster</span>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="bib-item">
-                            <div class="paper-container">
-                                <p class="paper-title">Instruction-Following Evaluation for Large Vision-Language Models</p>
-                                <div class="paper-info-container">
-                                    <p class="paper-info"><u>Daiki Shiono</u>, Shumpei Miyawaki, Ryota Tanaka, Jun Suzuki.</p>
-                                    <p class="paper-info">Non-archival submission for <em>the 2024 Conference of the North American Chapter of the Association for Computational Linguistics Student Research Workshop (NAACL SRW 2024)</em>, Mexico City, Mexico, June 2024.</p>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="bib-item">
-                            <div class="paper-container">
-                                <p class="paper-title">Detecting Response Generation Not Requiring Factual Judgment</p>
-                                <div class="paper-info-container">
-                                    <p class="paper-info">Ryohei Kamei, <u>Daiki Shiono</u>, Reina Akama, Jun Suzuki.</p>
-                                    <p class="paper-info">Proceedings of <em>the 2024 Conference of the North American Chapter of the Association for Computational Linguistics Student Research Workshop (NAACL SRW 2024)</em>, Mexico City, Mexico, June 2024.</p>
-                                </div>
-                                <div class="button-container-2">
-                                    <div class="pdf-button">
-                                        <a href="https://aclanthology.org/2024.naacl-srw.13/">
-                                            <img src="images/file-pdf-solid.svg" class="small-logo"></img><span>pdf</span>
-                                        </a>
-                                    </div>
-                                    <div class="slide-button">
-                                        <a href="materials/naccl-srw-2024_poster_kamei.pdf">
-                                            <img src="images/file-regular.svg" class="small-logo"></img><span>poster</span>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="bib-item">
-                            <div class="paper-container">
-                                <p class="paper-title">Exploring Large Language Models' Understanding of Shitsukan</p>
-                                <div class="paper-info-container">
-                                    <p class="paper-info">Yukiko Ishizuki*, <u>Daiki Shiono*</u>, Ana Brassard, Jun Suzuki. (*: equal contribution)</p>
-                                    <p class="paper-info">Non-archival submission for <em>the 18th Conference of the European Chapter of the Association for Computational Linguistics Student Research Workshop (EACL SRW 2024)</em>, Malta, March 2024.</p>
-                                </div>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-                <div class="wrapper">
-                    <div class="subtitle-container">
-                        <div class="subtitle-line"></div>
-                        <h2 class="subtitle">国内会議・シンポジウム</h2>
-                    </div>
-                    <ul class="domestic-conferences content-list">
-                        <li class="bib-item">
-                            <div class="paper-container">
-                                <p class="paper-title">Padding vs. Packing: 大規模言語モデルのファインチューニングにおける学習効果の検証</p>
-                                <div class="paper-info-container">
-                                    <p class="paper-info"><u>塩野 大輝</u>, 田中 涼太, 宮脇 峻平, 工藤 慧音, 鈴木 潤.</p>
-                                    <p class="paper-info"><em>言語処理学会第31回年次大会（NLP 2025）</em>, 長崎, pp.xxxx-xxxx, March 2025.</p>
-                                </div>
-                                <div class="button-container-2">
-                                    <div class="pdf-button">
-                                        <a href="https://www.anlp.jp/proceedings/annual_meeting/2024/pdf_dir/P7-21.pdf">
-                                            <img src="images/file-pdf-solid.svg" class="small-logo"></img><span>soon</span>
-                                        </a>
-                                    </div>
-                                    <div class="slide-button">
-                                        <a href="materials/nlp2024_poster_shiono.pdf">
-                                            <img src="images/file-regular.svg" class="small-logo"></img><span>soon</span>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="bib-item">
-                            <div class="paper-container">
-                                <p class="paper-title">大規模視覚言語モデルの質感知覚能力の分析</p>
-                                <div class="paper-info-container">
-                                    <p class="paper-info">松田 陵佑, <u>塩野 大輝</u>, Ana Brassard, 鈴木 潤.</p>
-                                    <p class="paper-info"><em>言語処理学会第31回年次大会（NLP 2025）</em>, 長崎, pp.xxxx-xxxx, March 2025.</p>
-                                </div>
-                                <div class="button-container-2">
-                                    <div class="pdf-button">
-                                        <a href="https://www.anlp.jp/proceedings/annual_meeting/2024/pdf_dir/P7-21.pdf">
-                                            <img src="images/file-pdf-solid.svg" class="small-logo"></img><span>soon</span>
-                                        </a>
-                                    </div>
-                                    <div class="slide-button">
-                                        <a href="materials/nlp2024_poster_shiono.pdf">
-                                            <img src="images/file-regular.svg" class="small-logo"></img><span>soon</span>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="bib-item">
-                            <div class="paper-container">
-                                <p class="paper-title">日本語バイト符号化マスク言語モデルの開発と分析</p>
-                                <div class="paper-info-container">
-                                    <p class="paper-info">工藤 慧音, 鴨田 豪, <u>塩野 大輝</u>, 鈴木 潤.</p>
-                                    <p class="paper-info"><em>言語処理学会第31回年次大会（NLP 2025）</em>, 長崎, pp.xxxx-xxxx, March 2025.</p>
-                                </div>
-                                <div class="button-container-2">
-                                    <div class="pdf-button">
-                                        <a href="https://www.anlp.jp/proceedings/annual_meeting/2024/pdf_dir/P7-21.pdf">
-                                            <img src="images/file-pdf-solid.svg" class="small-logo"></img><span>soon</span>
-                                        </a>
-                                    </div>
-                                    <div class="slide-button">
-                                        <a href="materials/nlp2024_poster_shiono.pdf">
-                                            <img src="images/file-regular.svg" class="small-logo"></img><span>soon</span>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="bib-item">
-                            <div class="paper-container">
-                                <p class="paper-title">大規模視覚言語モデルに関する指示追従能力の検証</p>
-                                <div class="paper-info-container">
-                                    <p class="paper-info"><u>塩野 大輝</u>, 宮脇 峻平, 田中 涼太, 鈴木 潤.</p>
-                                    <p class="paper-info"><em>言語処理学会第30回年次大会（NLP 2024）</em>, 神戸, pp.2057-2062, March 2024. 委員特別賞受賞.</p>
-                                </div>
-                                <div class="button-container-3">
-                                    <div class="pdf-button">
-                                        <a href="https://www.anlp.jp/proceedings/annual_meeting/2024/pdf_dir/P7-21.pdf">
-                                            <img src="images/file-pdf-solid.svg" class="small-logo"></img><span>pdf</span>
-                                        </a>
-                                    </div>
-                                    <div class="slide-button">
-                                        <a href="materials/nlp2024_poster_shiono.pdf">
-                                            <img src="images/file-regular.svg" class="small-logo"></img><span>poster</span>
-                                        </a>
-                                    </div>
-                                    <div class="prize-button">
-                                        <img src="images/star-solid.svg" class="small-logo"></img><span>prize</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="bib-item">
-                            <div class="paper-container">
-                                <p class="paper-title">事実正誤判定が不要な生成応答の検出に向けたデータセットの収集と分析</p>
-                                <div class="paper-info-container">
-                                    <p class="paper-info">亀井 遼平, <u>塩野 大輝</u>, 赤間 怜奈, 鈴木 潤.</p>
-                                    <p class="paper-info"><em>言語処理学会第30回年次大会（NLP 2024）</em>, 神戸, pp.2125-2130, March 2024.</p>
-                                </div>
-                                <div class="button-container-2">
-                                    <div class="pdf-button">
-                                        <a href="https://www.anlp.jp/proceedings/annual_meeting/2024/pdf_dir/B8-3.pdf">
-                                            <img src="images/file-pdf-solid.svg" class="small-logo"></img><span>pdf</span>
-                                        </a>
-                                    </div>
-                                    <div class="slide-button">
-                                        <a href="materials/nlp2024_slide_kamei.pdf">
-                                            <img src="images/file-powerpoint-regular.svg" class="small-logo"></img><span>slide</span>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="bib-item">
-                            <div class="paper-container">
-                                <p class="paper-title">Instruction-Following Evaluation for Large Vision-Language Models</p>
-                                <div class="paper-info-container">
-                                    <p class="paper-info"><u>塩野 大輝</u>.</p>
-                                    <p class="paper-info"><em>The 5th International Symposium on AI Electronics</em>, 仙台, February 2023.</p>
-                                </div>
-                                <div class="button-container-2">
-                                    <div class="slide-button">
-                                        <a href="materials/the_5th_International_Symposium_on_AIE_poster_shiono.pdf">
-                                            <img src="images/file-regular.svg" class="small-logo"></img><span>poster</span>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="bib-item">
-                            <div class="paper-container">
-                                <p class="paper-title">生成応答に含まれる事実に基づかない情報の自動検出の試み</p>
-                                <div class="paper-info-container">
-                                    <p class="paper-info">亀井 遼平, <u>塩野 大輝</u>, 赤間 怜奈, 鈴木 潤.</p>
-                                    <p class="paper-info"><em>NLP若手の会第18回シンポジウム（YANS 2023）</em>, 浅草橋, August 2023. 奨励賞受賞. スポンサー賞受賞.</p>
-                                </div>
-                                <div class="prize-button">
-                                    <img src="images/star-solid.svg" class="small-logo"></img><span>prize</span>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="bib-item">
-                            <div class="paper-container">
-                                <p class="paper-title">画像キャプションを利用したIconQAタスクへのアプローチ</p>
-                                <div class="paper-info-container">
-                                    <p class="paper-info"><u>塩野 大輝</u>, 宮脇 峻平, 長澤 春希, 鈴木 潤.</p>
-                                    <p class="paper-info"><em>言語処理学会第29回年次大会（NLP 2023）</em>, 宜野湾, pp.1857-1862, March 2023.</p>
-                                </div>
-                                <div class="button-container-2">
-                                    <div class="pdf-button">
-                                        <a href="https://www.anlp.jp/proceedings/annual_meeting/2023/pdf_dir/B8-4.pdf">
-                                            <img src="images/file-pdf-solid.svg" class="small-logo"></img><span>pdf</span>
-                                        </a>
-                                    </div>
-                                    <div class="slide-button">
-                                        <a href="materials/nlp2023_slide_shiono.pdf">
-                                            <img src="images/file-powerpoint-regular.svg" class="small-logo"></img><span>slide</span>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="bib-item">
-                            <div class="paper-container">
-                                <p class="paper-title">aoba_v3 bot: 多様な応答生成モデルとルールベースを統合したマルチモーダル雑談対話システム</p>
-                                <div class="paper-info-container">
-                                    <p class="paper-info">守屋 彰二*, <u>塩野 大輝*</u>, 岸波 洋介, 藤原 吏生, 木村 昴, 松本 悠太, 曾根 周作, 赤間 怜奈, 鈴木 潤, 乾 健太郎.（*: 共同主著）</p>
-                                    <p class="paper-info"><em>人工知能学会 音声・言語理解と対話処理研究会第96回研究会（JSAI SIG-SLUD 96）第13回対話システムシンポジウム</em>, 立川, December 2022. 第5回対話システムライブコンペティション 優秀賞受賞（第2位）.</p>
-                                </div>
-                                <div class="button-container-3">
-                                    <div class="pdf-button">
-                                        <a href="https://www.jstage.jst.go.jp/article/jsaislud/96/0/96_21/_article/-char/ja/">
-                                            <img src="images/file-pdf-solid.svg" class="small-logo"></img><span>pdf</span>
-                                        </a>
-                                    </div>
-                                    <div class="slide-button">
-                                        <a href="materials/slud2022_slide.pdf">
-                                            <img src="images/file-powerpoint-regular.svg" class="small-logo"></img><span>slide</span>
-                                        </a>
-                                    </div>
-                                    <div class="prize-button">
-                                        <img src="images/star-solid.svg" class="small-logo"></img><span>prize</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-                <div class="wrapper">
-                    <div class="subtitle-container">
-                        <div class="subtitle-line"></div>
-                        <h2 class="subtitle">受賞</h2>
-                    </div>
-                    <ul class="awards content-list">
-                        <li class="other-item">
-                            <div class="other-item-container">
-                                <p class="other-item-title">第5回対話システムライブコンペティション オープントラック <strong>優秀賞受賞（第2位）</strong></p>
-                                <div class="other-item-info-container">
-                                    <p class="other-item-info">December 2022.</p>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="other-item">
-                            <div class="other-item-container">
-                                <p class="other-item-title">言語処理学会第30回年次大会（NLP 2024） <strong>委員特別賞受賞</strong></p>
-                                <div class="other-item-info-container">
-                                    <p class="other-item-info">March 2024. (26件/567件≒4.59%)</p>
-                                </div>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-                <div class="wrapper activity-wrapper">
-                    <div class="subtitle-container">
-                        <div class="subtitle-line"></div>
-                        <h2 class="subtitle">活動</h2>
-                    </div>
-                    <div class="sub-subtitle-container">
-                        <div class="sub-subtitle-line"></div>
-                        <h3 class="sub-subtitle">研究助成金</h3>
-                    </div>
-                    <ul class="research-list content-list">
-                        <li class="other-item">
-                            <div class="other-item-container">
-                                <p class="other-item-title">次世代AI人材育成 (BOOST) プログラム</p>
-                                <div class="other-item-info-container">
-                                    <p class="other-item-info">※ BOOST: Broadening Opportunities for Outstanding young researchers and doctoral students in STrategic areas</p>
-                                    <p class="other-item-info">Research Fellow (科学技術振興機構 (JST) 補助事業)</p>
-                                    <p class="other-item-info">September 2024 - present</p>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="other-item">
-                            <div class="other-item-container">
-                                <p class="other-item-title">東北大学人工知能エレクトロニクス (AIE) 卓越大学院プログラム</p>
-                                <div class="other-item-info-container">
-                                    <p class="other-item-info">Research Fellow (文部科学省補助金事業).</p>
-                                    <p class="other-item-info">April 2020 - present.</p>
-                                </div>
-                            </div>
-                        </li>
-                    </ul>
-                    <div class="sub-subtitle-container">
-                        <div class="sub-subtitle-line"></div>
-                        <h3 class="sub-subtitle">インターン・アルバイト</h3>
-                    </div>
-                    <ul class="experience-list content-list">
-                        <li class="other-item">
-                            <div class="other-item-container">
-                                <p class="other-item-title">Research Intern @ <a href="https://tur.ing/">Turing Inc.</a></p>
-                                <div class="other-item-info-container">
-                                    <p class="other-item-info">Member of Fundamental AI Group</p>
-                                    <p class="other-item-info">April 2024 - present</p>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="other-item">
-                            <div class="other-item-container">
-                                <p class="other-item-title">Machine Learning Engineer Part-time @ <a href="https://www.future.co.jp/">Future Inc.</a></p>
-                                <div class="other-item-info-container">
-                                    <p class="other-item-info">Member of Strategic AI Group</p>
-                                    <p class="other-item-info">March 2023 - December 2023</p>
-                                </div>
-                            </div>
-                        </li>
-                    </ul>
-                    <div class="sub-subtitle-container">
-                        <div class="sub-subtitle-line"></div>
-                        <h3 class="sub-subtitle">Teaching Assistant</h3>
-                    </div>
-                    <ul class="ta-list content-list">
-                        <li class="other-item">
-                            <div class="other-item-container">
-                                <p class="other-item-title">自然言語処理学</p>
-                                <div class="other-item-info-container">
-                                    <p class="other-item-info">東北大学大学院 情報科学研究科 講義</p>
-                                    <p class="other-item-info">October 2023 - February 2024</p>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="other-item">
-                            <div class="other-item-container">
-                                <p class="other-item-title">人工知能技術のためのプログラミング入門</p>
-                                <div class="other-item-info-container">
-                                    <p class="other-item-info">東北大学 全学教育 課外講義</p>
-                                    <p class="other-item-info">October 2022 - December 2023</p>
-                                </div>
-                            </div>
-                        </li>
-                    </ul>
-                    <div class="sub-subtitle-container">
-                        <div class="sub-subtitle-line"></div>
-                        <h3 class="sub-subtitle">Research Assistant</h3>
-                    </div>
-                    <ul class="ra-list content-list">
-                        <li class="other-item">
-                            <div class="other-item-container">
-                                <p class="other-item-title">東北大学データ駆動科学・AI教育研究センター</p>
-                                <div class="other-item-info-container">
-                                    <p class="other-item-info">研究題目の研究遂行に必要な環境・ドキュメント・データ整備・実験・その他補助業務</p>
-                                    <p class="other-item-info">April 2023 - present</p>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="other-item">
-                            <div class="other-item-container">
-                                <p class="other-item-title">研究室内サーバー管理</p>
-                                <div class="other-item-info-container">
-                                    <p class="other-item-info">April 2023 - present</p>
-                                </div>
-                            </div>
-                        </li>
-                    </ul>
-                    <div class="sub-subtitle-container">
-                        <div class="sub-subtitle-line"></div>
-                        <h3 class="sub-subtitle">スライド</h3>
-                    </div>
-                    <ul class="ra-list content-list">
-                        <li class="other-item">
-                            <div class="other-item-container">
-                                <p class="other-item-title">Large Vision Language Model (LVLM) に関する最新知見まとめ (Part 1)</p>
-                                <div class="slide-button">
-                                    <a href="https://speakerdeck.com/onely7/large-vision-language-model-lvlm-niguan-suruzui-xin-zhi-jian-matome-part-1">
-                                        <img src="images/speaker-deck.svg" class="small-logo"></img><span>slide</span>
-                                    </a>
-                                </div>
-                            </div>
-                        </li>
-                    </ul>
-                    <div class="sub-subtitle-container">
-                        <div class="sub-subtitle-line"></div>
-                        <h3 class="sub-subtitle">ブログ</h3>
-                    </div>
-                    <ul class="ra-list content-list">
-                        <li class="other-item">
-                            <div class="other-item-container">
-                                <p class="other-item-title">【日本語V&Lデータセット】The Cauldron JA, Wikipedia Vision JA を公開しました！</p>
-                                <div class="other-item-info-container">
-                                    <p class="other-item-info">Blog post from my internship at <a href="https://tur.ing/">Turing Inc.</a></p>
-                                </div>
-                                <div class="slide-button">
-                                    <a href="https://zenn.dev/turing_motors/articles/23df51c37967f0">
-                                        <img src="images/zenn.svg" class="small-logo"></img><span>blog</span>
-                                    </a>
-                                </div>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-                <div class="wrapper">
-                    <div class="subtitle-container">
-                        <div class="subtitle-line"></div>
-                        <h2 class="subtitle">スキル</h2>
-                    </div>
-                    <ul class="skill-list content-list">
-                        <li class="other-list-item">Python</li>
-                        <li class="other-list-item">PyTorch</li>
-                        <li class="other-list-item">Docker</li>
-                        <li class="other-list-item">Singularity</li>
-                        <li class="other-list-item">HTML/CSS</li>
-                    </ul>
-                </div>
-            </article>
+    <!-- apply css -->
+    <link rel="stylesheet" href="{{ '/css/style.css' | relative_url }}" />
+
+    <!-- apply javascript -->
+    <script src="{{ '/js/style.js' | relative_url }}" defer></script>
+  </head>
+
+  <body>
+    <div id="home" class="big-bg">
+      <!-- (left column): navigation column -->
+      <nav class="nav-column">
+        <div class="affiliate-container">
+          <div class="logo_bg-container affiliate-container-item">
+            <div class="logo_bg">
+              <h1>
+                {% assign logo_href = data.profile.logo.href %}
+                <a
+                  href="{% if logo_href contains '://' %}{{ logo_href }}{% else %}{{ logo_href | relative_url }}{% endif %}"
+                >
+                  <img
+                    class="logo"
+                    src="{{ ('/' | append: data.profile.logo.icon) | relative_url }}"
+                    alt="{{ data.profile.logo.alt | default: data.profile.name_en | default: data.profile.name }}"
+                  />
+                </a>
+              </h1>
+            </div>
+          </div>
+
+          <h2 class="bio-myname affiliate-container-item">
+            {{ data.profile.name }}
+          </h2>
+          <p class="bio-belongings affiliate-container-item">
+            {{ data.profile.belongings }}
+          </p>
+
+          <!-- related links for me -->
+          <ul class="list-inline affiliate-container-item">
+            <p id="email-text">{{ data.profile.email }}</p>
+
+            {% for link in data.profile.links %}
+            <li class="list-inline-item">
+              {% if link.kind == "email" %}
+              <button type="button" id="{{ link.id }}">
+                <img
+                  src="{{ ('/' | append: link.icon) | relative_url }}"
+                  class="logo-list"
+                  alt="{{ link.alt }}"
+                />
+              </button>
+              {% else %}
+              <a href="{{ link.href }}">
+                <img
+                  src="{{ ('/' | append: link.icon) | relative_url }}"
+                  class="logo-list"
+                  alt="{{ link.alt }}"
+                />
+              </a>
+              {% endif %}
+            </li>
+            {% endfor %}
+          </ul>
         </div>
-        <footer>
-            <p><small>&copy; 2023 Daiki Shiono<br>Implemented by Daiki Shiono</small></p>
-        </footer>
-    </body>
+
+        <!-- other links -->
+        <div class="nav-item-list-container">
+          <div class="nav-item-list-line"></div>
+          <ul class="nav-item-list">
+            {% for item in data.nav_items %}
+            <li class="nav-item">
+              {% assign nav_href = item.href %}
+              <a
+                class="nav-link"
+                href="{% if nav_href contains '://' %}{{ nav_href }}{% else %}{{ nav_href | relative_url }}{% endif %}"
+              >
+                <img
+                  src="{{ ('/' | append: item.icon) | relative_url }}"
+                  class="logo-list"
+                  alt="{{ item.label }}"
+                />
+                <span>{{ item.label }}</span>
+              </a>
+            </li>
+            {% endfor %}
+          </ul>
+          <div class="nav-item-list-line"></div>
+        </div>
+
+        <!-- for scroll animation -->
+        <div class="scroll-vector-container">
+          <div class="scroll-vector"></div>
+        </div>
+      </nav>
+
+      <!-- (right column): article column -->
+      <article>
+        <!-- Research Interests -->
+        <div class="wrapper">
+          <div class="subtitle-container">
+            <div class="subtitle-line"></div>
+            <h2 class="subtitle">{{ data.headings.research_interests }}</h2>
+          </div>
+          <ul class="interests content-list">
+            {% for x in data.research_interests %}
+            <li class="other-list-item">{{ x }}</li>
+            {% endfor %}
+          </ul>
+        </div>
+
+        <!-- Biography -->
+        <div class="wrapper">
+          <div class="subtitle-container">
+            <div class="subtitle-line"></div>
+            <h2 class="subtitle">{{ data.headings.biography }}</h2>
+          </div>
+          <ul class="short-cv timeline content-list">
+            {% for b in data.biography %}
+            <li>
+              <p class="timeline-date">{{ b.date }}</p>
+              <div class="timeline-content-wrapper">
+                <div class="timeline-content{% if b.end %} end{% endif %}">
+                  <h3>{{ b.title }}</h3>
+                  {% for line in b.lines %}
+                  <p>{{ line }}</p>
+                  {% endfor %}
+                </div>
+              </div>
+            </li>
+            {% endfor %}
+          </ul>
+        </div>
+
+        <!-- Journal Papers -->
+        <div class="wrapper">
+          <div class="subtitle-container">
+            <div class="subtitle-line"></div>
+            <h2 class="subtitle">{{ data.headings.journals }}</h2>
+          </div>
+          <ul class="journal content-list">
+            {% for p in data.publications.journals %}
+            <li class="bib-item">
+              <div class="paper-container">
+                <p class="paper-title">{{ p.title }}</p>
+                <div class="paper-info-container">
+                  <p class="paper-info">{{ p.authors_html }}</p>
+                  <p class="paper-info">{{ p.venue_html }}</p>
+                </div>
+
+                {% for l in p.links %} {% if l.kind == "pdf" %}
+                <div class="pdf-button">
+                  <a href="{{ l.href }}">
+                    <img
+                      src="{{ ('/' | append: l.icon) | relative_url }}"
+                      class="small-logo"
+                      alt="{{ l.label }}"
+                    /><span>{{ l.label }}</span>
+                  </a>
+                </div>
+                {% endif %} {% endfor %}
+              </div>
+            </li>
+            {% endfor %}
+          </ul>
+        </div>
+
+        <!-- International Conferences -->
+        <div class="wrapper">
+          <div class="subtitle-container">
+            <div class="subtitle-line"></div>
+            <h2 class="subtitle">
+              {{ data.headings.international_conferences }}
+            </h2>
+          </div>
+          <ul class="international-conferences content-list">
+            {% for p in data.publications.international_conferences %}
+            <li class="bib-item">
+              <div class="paper-container">
+                <p class="paper-title">{{ p.title }}</p>
+                <div class="paper-info-container">
+                  <p class="paper-info">{{ p.authors_html }}</p>
+                  <p class="paper-info">{{ p.venue_html }}</p>
+                </div>
+
+                {% assign btn_count = 0 %} {% for l in p.links %}{% assign
+                btn_count = btn_count | plus: 1 %}{% endfor %} {% if btn_count
+                == 1 %} {% for l in p.links %} {% if l.kind == "pdf" %}
+                <div class="pdf-button">
+                  <a href="{{ l.href }}">
+                    <img
+                      src="{{ ('/' | append: l.icon) | relative_url }}"
+                      class="small-logo"
+                      alt="{{ l.label }}"
+                    />
+                    <span>{{ l.label }}</span>
+                  </a>
+                </div>
+                {% else %}
+                <div class="slide-button">
+                  {% assign href2 = l.href %}
+                  <a
+                    href="{% if href2 contains '://' %}{{ href2 }}{% else %}{{ href2 | relative_url }}{% endif %}"
+                  >
+                    <img
+                      src="{{ ('/' | append: l.icon) | relative_url }}"
+                      class="small-logo"
+                      alt="{{ l.label }}"
+                    />
+                    <span>{{ l.label }}</span>
+                  </a>
+                </div>
+                {% endif %} {% endfor %} {% elsif btn_count == 2 %}
+                <div class="button-container-2">
+                  {% for l in p.links %} {% if l.kind == "pdf" %}
+                  <div class="pdf-button">
+                    <a href="{{ l.href }}">
+                      <img
+                        src="{{ ('/' | append: l.icon) | relative_url }}"
+                        class="small-logo"
+                        alt="{{ l.label }}"
+                      />
+                      <span>{{ l.label }}</span>
+                    </a>
+                  </div>
+                  {% else %}
+                  <div class="slide-button">
+                    {% assign href2 = l.href %}
+                    <a
+                      href="{% if href2 contains '://' %}{{ href2 }}{% else %}{{ href2 | relative_url }}{% endif %}"
+                    >
+                      <img
+                        src="{{ ('/' | append: l.icon) | relative_url }}"
+                        class="small-logo"
+                        alt="{{ l.label }}"
+                      />
+                      <span>{{ l.label }}</span>
+                    </a>
+                  </div>
+                  {% endif %} {% endfor %}
+                </div>
+                {% endif %}
+              </div>
+            </li>
+            {% endfor %}
+          </ul>
+        </div>
+
+        <!-- Domestic Conferences -->
+        <div class="wrapper">
+          <div class="subtitle-container">
+            <div class="subtitle-line"></div>
+            <h2 class="subtitle">{{ data.headings.domestic_conferences }}</h2>
+          </div>
+          <ul class="domestic-conferences content-list">
+            {% for p in data.publications.domestic_conferences %}
+            <li class="bib-item">
+              <div class="paper-container">
+                <p class="paper-title">{{ p.title }}</p>
+                <div class="paper-info-container">
+                  <p class="paper-info">{{ p.authors_html }}</p>
+                  <p class="paper-info">{{ p.venue_html }}</p>
+                </div>
+
+                {% assign btn_count = 0 %} {% for l in p.links %}{% assign
+                btn_count = btn_count | plus: 1 %}{% endfor %} {% if p.badges %}
+                {% assign badge_count = 0 %} {% for b in p.badges %}{% assign
+                badge_count = badge_count | plus: 1 %}{% endfor %} {% else %} {%
+                assign badge_count = 0 %} {% endif %} {% assign total =
+                btn_count | plus: badge_count %} {% if total == 1 %} {% for l in
+                p.links %} {% if l.kind == "pdf" %}
+                <div class="pdf-button">
+                  <a href="{{ l.href }}">
+                    <img
+                      src="{{ ('/' | append: l.icon) | relative_url }}"
+                      class="small-logo"
+                      alt="{{ l.label }}"
+                    />
+                    <span>{{ l.label }}</span>
+                  </a>
+                </div>
+                {% else %}
+                <div class="slide-button">
+                  {% assign href2 = l.href %}
+                  <a
+                    href="{% if href2 contains '://' %}{{ href2 }}{% else %}{{ href2 | relative_url }}{% endif %}"
+                  >
+                    <img
+                      src="{{ ('/' | append: l.icon) | relative_url }}"
+                      class="small-logo"
+                      alt="{{ l.label }}"
+                    />
+                    <span>{{ l.label }}</span>
+                  </a>
+                </div>
+                {% endif %} {% endfor %} {% if p.badges %} {% for b in p.badges
+                %}
+                <div class="prize-button">
+                  <img
+                    src="{{ ('/' | append: b.icon) | relative_url }}"
+                    class="small-logo"
+                    alt="{{ b.label }}"
+                  />
+                  <span>{{ b.label }}</span>
+                </div>
+                {% endfor %} {% endif %} {% elsif total == 2 %}
+                <div class="button-container-2">
+                  {% for l in p.links %} {% if l.kind == "pdf" %}
+                  <div class="pdf-button">
+                    <a href="{{ l.href }}">
+                      <img
+                        src="{{ ('/' | append: l.icon) | relative_url }}"
+                        class="small-logo"
+                        alt="{{ l.label }}"
+                      />
+                      <span>{{ l.label }}</span>
+                    </a>
+                  </div>
+                  {% else %}
+                  <div class="slide-button">
+                    {% assign href2 = l.href %}
+                    <a
+                      href="{% if href2 contains '://' %}{{ href2 }}{% else %}{{ href2 | relative_url }}{% endif %}"
+                    >
+                      <img
+                        src="{{ ('/' | append: l.icon) | relative_url }}"
+                        class="small-logo"
+                        alt="{{ l.label }}"
+                      />
+                      <span>{{ l.label }}</span>
+                    </a>
+                  </div>
+                  {% endif %} {% endfor %} {% if p.badges %} {% for b in
+                  p.badges %}
+                  <div class="prize-button">
+                    <img
+                      src="{{ ('/' | append: b.icon) | relative_url }}"
+                      class="small-logo"
+                      alt="{{ b.label }}"
+                    />
+                    <span>{{ b.label }}</span>
+                  </div>
+                  {% endfor %} {% endif %}
+                </div>
+
+                {% elsif total == 3 %}
+                <div class="button-container-3">
+                  {% for l in p.links %} {% if l.kind == "pdf" %}
+                  <div class="pdf-button">
+                    <a href="{{ l.href }}">
+                      <img
+                        src="{{ ('/' | append: l.icon) | relative_url }}"
+                        class="small-logo"
+                        alt="{{ l.label }}"
+                      />
+                      <span>{{ l.label }}</span>
+                    </a>
+                  </div>
+                  {% else %}
+                  <div class="slide-button">
+                    {% assign href2 = l.href %}
+                    <a
+                      href="{% if href2 contains '://' %}{{ href2 }}{% else %}{{ href2 | relative_url }}{% endif %}"
+                    >
+                      <img
+                        src="{{ ('/' | append: l.icon) | relative_url }}"
+                        class="small-logo"
+                        alt="{{ l.label }}"
+                      />
+                      <span>{{ l.label }}</span>
+                    </a>
+                  </div>
+                  {% endif %} {% endfor %} {% if p.badges %} {% for b in
+                  p.badges %}
+                  <div class="prize-button">
+                    <img
+                      src="{{ ('/' | append: b.icon) | relative_url }}"
+                      class="small-logo"
+                      alt="{{ b.label }}"
+                    />
+                    <span>{{ b.label }}</span>
+                  </div>
+                  {% endfor %} {% endif %}
+                </div>
+                {% endif %}
+              </div>
+            </li>
+            {% endfor %}
+          </ul>
+        </div>
+
+        <!-- Awards -->
+        <div class="wrapper">
+          <div class="subtitle-container">
+            <div class="subtitle-line"></div>
+            <h2 class="subtitle">{{ data.headings.awards }}</h2>
+          </div>
+          <ul class="awards content-list">
+            {% for a in data.awards %}
+            <li class="other-item">
+              <div class="other-item-container">
+                <p class="other-item-title">{{ a.title_html }}</p>
+                <div class="other-item-info-container">
+                  <p class="other-item-info">
+                    {{ a.date }}{% if a.note %} {{ a.note }}{% endif %}
+                  </p>
+                </div>
+              </div>
+            </li>
+            {% endfor %}
+          </ul>
+        </div>
+
+        <!-- Activities -->
+        <div class="wrapper activity-wrapper">
+          <div class="subtitle-container">
+            <div class="subtitle-line"></div>
+            <h2 class="subtitle">{{ data.headings.activities }}</h2>
+          </div>
+
+          {% for cat in data.activities %}
+          <div class="sub-subtitle-container">
+            <div class="sub-subtitle-line"></div>
+            <h3 class="sub-subtitle">{{ cat.category }}</h3>
+          </div>
+
+          <ul class="{{ cat.list_class | default: 'content-list' }}">
+            {% for it in cat.items %}
+            <li class="other-item">
+              <div class="other-item-container">
+                {% if it.title_html %}
+                <p class="other-item-title">{{ it.title_html }}</p>
+                {% else %}
+                <p class="other-item-title">{{ it.title }}</p>
+                {% endif %} {% if it.lines %}
+                <div class="other-item-info-container">
+                  {% for line in it.lines %}
+                  <p class="other-item-info">{{ line }}</p>
+                  {% endfor %}
+                </div>
+                {% endif %} {% if it.links %} {% for l in it.links %}
+                <div class="slide-button">
+                  {% assign href2 = l.href %}
+                  <a
+                    href="{% if href2 contains '://' %}{{ href2 }}{% else %}{{ href2 | relative_url }}{% endif %}"
+                  >
+                    <img
+                      src="{{ ('/' | append: l.icon) | relative_url }}"
+                      class="small-logo"
+                      alt="{{ l.label }}"
+                    /><span>{{ l.label }}</span>
+                  </a>
+                </div>
+                {% endfor %} {% endif %}
+              </div>
+            </li>
+            {% endfor %}
+          </ul>
+          {% endfor %}
+        </div>
+
+        <!-- Skills -->
+        <div class="wrapper">
+          <div class="subtitle-container">
+            <div class="subtitle-line"></div>
+            <h2 class="subtitle">{{ data.headings.skills }}</h2>
+          </div>
+          <ul class="skill-list content-list">
+            {% for s in data.skills %}
+            <li class="other-list-item">{{ s }}</li>
+            {% endfor %}
+          </ul>
+        </div>
+      </article>
+    </div>
+
+    <footer>
+      <p>
+        <small
+          >&copy; 2023 {{ data.profile.name_en }}<br />Implemented by {{
+          data.profile.name_en }}</small
+        >
+      </p>
+    </footer>
+  </body>
 </html>

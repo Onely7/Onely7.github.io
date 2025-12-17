@@ -1,0 +1,373 @@
+# _data/publications.yaml
+site:
+  title: "Daiki Shiono | 塩野 大輝"
+  description: "This is the portfolio site of Daiki Shiono. I am doing research on Vision & Language, Natural Language Processing, Machine Learning, and Artificial Intelligence at Graduate School of Information Sciences, Tohoku University."
+  google_site_verification: "OKyxije2NXEpCIJsRreRnmuD0KnuTtxK0mBQU-x4mqU"
+
+profile:
+  name: "Daiki Shiono"
+  belongings: "Tohoku NLP Group"
+  email: "daiki.shiono.s1@dc.tohoku.ac.jp"
+  links:
+    - kind: "email"
+      href: "#"
+      icon: "images/envelope-regular.svg"
+      alt: "Email"
+      id: "email-button"
+    - kind: "linkedin"
+      href: "https://www.linkedin.com/in/onely7"
+      icon: "images/linkedin.svg"
+      alt: "LinkedIn"
+    - kind: "x"
+      href: "https://twitter.com/onely7_deep"
+      icon: "images/x-twitter.svg"
+      alt: "X"
+    - kind: "github"
+      href: "https://github.com/Onely7"
+      icon: "images/github.svg"
+      alt: "GitHub"
+    - kind: "speakerdeck"
+      href: "https://speakerdeck.com/onely7"
+      icon: "images/speaker-deck.svg"
+      alt: "Speaker Deck"
+
+nav_items:
+  - label: "Home"
+    href: "index.html"
+    icon: "images/house-solid.svg"
+  - label: "Tohoku NLP"
+    href: "https://www.nlp.ecei.tohoku.ac.jp/"
+    icon: "images/tohoku-nlp_logo.svg"
+  - label: "Fai Lab"
+    href: "https://www.fai.cds.tohoku.ac.jp/"
+    icon: "images/failab_logo.svg"
+  - label: "Japanese"
+    href: "index.ja.html"
+    icon: "images/language-solid.svg"
+
+research_interests:
+  - "Vision & Language"
+  - "NLP"
+
+biography:
+  - date: "2018.04"
+    title: "Tohoku University (Bachelor)"
+    lines:
+      - "Department of Electrical, Information and Physics Engineering, School of Engineering"
+      - "April 2018 - March 2022"
+  - date: "2022.04"
+    title: "Tohoku University (Master)"
+    lines:
+      - "Fundamental Artificial Intelligence, Department of System Information Sciences, Graduate School of Information Sciences"
+      - "April 2022 - March 2024"
+  - date: "2024.04"
+    title: "Tohoku University (Doctor)"
+    end: true
+    lines:
+      - "Fundamental Artificial Intelligence, Department of System Information Sciences, Graduate School of Information Sciences"
+      - "April 2024 - present"
+
+publications:
+  journals:
+    - title: "Aoba_v3 bot: a multimodal chatbot system combining rules and various response generation models"
+      authors_html: "Shoji Moriya*, <u>Daiki Shiono*</u>, Riki Fujihara, Yosuke Kishinami, Subaru Kimura, Shusaku Sone, Reina Akama, Yuta Matsumoto, Jun Suzuki and Kentaro Inui. (*: equal contribution)"
+      venue_html: "<em>Advanced Robotics</em>, Volume 37, Issue 21, pp.1392-1405, August 2023."
+      links:
+        - kind: "pdf"
+          label: "pdf"
+          href: "https://www.tandfonline.com/doi/full/10.1080/01691864.2023.2240883"
+          icon: "images/file-pdf-solid.svg"
+
+    - title: "Instruction-Following Evaluation of Large Vision-Language Models"
+      authors_html: "<u>Daiki Shiono</u>, Shumpei Miyawaki, Ryota Tanaka, Jun Suzuki."
+      venue_html: "<em>New Generation Computing</em>, Volume XX, Issue XX, pp.XXXX-XXXX, December 2025."
+      links:
+        - kind: "pdf"
+          label: "SOON"
+          href: "https://<soon>"
+          icon: "images/file-pdf-solid.svg"
+
+  international_conferences:
+    - title: "STRIDE-QA: Visual Question Answering Dataset for Spatiotemporal Reasoning in Urban Driving Scenes"
+      authors_html: "Keishi Ishihara, Kento Sasaki, Tsubasa Takahashi, <u>Daiki Shiono</u>, Yu Yamaguchi."
+      venue_html: "Proceedings of <em>the AAAI Conference on Artificial Intelligence (AAAI 2026)</em>, Singapore, January 2026."
+      links:
+        - kind: "pdf"
+          label: "SOON"
+          href: "https://<soon>"
+          icon: "images/file-pdf-solid.svg"
+        - kind: "poster"
+          label: "SOON"
+          href: "materials/<soon>"
+          icon: "images/file-regular.svg"
+
+    - title: "Batch-wise Convergent Pre-training: Step-by-Step Learning Inspired by Child Language Development"
+      authors_html: "Ko Yoshida, <u>Daiki Shiono</u>, Kai Sato, Toko Miura, Momoka Furuhashi, Jun Suzuki."
+      venue_html: "Proceedings of <em>the First BabyLM Workshop on Association for Computational Linguistics</em>, Suzhou, China, November 2025."
+      links:
+        - kind: "pdf"
+          label: "pdf"
+          href: "https://aclanthology.org/2025.babylm-main.36/"
+          icon: "images/file-pdf-solid.svg"
+        - kind: "poster"
+          label: "poster"
+          href: "materials/babylm2025_poster_yoshida.pdf"
+          icon: "images/file-regular.svg"
+
+    - title: "Evaluating Model Alignment with Human Perception: A Study on Shitsukan in LLMs and LVLMs"
+      authors_html: "<u>Daiki Shiono</u>, Ana Brassard, Yukiko Ishizuki, Jun Suzuki."
+      venue_html: "Proceedings of <em>the 31st International Conference on Computational Linguistics (COLING 2025)</em>, Abu Dhabi, UAE, January 2025."
+      links:
+        - kind: "pdf"
+          label: "pdf"
+          href: "https://aclanthology.org/2025.coling-main.757/"
+          icon: "images/file-pdf-solid.svg"
+        - kind: "poster"
+          label: "poster"
+          href: "materials/coling2025_poster_shiono.pdf"
+          icon: "images/file-regular.svg"
+
+    - title: "Instruction-Following Evaluation for Large Vision-Language Models"
+      authors_html: "<u>Daiki Shiono</u>, Shumpei Miyawaki, Ryota Tanaka, Jun Suzuki."
+      venue_html: "Non-archival submission for <em>the 2024 Conference of the North American Chapter of the Association for Computational Linguistics Student Research Workshop (NAACL SRW 2024)</em>, Mexico City, Mexico, June 2024."
+      links: []
+
+    - title: "Detecting Response Generation Not Requiring Factual Judgment"
+      authors_html: "Ryohei Kamei, <u>Daiki Shiono</u>, Reina Akama, Jun Suzuki."
+      venue_html: "Proceedings of <em>the 2024 Conference of the North American Chapter of the Association for Computational Linguistics Student Research Workshop (NAACL SRW 2024)</em>, Mexico City, Mexico, June 2024."
+      links:
+        - kind: "pdf"
+          label: "pdf"
+          href: "https://aclanthology.org/2024.naacl-srw.13/"
+          icon: "images/file-pdf-solid.svg"
+        - kind: "poster"
+          label: "poster"
+          href: "materials/naccl-srw-2024_poster_kamei.pdf"
+          icon: "images/file-regular.svg"
+
+    - title: "Exploring Large Language Models' Understanding of Shitsukan"
+      authors_html: "Yukiko Ishizuki*, <u>Daiki Shiono*</u>, Ana Brassard, Jun Suzuki. (*: equal contribution)"
+      venue_html: "Non-archival submission for <em>the 18th Conference of the European Chapter of the Association for Computational Linguistics Student Research Workshop (EACL SRW 2024)</em>, Malta, March 2024."
+      links: []
+
+  domestic_conferences:
+    - title: "バッチ単位収束型事前学習：子どもの言語発達に着想を得た一歩ずつの学習"
+      authors_html: "吉田 倖, <u>塩野 大輝</u>, 佐藤 魁, 古橋 萌々香, 三浦 東子, 鈴木 潤."
+      venue_html: "<em>NLP若手の会第20回シンポジウム（YANS 2025）</em>, 浜松, 静岡, August 2025. 奨励賞受賞."
+      links: []
+      badges:
+        - kind: "prize"
+          label: "prize"
+          icon: "images/star-solid.svg"
+
+    - title: "Padding vs. Packing: 大規模言語モデルのファインチューニングにおける学習効果の検証"
+      authors_html: "<u>塩野 大輝</u>, 田中 涼太, 宮脇 峻平, 工藤 慧音, 鈴木 潤."
+      venue_html: "<em>言語処理学会第31回年次大会（NLP 2025）</em>, 長崎, pp.1698-1703, March 2025."
+      links:
+        - kind: "pdf"
+          label: "pdf"
+          href: "https://www.anlp.jp/proceedings/annual_meeting/2025/pdf_dir/Q4-17.pdf"
+          icon: "images/file-pdf-solid.svg"
+        - kind: "poster"
+          label: "poster"
+          href: "materials/nlp2025_poster_shiono.pdf"
+          icon: "images/file-regular.svg"
+
+    - title: "大規模視覚言語モデルの質感知覚能力の分析"
+      authors_html: "松田 陵佑, <u>塩野 大輝</u>, Ana Brassard, 鈴木 潤."
+      venue_html: "<em>言語処理学会第31回年次大会（NLP 2025）</em>, 長崎, pp.2550-2555, March 2025."
+      links:
+        - kind: "pdf"
+          label: "pdf"
+          href: "https://www.anlp.jp/proceedings/annual_meeting/2025/pdf_dir/Q6-14.pdf"
+          icon: "images/file-pdf-solid.svg"
+        - kind: "poster"
+          label: "poster"
+          href: "materials/nlp2025_poster_matsuda.pdf"
+          icon: "images/file-regular.svg"
+
+    - title: "日本語バイト符号化マスク言語モデルの開発と分析"
+      authors_html: "工藤 慧音, 鴨田 豪, <u>塩野 大輝</u>, 鈴木 潤."
+      venue_html: "<em>言語処理学会第31回年次大会（NLP 2025）</em>, 長崎, pp.3356-3361, March 2025."
+      links:
+        - kind: "pdf"
+          label: "pdf"
+          href: "https://www.anlp.jp/proceedings/annual_meeting/2025/pdf_dir/Q8-5.pdf"
+          icon: "images/file-pdf-solid.svg"
+        - kind: "poster"
+          label: "poster"
+          href: "materials/nlp2025_poster_kudo.pdf"
+          icon: "images/file-regular.svg"
+
+    - title: "大規模視覚言語モデルに関する指示追従能力の検証"
+      authors_html: "<u>塩野 大輝</u>, 宮脇 峻平, 田中 涼太, 鈴木 潤."
+      venue_html: "<em>言語処理学会第30回年次大会（NLP 2024）</em>, 神戸, pp.2057-2062, March 2024. 委員特別賞受賞."
+      links:
+        - kind: "pdf"
+          label: "pdf"
+          href: "https://www.anlp.jp/proceedings/annual_meeting/2024/pdf_dir/P7-21.pdf"
+          icon: "images/file-pdf-solid.svg"
+        - kind: "poster"
+          label: "poster"
+          href: "materials/nlp2024_poster_shiono.pdf"
+          icon: "images/file-regular.svg"
+      badges:
+        - kind: "prize"
+          label: "prize"
+          icon: "images/star-solid.svg"
+
+    - title: "事実正誤判定が不要な生成応答の検出に向けたデータセットの収集と分析"
+      authors_html: "亀井 遼平, <u>塩野 大輝</u>, 赤間 怜奈, 鈴木 潤."
+      venue_html: "<em>言語処理学会第30回年次大会（NLP 2024）</em>, 神戸, pp.2125-2130, March 2024."
+      links:
+        - kind: "pdf"
+          label: "pdf"
+          href: "https://www.anlp.jp/proceedings/annual_meeting/2024/pdf_dir/B8-3.pdf"
+          icon: "images/file-pdf-solid.svg"
+        - kind: "slide"
+          label: "slide"
+          href: "materials/nlp2024_slide_kamei.pdf"
+          icon: "images/file-powerpoint-regular.svg"
+
+    - title: "Instruction-Following Evaluation for Large Vision-Language Models"
+      authors_html: "<u>塩野 大輝</u>."
+      venue_html: "<em>The 5th International Symposium on AI Electronics</em>, 仙台, February 2023."
+      links:
+        - kind: "poster"
+          label: "poster"
+          href: "materials/the_5th_International_Symposium_on_AIE_poster_shiono.pdf"
+          icon: "images/file-regular.svg"
+
+    - title: "生成応答に含まれる事実に基づかない情報の自動検出の試み"
+      authors_html: "亀井 遼平, <u>塩野 大輝</u>, 赤間 怜奈, 鈴木 潤."
+      venue_html: "<em>NLP若手の会第18回シンポジウム（YANS 2023）</em>, 浅草橋, August 2023. 奨励賞受賞. スポンサー賞受賞."
+      links: []
+      badges:
+        - kind: "prize"
+          label: "prize"
+          icon: "images/star-solid.svg"
+
+    - title: "画像キャプションを利用したIconQAタスクへのアプローチ"
+      authors_html: "<u>塩野 大輝</u>, 宮脇 峻平, 長澤 春希, 鈴木 潤."
+      venue_html: "<em>言語処理学会第29回年次大会（NLP 2023）</em>, 宜野湾, pp.1857-1862, March 2023."
+      links:
+        - kind: "pdf"
+          label: "pdf"
+          href: "https://www.anlp.jp/proceedings/annual_meeting/2023/pdf_dir/B8-4.pdf"
+          icon: "images/file-pdf-solid.svg"
+        - kind: "slide"
+          label: "slide"
+          href: "materials/nlp2023_slide_shiono.pdf"
+          icon: "images/file-powerpoint-regular.svg"
+
+    - title: "aoba_v3 bot: 多様な応答生成モデルとルールベースを統合したマルチモーダル雑談対話システム"
+      authors_html: "守屋 彰二*, <u>塩野 大輝*</u>, 岸波 洋介, 藤原 吏生, 木村 昴, 松本 悠太, 曾根 周作, 赤間 怜奈, 鈴木 潤, 乾 健太郎.（*: 共同主著）"
+      venue_html: "<em>人工知能学会 音声・言語理解と対話処理研究会第96回研究会（JSAI SIG-SLUD 96）第13回対話システムシンポジウム</em>, 立川, December 2022. 第5回対話システムライブコンペティション 優秀賞受賞（第2位）."
+      links:
+        - kind: "pdf"
+          label: "pdf"
+          href: "https://www.jstage.jst.go.jp/article/jsaislud/96/0/96_21/_article/-char/ja/"
+          icon: "images/file-pdf-solid.svg"
+        - kind: "slide"
+          label: "slide"
+          href: "materials/slud2022_slide.pdf"
+          icon: "images/file-powerpoint-regular.svg"
+      badges:
+        - kind: "prize"
+          label: "prize"
+          icon: "images/star-solid.svg"
+
+awards:
+  - title_html: "第5回対話システムライブコンペティション オープントラック <strong>優秀賞受賞（第2位）</strong>"
+    date: "December 2022."
+  - title_html: "言語処理学会第30回年次大会（NLP 2024） <strong>委員特別賞受賞</strong>"
+    date: "March 2024."
+    note: "(26件/567件≒4.59%)"
+
+activities:
+  - category: "Research Fellowship / Scholarship"
+    items:
+      - title: "BOOST Program for next-generation AI areas"
+        lines:
+          - "※ BOOST: Broadening Opportunities for Outstanding young researchers and doctoral students in STrategic areas"
+          - "Research Fellow (Subsidized Project by the JST (Japan Science and Technology Agency))"
+          - "September 2024 - present"
+      - title: "WISE Program for AI Electronics (AIE)"
+        lines:
+          - "Research Fellow (Subsidized Project by the Ministry of Education, Culture, Sports, Science and Technology)"
+          - "April 2020 - March 2025"
+      - title: "Japan Student Services Organization (JASSO) Scholarships"
+        lines:
+          - "Scholarship. <u>Half Repayment Exemption due to outstanding achievements.</u>"
+          - "April 2022 - March 2024"
+
+  - category: "Intern / Part-time"
+    items:
+      - title_html: "Research Intern @ <a href=\"https://tur.ing/\">Turing Inc.</a>"
+        lines:
+          - "Member of Fundamental AI Group"
+          - "April 2024 - present"
+      - title_html: "Machine Learning Engineer Part-time @ <a href=\"https://www.future.co.jp/\">Future Inc.</a>"
+        lines:
+          - "Member of Strategic AI Group"
+          - "March 2023 - December 2023"
+
+  - category: "Teaching Assistant"
+    items:
+      - title: "Natural Language Processing"
+        lines:
+          - "Lecture at Graduate School of Information Sciences, Tohoku University"
+          - "October 2023 - February 2024"
+      - title: "Introduction to Programming for Artificial Intelligence Technology"
+        lines:
+          - "General Education Lecture at Tohoku University"
+          - "October 2022 - December 2023"
+
+  - category: "Research Assistant"
+    items:
+      - title: "Center for Data-driven Science and Artificial Intelligence Tohoku University"
+        lines:
+          - "Environment, documentation, data maintenance, experiments, and other supportive tasks necessary to carry out research on the research topic"
+          - "April 2023 - present"
+      - title: "Server Management in Our Lab"
+        lines:
+          - "April 2023 - July 2024"
+
+  - category: "Slide"
+    items:
+      - title: "Words or Vision: Do Vision-Language Models Have Blind Faith in Text? (CVPR2025)"
+        lines:
+          - "<a href=\"https://sites.google.com/view/snlp-jp/home/2025\">The 17th <em>Saisentan</em> NLP Study Group (SNLP2025)</a> Presentation Materials"
+          - "August 2025"
+        links:
+          - kind: "slide"
+            label: "slide"
+            href: "https://speakerdeck.com/onely7/words-or-vision-do-vision-language-models-have-blind-faith-in-text-cvpr2025"
+            icon: "images/speaker-deck.svg"
+
+      - title: "Large Vision Language Model (LVLM) に関する最新知見まとめ (Part 1)"
+        lines:
+          - "November 2024"
+        links:
+          - kind: "slide"
+            label: "slide"
+            href: "https://speakerdeck.com/onely7/large-vision-language-model-lvlm-niguan-suruzui-xin-zhi-jian-matome-part-1"
+            icon: "images/speaker-deck.svg"
+
+  - category: "Blog"
+    items:
+      - title: "【日本語V&Lデータセット】The Cauldron JA, Wikipedia Vision JA を公開しました！"
+        lines:
+          - "Blog post from my internship at <a href=\"https://tur.ing/\">Turing Inc.</a>"
+        links:
+          - kind: "blog"
+            label: "blog"
+            href: "https://zenn.dev/turing_motors/articles/23df51c37967f0"
+            icon: "images/zenn.svg"
+
+skills:
+  - "Python"
+  - "PyTorch"
+  - "Docker"
+  - "Singularity"
+  - "HTML/CSS"
