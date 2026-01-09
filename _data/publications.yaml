@@ -80,11 +80,11 @@ publications:
 
     - title: "Instruction-Following Evaluation of Large Vision-Language Models"
       authors_html: "<u>Daiki Shiono</u>, Shumpei Miyawaki, Ryota Tanaka, Jun Suzuki."
-      venue_html: "<em>New Generation Computing</em>, Volume XX, Issue XX, pp.XXXX-XXXX, December 2025."
+      venue_html: "<em>New Generation Computing</em>, Volume 44, Article 7, January 2026."
       links:
         - kind: "pdf"
-          label: "SOON"
-          href: "https://<soon>"
+          label: "pdf"
+          href: "https://link.springer.com/article/10.1007/s00354-025-00308-2"
           icon: "images/file-pdf-solid.svg"
 
   international_conferences:
@@ -151,6 +151,58 @@ publications:
       links: []
 
   domestic_conferences:
+    - title: "MOMIJI: 日本語大規模インターリーブ視覚言語データセット"
+      authors_html: "<u>塩野 大輝</u>, 横井 慎吾, 犬塚 眞太郎, 髙橋 翼, 鈴木 潤, 山口 祐."
+      venue_html: "<em>言語処理学会第32回年次大会（NLP 2026）</em>, 宇都宮, 栃木, pp.XXXX-XXXX, March 2026."
+      links:
+        - kind: "pdf"
+          label: "SOON"
+          href: "https://<soon>"
+          icon: "images/file-pdf-solid.svg"
+        - kind: "poster"
+          label: "SOON"
+          href: "materials/soon"
+          icon: "images/file-regular.svg"
+
+    - title: "JCuisines: 日本の地域文化の理解にむけた郷土料理視覚言語ベンチマーク"
+      authors_html: "猪股 和樹, 吉田 遥音, <u>塩野 大輝</u>, 赤間 怜奈, 坂口 慶祐."
+      venue_html: "<em>言語処理学会第32回年次大会（NLP 2026）</em>, 宇都宮, 栃木, pp.XXXX-XXXX, March 2026."
+      links:
+        - kind: "pdf"
+          label: "SOON"
+          href: "https://<soon>"
+          icon: "images/file-pdf-solid.svg"
+        - kind: "poster"
+          label: "SOON"
+          href: "materials/soon"
+          icon: "images/file-regular.svg"
+
+    - title: "注意機構における Attention Sink のバイアス項的解釈"
+      authors_html: "大橋 諭貴, 木谷 頼斗, 佐藤 宏亮, 高橋 良允, 鴨田 豪, 山本 悠士, <u>塩野 大輝</u>, 坂口 慶祐, 小林 悟郎."
+      venue_html: "<em>言語処理学会第32回年次大会（NLP 2026）</em>, 宇都宮, 栃木, pp.XXXX-XXXX, March 2026."
+      links:
+        - kind: "pdf"
+          label: "SOON"
+          href: "https://<soon>"
+          icon: "images/file-pdf-solid.svg"
+        - kind: "poster"
+          label: "SOON"
+          href: "materials/soon"
+          icon: "images/file-regular.svg"
+
+    - title: "Attention Sink および Massive Activation の発生機序の分解"
+      authors_html: "木谷 頼斗, 大橋 諭貴, 佐藤 宏亮, 鴨田 豪, 高橋 良允, 山本 悠士, <u>塩野 大輝</u>, 坂口 慶祐, 小林 悟郎."
+      venue_html: "<em>言語処理学会第32回年次大会（NLP 2026）</em>, 宇都宮, 栃木, pp.XXXX-XXXX, March 2026."
+      links:
+        - kind: "pdf"
+          label: "SOON"
+          href: "https://<soon>"
+          icon: "images/file-pdf-solid.svg"
+        - kind: "poster"
+          label: "SOON"
+          href: "materials/soon"
+          icon: "images/file-regular.svg"
+
     - title: "バッチ単位収束型事前学習：子どもの言語発達に着想を得た一歩ずつの学習"
       authors_html: "吉田 倖, <u>塩野 大輝</u>, 佐藤 魁, 古橋 萌々香, 三浦 東子, 鈴木 潤."
       venue_html: "<em>NLP若手の会第20回シンポジウム（YANS 2025）</em>, 浜松, 静岡, August 2025. 奨励賞受賞."
