@@ -84,15 +84,6 @@ biography:
 
 publications:
   journals:
-    - title: "Aoba_v3 bot: a multimodal chatbot system combining rules and various response generation models"
-      authors_html: "Shoji Moriya*, <u>Daiki Shiono*</u>, Riki Fujihara, Yosuke Kishinami, Subaru Kimura, Shusaku Sone, Reina Akama, Yuta Matsumoto, Jun Suzuki and Kentaro Inui. (*: equal contribution)"
-      venue_html: "<em>Advanced Robotics</em>, Volume 37, Issue 21, pp.1392-1405, August 2023."
-      links:
-        - kind: "pdf"
-          label: "pdf"
-          href: "https://www.tandfonline.com/doi/full/10.1080/01691864.2023.2240883"
-          icon: "images/file-pdf-solid.svg"
-
     - title: "Instruction-Following Evaluation of Large Vision-Language Models"
       authors_html: "<u>Daiki Shiono</u>, Shumpei Miyawaki, Ryota Tanaka, Jun Suzuki."
       venue_html: "<em>New Generation Computing</em>, Volume 44, Article 7, January 2026."
@@ -100,6 +91,15 @@ publications:
         - kind: "pdf"
           label: "pdf"
           href: "https://link.springer.com/article/10.1007/s00354-025-00308-2"
+          icon: "images/file-pdf-solid.svg"
+
+    - title: "Aoba_v3 bot: a multimodal chatbot system combining rules and various response generation models"
+      authors_html: "Shoji Moriya*, <u>Daiki Shiono*</u>, Riki Fujihara, Yosuke Kishinami, Subaru Kimura, Shusaku Sone, Reina Akama, Yuta Matsumoto, Jun Suzuki and Kentaro Inui. (*: equal contribution)"
+      venue_html: "<em>Advanced Robotics</em>, Volume 37, Issue 21, pp.1392-1405, August 2023."
+      links:
+        - kind: "pdf"
+          label: "pdf"
+          href: "https://www.tandfonline.com/doi/full/10.1080/01691864.2023.2240883"
           icon: "images/file-pdf-solid.svg"
 
   international_conferences:
