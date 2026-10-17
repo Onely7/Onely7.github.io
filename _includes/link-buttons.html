@@ -1,0 +1,25 @@
+{%- comment -%}
+  Link chips (pdf / poster / slide / ...) followed by award badges.
+  Any number of links and badges is supported; the row wraps when needed.
+  usage: {% include link-buttons.html links=pub.links badges=pub.badges %}
+  link:  kind, label, href ("materials/x.pdf" or a full URL), icon
+  badge: kind, label, icon
+{%- endcomment -%}
+{%- assign lb_total = include.links.size | plus: include.badges.size -%}
+{%- if lb_total > 0 %}
+<div class="chips">
+  {%- for lb in include.links %}
+  {%- assign lb_href = lb.href %}
+  {%- unless lb_href contains "://" %}{% assign lb_href = lb_href | relative_url %}{% endunless %}
+  <a class="chip chip-{{ lb.kind }}" href="{{ lb_href }}">
+    {%- include icon.html src=lb.icon %}<span>{{ lb.label }}</span>
+  </a>
+  {%- endfor %}
+  {%- for bd in include.badges %}
+  <span class="chip chip-award">
+    {%- assign bd_icon = bd.icon | default: "images/star-solid.svg" %}
+    {%- include icon.html src=bd_icon %}<span>{{ bd.label }}</span>
+  </span>
+  {%- endfor %}
+</div>
+{%- endif %}

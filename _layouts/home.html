@@ -1,0 +1,402 @@
+{%- comment -%}
+  Shared layout for index.html (English) and index.ja.html (Japanese).
+  The page's front matter `lang` selects the data file:
+    en -> _data/publications.yaml, ja -> _data/publications_ja.yaml
+  Repeated blocks live in _includes/ (pub-list, item, link-buttons, icon).
+{%- endcomment -%}
+{%- if page.lang == "ja" -%}
+  {%- assign data = site.data.publications_ja -%}
+{%- else -%}
+  {%- assign data = site.data.publications -%}
+{%- endif -%}
+{%- assign page_lang = page.lang | default: "en" -%}
+{%- assign canonical_url = data.site.base_url | append: data.site.page_path -%}
+{%- assign url_en = data.site.base_url | append: "/" -%}
+{%- assign url_ja = data.site.base_url | append: "/index.ja.html" -%}
+{%- assign og_image = data.site.base_url | append: "/" | append: data.profile.logo.icon -%}
+{%- assign photo_url = data.site.base_url | append: "/" | append: data.profile.photo.jpg -%}
+{%- assign cv_href = data.profile.cv | relative_url -%}
+<!DOCTYPE html>
+<html lang="{{ page_lang }}">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{{ data.site.title }}</title>
+    <meta name="description" content="{{ data.site.description | escape }}" />
+    <meta name="author" content="{{ data.profile.name_en | default: data.profile.name }}" />
+    <link rel="canonical" href="{{ canonical_url }}" />
+    <link rel="alternate" hreflang="en" href="{{ url_en }}" />
+    <link rel="alternate" hreflang="ja" href="{{ url_ja }}" />
+    <link rel="alternate" hreflang="x-default" href="{{ url_en }}" />
+
+    <!-- Open Graph / X (Twitter) card -->
+    <meta property="og:type" content="profile" />
+    <meta property="og:site_name" content="{{ data.site.title | escape }}" />
+    <meta property="og:title" content="{{ data.site.title | escape }}" />
+    <meta property="og:description" content="{{ data.site.description | escape }}" />
+    <meta property="og:url" content="{{ canonical_url }}" />
+    <meta property="og:image" content="{{ og_image }}" />
+    <meta property="og:image:alt" content="{{ data.profile.logo.alt | escape }}" />
+    <meta property="og:locale" content="{{ data.site.locale }}" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="{{ data.site.twitter }}" />
+
+    <!-- google search console -->
+    <meta
+      name="google-site-verification"
+      content="{{ data.site.google_site_verification }}"
+    />
+
+    <!-- settings for favicon -->
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="{{ '/favicon_images/apple-touch-icon.png' | relative_url }}"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="{{ '/favicon_images/favicon-32x32.png' | relative_url }}"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="{{ '/favicon_images/favicon-16x16.png' | relative_url }}"
+    />
+    <link
+      rel="manifest"
+      href="{{ '/favicon_images/site.webmanifest' | relative_url }}"
+    />
+    <link
+      rel="mask-icon"
+      href="{{ '/favicon_images/safari-pinned-tab.svg' | relative_url }}"
+      color="#2fa1c2"
+    />
+    <meta name="msapplication-TileColor" content="#00bbdd" />
+    <meta name="theme-color" content="#eef0f3" />
+
+    <!-- reset css (version pinned so that future releases cannot change the layout) -->
+    <link rel="stylesheet" href="https://unpkg.com/ress@5.0.2/dist/ress.min.css" />
+
+    <!-- fonts: Inter (Latin) + Noto Sans JP (Japanese) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300..700&family=Noto+Sans+JP:wght@300..700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- apply css -->
+    <link rel="stylesheet" href="{{ '/css/style.css' | relative_url }}" />
+
+    <!-- apply javascript -->
+    <script src="{{ '/js/style.js' | relative_url }}" defer></script>
+
+    <!-- structured data for search engines -->
+    {%- assign ld_first = true %}
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": {{ data.profile.name | jsonify }},
+        "alternateName": {{ data.profile.name_alt | jsonify }},
+        "url": {{ canonical_url | jsonify }},
+        "image": {{ photo_url | jsonify }},
+        "jobTitle": {{ data.profile.position | jsonify }},
+        "affiliation": {
+          "@type": "CollegeOrUniversity",
+          "name": {{ data.profile.affiliation | jsonify }}
+        },
+        "knowsAbout": {{ data.research_interests | jsonify }},
+        "sameAs": [
+          {%- for link in data.profile.links -%}
+          {%- if link.href contains "://" -%}
+          {%- unless ld_first %},{% endunless %}
+          {{ link.href | jsonify }}
+          {%- assign ld_first = false -%}
+          {%- endif -%}
+          {%- endfor %}
+        ]
+      }
+    </script>
+  </head>
+
+  <body>
+    <a class="skip-link" href="#main">{{ data.labels.skip_to_content }}</a>
+
+    <div class="page">
+      <!-- (left column): navigation -->
+      <nav class="sidebar">
+        <div class="sidebar-inner">
+          <div class="profile">
+            {%- assign logo_href = data.profile.logo.href %}
+            <a
+              class="avatar"
+              href="{% if logo_href contains '://' %}{{ logo_href }}{% else %}{{ logo_href | relative_url }}{% endif %}"
+            >
+              <picture>
+                <source
+                  type="image/webp"
+                  srcset="{{ data.profile.photo.webp_320 | relative_url }} 320w, {{ data.profile.photo.webp_480 | relative_url }} 480w"
+                  sizes="(max-width: 600px) 168px, 148px"
+                />
+                <img
+                  src="{{ data.profile.photo.jpg | relative_url }}"
+                  alt="{{ data.profile.photo.alt }}"
+                  width="480"
+                  height="480"
+                  decoding="async"
+                />
+              </picture>
+            </a>
+
+            <h1 class="profile-name">{{ data.profile.name }}</h1>
+            {%- if data.profile.position %}
+            <p class="profile-position">{{ data.profile.position }}</p>
+            {%- endif %}
+            <p class="profile-group">{{ data.profile.belongings }}</p>
+
+            <!-- related links for me -->
+            <p id="email-text" hidden>{{ data.profile.email }}</p>
+            <ul class="social">
+              {%- for link in data.profile.links %}
+              <li>
+                {%- if link.kind == "email" %}
+                <button
+                  type="button"
+                  class="icon-button"
+                  id="{{ link.id }}"
+                  title="{{ data.labels.copy_email }}"
+                  aria-label="{{ data.labels.copy_email }}"
+                  data-copied="{{ data.labels.copied }}"
+                  data-failed="{{ data.labels.copy_failed }}"
+                >
+                  {%- include icon.html src=link.icon %}
+                </button>
+                {%- else %}
+                <a class="icon-button" href="{{ link.href }}" title="{{ link.alt }}" aria-label="{{ link.alt }}">
+                  {%- include icon.html src=link.icon %}
+                </a>
+                {%- endif %}
+              </li>
+              {%- endfor %}
+            </ul>
+          </div>
+
+          <!-- other links -->
+          <ul class="nav-list">
+            {%- for item in data.nav_items %}
+            {%- assign nav_href = item.href %}
+            <li>
+              <a
+                class="nav-link"
+                href="{% if nav_href contains '://' %}{{ nav_href }}{% else %}{{ nav_href | relative_url }}{% endif %}"
+                {%- if item.hreflang %} hreflang="{{ item.hreflang }}"{% endif %}
+              >
+                {%- include icon.html src=item.icon %}
+                <span>{{ item.label }}</span>
+              </a>
+            </li>
+            {%- endfor %}
+          </ul>
+
+          <!-- table of contents (larger screens) -->
+          <div class="toc" aria-labelledby="toc-title">
+            <p class="toc-title" id="toc-title">{{ data.headings.contents }}</p>
+            <ol class="toc-list">
+              <li><a href="#about">{{ data.headings.about }}</a></li>
+              <li><a href="#news">{{ data.headings.news }}</a></li>
+              <li><a href="#education">{{ data.headings.biography }}</a></li>
+              <li><a href="#experience">{{ data.headings.experience }}</a></li>
+              <li><a href="#publications">{{ data.headings.publications }}</a></li>
+              <li><a href="#projects">{{ data.headings.projects }}</a></li>
+              <li><a href="#awards">{{ data.headings.awards }}</a></li>
+              <li><a href="#talks">{{ data.headings.talks }}</a></li>
+              <li><a href="#activities">{{ data.headings.activities }}</a></li>
+              <li><a href="#skills">{{ data.headings.skills }}</a></li>
+            </ol>
+          </div>
+        </div>
+
+        <!-- scroll cue (phones) -->
+        <a class="scroll-cue" href="#main" aria-label="{{ data.labels.scroll_down }}">
+          {%- include icon.html src="images/chevron-down-solid.svg" %}
+        </a>
+      </nav>
+
+      <!-- (right column): content -->
+      <main id="main" class="main" tabindex="-1">
+        <!-- About -->
+        <section class="section hero" id="about" aria-labelledby="about-title">
+          <h2 class="eyebrow" id="about-title">{{ data.headings.about }}</h2>
+          <div class="hero-text">
+            {%- for para in data.about %}
+            <p class="{% if forloop.first %}lead{% else %}hero-sub{% endif %}">{{ para }}</p>
+            {%- endfor %}
+          </div>
+          <div class="hero-actions">
+            <a class="button button-primary" href="{{ cv_href }}" download="{{ data.profile.cv_filename }}">
+              {%- include icon.html src="images/file-arrow-down-solid.svg" %}
+              <span>{{ data.labels.cta_cv }}</span>
+            </a>
+            <a class="button button-secondary" href="{{ data.profile.blog }}">
+              {%- include icon.html src="images/blog-solid.svg" %}
+              <span>{{ data.labels.cta_blog }}</span>
+              {%- include icon.html src="images/arrow-right-solid.svg" class="button-arrow" %}
+            </a>
+          </div>
+          <div class="interests">
+            <h3 class="label">{{ data.headings.research_interests }}</h3>
+            <ul class="tag-list">
+              {%- for x in data.research_interests %}
+              <li class="tag">{{ x }}</li>
+              {%- endfor %}
+            </ul>
+          </div>
+        </section>
+
+        <!-- News -->
+        <section class="section" id="news" aria-labelledby="news-title">
+          <h2 class="section-title" id="news-title">{{ data.headings.news }}</h2>
+          <ol class="news-list">
+            {%- for n in data.news limit: 6 %}
+            <li class="news-item">
+              <p class="news-date">{{ n.date }}</p>
+              <p class="news-text">{{ n.text_html }}</p>
+            </li>
+            {%- endfor %}
+          </ol>
+          {%- if data.news.size > 6 %}
+          <details class="more">
+            <summary>
+              <span>{{ data.labels.older_news }}</span>
+              {%- include icon.html src="images/chevron-down-solid.svg" class="more-icon" %}
+            </summary>
+            <ol class="news-list">
+              {%- for n in data.news offset: 6 %}
+              <li class="news-item">
+                <p class="news-date">{{ n.date }}</p>
+                <p class="news-text">{{ n.text_html }}</p>
+              </li>
+              {%- endfor %}
+            </ol>
+          </details>
+          {%- endif %}
+        </section>
+
+        <!-- Education -->
+        <section class="section" id="education" aria-labelledby="education-title">
+          <h2 class="section-title" id="education-title">{{ data.headings.biography }}</h2>
+          <ol class="row-list">
+            {%- for it in data.biography %}
+            {% include item.html item=it %}
+            {%- endfor %}
+          </ol>
+        </section>
+
+        <!-- Experience -->
+        <section class="section" id="experience" aria-labelledby="experience-title">
+          <h2 class="section-title" id="experience-title">{{ data.headings.experience }}</h2>
+          <ol class="row-list">
+            {%- for it in data.experience %}
+            {% include item.html item=it %}
+            {%- endfor %}
+          </ol>
+        </section>
+
+        <!-- Publications -->
+        <section class="section" id="publications" aria-labelledby="publications-title">
+          <h2 class="section-title" id="publications-title">{{ data.headings.publications }}</h2>
+          <p class="section-note">{{ data.labels.pub_note }}</p>
+
+          <h3 class="subsection-title" id="journals">
+            {{ data.headings.journals }}<span class="count">{{ data.publications.journals.size }}</span>
+          </h3>
+          {% include pub-list.html pubs=data.publications.journals %}
+
+          <h3 class="subsection-title" id="international-conferences">
+            {{ data.headings.international_conferences }}<span class="count">{{ data.publications.international_conferences.size }}</span>
+          </h3>
+          {% include pub-list.html pubs=data.publications.international_conferences %}
+
+          <h3 class="subsection-title" id="domestic-conferences">
+            {{ data.headings.domestic_conferences }}<span class="count">{{ data.publications.domestic_conferences.size }}</span>
+          </h3>
+          {% include pub-list.html pubs=data.publications.domestic_conferences %}
+
+          <h3 class="subsection-title" id="books">
+            {{ data.headings.books }}<span class="count">{{ data.publications.books.size }}</span>
+          </h3>
+          {% include pub-list.html pubs=data.publications.books %}
+        </section>
+
+        <!-- Projects -->
+        <section class="section" id="projects" aria-labelledby="projects-title">
+          <h2 class="section-title" id="projects-title">{{ data.headings.projects }}</h2>
+          <ol class="row-list">
+            {%- for it in data.projects %}
+            {% include item.html item=it %}
+            {%- endfor %}
+          </ol>
+        </section>
+
+        <!-- Awards -->
+        <section class="section" id="awards" aria-labelledby="awards-title">
+          <h2 class="section-title" id="awards-title">{{ data.headings.awards }}</h2>
+          <ol class="row-list">
+            {%- for it in data.awards %}
+            {% include item.html item=it %}
+            {%- endfor %}
+          </ol>
+        </section>
+
+        <!-- Talks -->
+        <section class="section" id="talks" aria-labelledby="talks-title">
+          <h2 class="section-title" id="talks-title">{{ data.headings.talks }}</h2>
+          <ol class="row-list">
+            {%- for it in data.talks %}
+            {% include item.html item=it %}
+            {%- endfor %}
+          </ol>
+        </section>
+
+        <!-- Activities -->
+        <section class="section" id="activities" aria-labelledby="activities-title">
+          <h2 class="section-title" id="activities-title">{{ data.headings.activities }}</h2>
+          {%- for cat in data.activities %}
+          <h3 class="subsection-title">{{ cat.category }}</h3>
+          <ol class="row-list">
+            {%- for it in cat.items %}
+            {% include item.html item=it %}
+            {%- endfor %}
+          </ol>
+          {%- endfor %}
+        </section>
+
+        <!-- Skills -->
+        <section class="section" id="skills" aria-labelledby="skills-title">
+          <h2 class="section-title" id="skills-title">{{ data.headings.skills }}</h2>
+          <ul class="tag-list">
+            {%- for s in data.skills %}
+            <li class="tag">{{ s }}</li>
+            {%- endfor %}
+          </ul>
+        </section>
+
+        <footer class="footer">
+          <p>
+            &copy; 2023&ndash;{{ site.time | date: "%Y" }} {{ data.profile.name_en | default: data.profile.name }}
+            <span class="footer-sep" aria-hidden="true">·</span>
+            Implemented by {{ data.profile.name_en | default: data.profile.name }}
+          </p>
+          <p>{{ data.labels.last_updated }}: {{ site.time | date: data.labels.last_updated_format }}</p>
+        </footer>
+      </main>
+    </div>
+
+    <!-- feedback for the e-mail copy button -->
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  </body>
+</html>

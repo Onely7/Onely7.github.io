@@ -1,0 +1,5 @@
+{%- comment -%}
+  Monochrome icon that takes the current text colour (CSS mask).
+  usage: {% include icon.html src="images/github.svg" %}
+{%- endcomment -%}
+<span class="icon{% if include.class %} {{ include.class }}{% endif %}" style="--icon: url('{{ include.src | relative_url }}')" aria-hidden="true"></span>

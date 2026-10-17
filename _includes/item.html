@@ -1,0 +1,21 @@
+{%- comment -%}
+  A dated row (education, experience, projects, talks, activities, awards).
+  usage: {% include item.html item=it %}
+  item: date, title or title_html, lines (optional), note (optional),
+        links (optional), badges (optional)
+{%- endcomment -%}
+<li class="row">
+  <p class="row-date">{{ include.item.date }}</p>
+  <div class="row-body">
+    <p class="row-title">
+      {%- if include.item.title_html %}{{ include.item.title_html }}{% else %}{{ include.item.title }}{% endif -%}
+    </p>
+    {%- for line in include.item.lines %}
+    <p class="row-text">{{ line }}</p>
+    {%- endfor %}
+    {%- if include.item.note %}
+    <p class="row-text">{{ include.item.note }}</p>
+    {%- endif %}
+    {%- include link-buttons.html links=include.item.links badges=include.item.badges %}
+  </div>
+</li>

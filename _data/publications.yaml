@@ -1,13 +1,44 @@
-# _data/publications.yaml
+# _data/publications.yaml  (English page: index.html)
+# Rendered by _layouts/home.html. The Japanese page uses publications_ja.yaml
+# with the same structure.
+#
+# links:  - kind / label / href / icon  (href may be a site path like
+#           "materials/foo.pdf" or a full URL)
+# badges: - kind / label / icon         (award chips shown next to the links)
+# publications: `image` (640x400 figure, e.g. images/pubs/foo.webp) is shown on
+# the left; without it, a tile with venue_short + year is shown instead.
+# `title_lang: "ja"` marks a Japanese title (line breaks between phrases).
+# experience / projects / talks / activities / biography: `date` is shown in
+# the left column; `lines` are the description.
+
 site:
   title: "Daiki Shiono | 塩野 大輝"
-  description: "This is the portfolio site of Daiki Shiono. I am doing research on Vision & Language, Natural Language Processing, Machine Learning, and Artificial Intelligence at Graduate School of Information Sciences, Tohoku University."
+  description: "Daiki Shiono is a Ph.D. student at Tohoku University researching vision & language and natural language processing, with a focus on large vision-language models (LVLMs)."
   google_site_verification: "OKyxije2NXEpCIJsRreRnmuD0KnuTtxK0mBQU-x4mqU"
+  base_url: "https://onely7.github.io"
+  page_path: "/"
+  locale: "en_US"
+  twitter: "@onely7_deep"
 
 profile:
   name: "Daiki Shiono"
+  name_alt: "塩野 大輝"
+  position: "Ph.D. Student, Tohoku University"
   belongings: "Tohoku NLP Group"
+  affiliation: "Tohoku University"
   email: "daiki.shiono.s1@dc.tohoku.ac.jp"
+  cv: "materials/cv_shiono.pdf"
+  cv_filename: "Daiki_Shiono_CV.pdf"
+  blog: "https://onely7.github.io/my-dl-wiki/"
+  photo:
+    webp_320: "images/profile-320.webp"
+    webp_480: "images/profile-480.webp"
+    jpg: "images/profile-480.jpg"
+    alt: "Photo of Daiki Shiono"
+  logo:
+    href: "index.html"
+    icon: "images/logo.png"
+    alt: "Daiki Shiono Logo"
   links:
     - kind: "email"
       href: "#"
@@ -35,6 +66,12 @@ nav_items:
   - label: "Home"
     href: "index.html"
     icon: "images/house-solid.svg"
+  - label: "CV (PDF)"
+    href: "materials/cv_shiono.pdf"
+    icon: "images/file-arrow-down-solid.svg"
+  - label: "Blog"
+    href: "https://onely7.github.io/my-dl-wiki/"
+    icon: "images/blog-solid.svg"
   - label: "Tohoku NLP"
     href: "https://www.nlp.ecei.tohoku.ac.jp/"
     icon: "images/tohoku-nlp_logo.svg"
@@ -44,32 +81,136 @@ nav_items:
   - label: "Japanese"
     href: "index.ja.html"
     icon: "images/language-solid.svg"
+    hreflang: "ja"
+
+headings:
+  contents: "Contents"
+  about: "About"
+  research_interests: "Research Interests"
+  news: "News"
+  biography: "Education"
+  experience: "Experience"
+  publications: "Publications"
+  journals: "Journal Papers (refereed)"
+  international_conferences: "International Conferences (refereed)"
+  domestic_conferences: "Domestic Conferences / Symposium"
+  books: "Book"
+  projects: "Projects"
+  awards: "Awards"
+  talks: "Talks"
+  activities: "Activities"
+  skills: "Skills"
+
+labels:
+  skip_to_content: "Skip to content"
+  copy_email: "Copy email address"
+  copied: "Email address copied:"
+  copy_failed: "Could not copy. Email:"
+  scroll_down: "Scroll to content"
+  older_news: "Show older news"
+  pub_note: "<u>Underline</u>: myself, *: equal contribution"
+  cta_cv: "Download CV"
+  cta_blog: "Read the blog"
+  last_updated: "Last updated"
+  last_updated_format: "%B %Y"
+
+# The first paragraph is shown large (lead); the others in normal size.
+about:
+  - "My research mainly focuses on the development, application, and analysis of large <span class=\"nowrap\">vision-language</span> models (LVLMs)."
+  - "I am a third-year Ph.D. student at the Graduate School of Information Sciences, Tohoku&nbsp;University, advised by Prof. <a href=\"https://scholar.google.com/citations?user=XO5CrIsAAAAJ&amp;hl=en\">Jun Suzuki</a>."
 
 research_interests:
   - "Vision & Language"
   - "NLP"
 
+# Newest first. The first 6 items are shown; the rest go under "Show older news".
+news:
+  - date: "2026.10"
+    text_html: "Our paper “It's Not RoPE That Creates Sinks: The Role of Self-Concentration and Value-Non-Mixing in Attention” was accepted to <strong>EMNLP 2026</strong>."
+  - date: "2026.09"
+    text_html: "Started a research visit at the <strong>University of Cambridge</strong> (Department of Computer Science and Technology) as a visiting researcher, hosted by Prof. Andreas Vlachos."
+  - date: "2026.09"
+    text_html: "Our book <strong>“マルチモーダルモデル入門” (Introduction to Multimodal Models)</strong> was published by Gijutsu-Hyoron."
+  - date: "2026.09"
+    text_html: "Our paper “MOMIJI: A Large-Scale Japanese Interleaved Image-Text Dataset” was accepted to the <strong>Journal of Natural Language Processing</strong>."
+  - date: "2026.09"
+    text_html: "Our paper “Read or Ignore? A Unified Benchmark for Typographic-Attack Robustness and Text Recognition in Vision-Language Models” was accepted to <strong>ECCV 2026</strong>."
+  - date: "2026.06"
+    text_html: "Our CVPR 2026 paper “Text-Printed Image” received the <strong>CVPR Compute Gold Star Award</strong>."
+  - date: "2026.03"
+    text_html: "Our team won <strong>1st place in the open division</strong> and 2nd place overall in the FT-LLM2026 Math Task."
+  - date: "2026.03"
+    text_html: "Four co-authored papers were presented at NLP 2026; two of them received the Young Researcher Encouragement Award."
+  - date: "2026.01"
+    text_html: "Our paper “STRIDE-QA” was presented at <strong>AAAI 2026</strong>, and our journal paper “Instruction-Following Evaluation of Large Vision-Language Models” was published in <em>New Generation Computing</em>."
+  - date: "2025.11"
+    text_html: "Our paper “Batch-wise Convergent Pre-training” was presented at the First BabyLM Workshop."
+  - date: "2025.08"
+    text_html: "Gave a talk introducing the CVPR 2025 paper “Words or Vision: Do Vision-Language Models Have Blind Faith in Text?” at the 17th Saisentan NLP Study Group (SNLP 2025)."
+
 biography:
-  - date: "2018.04"
-    title: "Tohoku University (Bachelor)"
+  - date: "Apr 2024 – Mar 2027 (expected)"
+    title: "Tohoku University (Ph.D.)"
     lines:
-      - "Department of Electrical, Information and Physics Engineering, School of Engineering"
-      - "April 2018 - March 2022"
-  - date: "2022.04"
-    title: "Tohoku University (Master)"
+      - "Ph.D. in Information Science, Fundamental Artificial Intelligence, Department of System Information Sciences, Graduate School of Information Sciences"
+      - "Advisor: Prof. Jun Suzuki"
+  - date: "Apr 2022 – Mar 2024"
+    title: "Tohoku University (M.S.)"
     lines:
-      - "Fundamental Artificial Intelligence, Department of System Information Sciences, Graduate School of Information Sciences"
-      - "April 2022 - March 2024"
-  - date: "2024.04"
-    title: "Tohoku University (Doctor)"
-    end: true
+      - "M.S. in Information Science, Fundamental Artificial Intelligence, Department of System Information Sciences, Graduate School of Information Sciences"
+      - "Advisor: Prof. Jun Suzuki"
+  - date: "Apr 2018 – Mar 2022"
+    title: "Tohoku University (B.E.)"
     lines:
-      - "Fundamental Artificial Intelligence, Department of System Information Sciences, Graduate School of Information Sciences"
-      - "April 2024 - present"
+      - "B.E. in Information Science, Department of Electrical, Information and Physics Engineering, School of Engineering"
+
+experience:
+  - title_html: "Visiting Researcher (Departmental Visiting Student) @ <a href=\"https://www.cst.cam.ac.uk/\">University&nbsp;of&nbsp;Cambridge</a>"
+    lines:
+      - "Department of Computer Science and Technology"
+      - "Conducting research on Vision&nbsp;&amp;&nbsp;Language and NLP, hosted by Prof. Andreas Vlachos and working closely with Diana Galván Sosa."
+    date: "Sep 2026 – Present"
+  - title_html: "Machine Learning Research Engineer Intern / Contractor @ <a href=\"https://tur.ing/\">Turing Inc.</a>"
+    lines:
+      - "Fundamental AI Group"
+      - "Contributed to <a href=\"https://huggingface.co/turing-motors/Heron-Idefics2-8B-v0.1\">training large-scale vision-language models (LVLMs)</a>, <a href=\"https://huggingface.co/datasets/turing-motors/MOMIJI\">building a large-scale Japanese vision-language pretraining dataset</a>, and <a href=\"https://huggingface.co/datasets/turing-motors/Cauldron-JA\">constructing a Japanese visual instruction-tuning dataset</a>."
+    date: "Apr 2024 – Present"
+  - title_html: "Research Assistant @ Center for Data-driven Science and Artificial Intelligence, Tohoku University"
+    lines:
+      - "Supported research activities through experimental setup, documentation, data maintenance, and related project operations."
+    date: "Apr 2023 – Mar 2027 (expected)"
+  - title_html: "Part-time Machine Learning Engineer @ <a href=\"https://www.future.co.jp/\">Future Inc.</a>"
+    lines:
+      - "Strategic AI Group"
+      - "Improved OCR models and developed a model for converting foreign personal names into Japanese readings."
+    date: "Mar 2023 – Dec 2023"
 
 publications:
   journals:
+    - title: "MOMIJI: A Large-Scale Japanese Interleaved Image-Text Dataset"
+      venue_short: "JNLP"
+      year: "2026"
+      image: "images/pubs/momiji.webp"
+      authors_html: "<u>Daiki Shiono</u>, Shingo Yokoi, Shintaro Inuzuka, Tsubasa Takahashi, Jun Suzuki, Yu Yamaguchi."
+      venue_html: "<em>Journal of Natural Language Processing</em>, Volume 33, Issue 4 (General Paper; scheduled for publication December 15, 2026). Accepted September 18, 2026."
+      links:
+        - kind: "link"
+          label: "acceptance listing"
+          href: "https://www.anlp.jp/guide/saitaku.html"
+          icon: "images/link-solid.svg"
+        - kind: "dataset"
+          label: "dataset"
+          href: "https://huggingface.co/datasets/turing-motors/MOMIJI"
+          icon: "images/database-solid.svg"
+        - kind: "code"
+          label: "code"
+          href: "https://github.com/turingmotors/MOMIJI"
+          icon: "images/github.svg"
+
     - title: "Instruction-Following Evaluation of Large Vision-Language Models"
+      venue_short: "NGC"
+      year: "2026"
+      image: "images/pubs/ifeval-lvlm.webp"
       authors_html: "<u>Daiki Shiono</u>, Shumpei Miyawaki, Ryota Tanaka, Jun Suzuki."
       venue_html: "<em>New Generation Computing</em>, Volume 44, Article 7, January 2026."
       links:
@@ -77,9 +218,16 @@ publications:
           label: "pdf"
           href: "https://link.springer.com/article/10.1007/s00354-025-00308-2"
           icon: "images/file-pdf-solid.svg"
+        - kind: "dataset"
+          label: "dataset"
+          href: "https://huggingface.co/datasets/tohoku-nlp/fovit-foit"
+          icon: "images/database-solid.svg"
 
     - title: "Aoba_v3 bot: a multimodal chatbot system combining rules and various response generation models"
-      authors_html: "Shoji Moriya*, <u>Daiki Shiono*</u>, Riki Fujihara, Yosuke Kishinami, Subaru Kimura, Shusaku Sone, Reina Akama, Yuta Matsumoto, Jun Suzuki and Kentaro Inui. (*: equal contribution)"
+      venue_short: "Advanced Robotics"
+      year: "2023"
+      image: "images/pubs/aoba-v3.webp"
+      authors_html: "Shoji Moriya*, <u>Daiki Shiono*</u>, Riki Fujihara, Yosuke Kishinami, Subaru Kimura, Shusaku Sone, Reina Akama, Yuta Matsumoto, Jun Suzuki, Kentaro Inui. (*:&nbsp;equal&nbsp;contribution)"
       venue_html: "<em>Advanced Robotics</em>, Volume 37, Issue 21, pp.1392-1405, August 2023."
       links:
         - kind: "pdf"
@@ -88,9 +236,60 @@ publications:
           icon: "images/file-pdf-solid.svg"
 
   international_conferences:
+    - title: "It's Not RoPE That Creates Sinks: The Role of Self-Concentration and Value-Non-Mixing in Attention"
+      venue_short: "EMNLP"
+      year: "2026"
+      image: "images/pubs/not-rope-sinks.webp"
+      authors_html: "Raito Kiya, Satoki Ohashi, Kosuke Sato, Go Kamoda, Ryosuke Takahashi, Yuji Yamamoto, <u>Daiki Shiono</u>, Keisuke Sakaguchi, Goro Kobayashi."
+      venue_html: "Proceedings of <em>the 2026 Conference on Empirical Methods in Natural Language Processing (EMNLP 2026)</em>, Budapest, Hungary, October 2026."
+      links:
+        - kind: "pdf"
+          label: "pdf"
+          href: "https://openreview.net/forum?id=V7wtCCCvUZ"
+          icon: "images/file-pdf-solid.svg"
+        - kind: "code"
+          label: "code"
+          href: "https://github.com/kiya-raito/value-non-mixing"
+          icon: "images/github.svg"
+
+    - title: "Read or Ignore? A Unified Benchmark for Typographic-Attack Robustness and Text Recognition in Vision-Language Models"
+      venue_short: "ECCV"
+      year: "2026"
+      image: "images/pubs/read-or-ignore.webp"
+      authors_html: "Futa Waseda, Shojiro Yamabe, <u>Daiki Shiono</u>, Kento Sasaki, Tsubasa Takahashi."
+      venue_html: "Proceedings of <em>the European Conference on Computer Vision (ECCV 2026)</em>, Malmö, Sweden, September 2026."
+      links:
+        - kind: "pdf"
+          label: "pdf"
+          href: "https://eccv.ecva.net/virtual/2026/poster/4589"
+          icon: "images/file-pdf-solid.svg"
+        - kind: "project"
+          label: "project page"
+          href: "https://turingmotors.github.io/rio-vqa/"
+          icon: "images/globe-solid.svg"
+        - kind: "poster"
+          label: "poster"
+          href: "https://eccv.ecva.net/media/PosterPDFs/ECCV%202026/4589.png?t=1787282357.2901642"
+          icon: "images/file-regular.svg"
+        - kind: "slide"
+          label: "slide"
+          href: "https://eccv.ecva.net/media/eccv-2026/Slides/4589.pdf"
+          icon: "images/file-powerpoint-regular.svg"
+        - kind: "dataset"
+          label: "dataset"
+          href: "https://huggingface.co/datasets/turing-motors/RIO-Bench"
+          icon: "images/database-solid.svg"
+        - kind: "code"
+          label: "code"
+          href: "https://github.com/turingmotors/RIO-Bench"
+          icon: "images/github.svg"
+
     - title: "Text-Printed Image: Bridging the Image-Text Modality Gap for Text-centric Training of Large Vision-Language Models"
+      venue_short: "CVPR"
+      year: "2026"
+      image: "images/pubs/text-printed-image.webp"
       authors_html: "Shojiro Yamabe, Futa Waseda, <u>Daiki Shiono</u>, Tsubasa Takahashi."
-      venue_html: "Proceedings of <em>the IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)</em>, Denver, USA, June 2026. CVPR Compute Gold Star Award."
+      venue_html: "Proceedings of <em>the IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR 2026)</em>, Denver, USA, June 2026."
       links:
         - kind: "pdf"
           label: "pdf"
@@ -102,25 +301,47 @@ publications:
           icon: "images/file-regular.svg"
       badges:
         - kind: "prize"
-          label: "prize"
+          label: "CVPR Compute Gold Star Award"
           icon: "images/star-solid.svg"
 
     - title: "STRIDE-QA: Visual Question Answering Dataset for Spatiotemporal Reasoning in Urban Driving Scenes"
-      authors_html: "Keishi Ishihara, Kento Sasaki, Tsubasa Takahashi, <u>Daiki Shiono</u>, Yu Yamaguchi."
+      venue_short: "AAAI"
+      year: "2026"
+      image: "images/pubs/stride-qa.webp"
+      authors_html: "Keishi Ishihara*, Kento Sasaki*, Tsubasa Takahashi, <u>Daiki Shiono</u>, Yu Yamaguchi. (*:&nbsp;equal&nbsp;contribution)"
       venue_html: "Proceedings of <em>the AAAI Conference on Artificial Intelligence (AAAI 2026)</em>, Singapore, January 2026."
       links:
         - kind: "pdf"
           label: "pdf"
           href: "https://ojs.aaai.org/index.php/AAAI/article/view/37441"
           icon: "images/file-pdf-solid.svg"
+        - kind: "project"
+          label: "project page"
+          href: "https://turingmotors.github.io/stride-qa/"
+          icon: "images/globe-solid.svg"
         - kind: "slide"
           label: "slide"
           href: "materials/aaai2026_slide_ishihara.pdf"
           icon: "images/file-powerpoint-regular.svg"
+        - kind: "dataset"
+          label: "dataset"
+          href: "https://huggingface.co/datasets/turing-motors/STRIDE-QA-Dataset"
+          icon: "images/database-solid.svg"
+        - kind: "dataset"
+          label: "benchmark"
+          href: "https://huggingface.co/datasets/turing-motors/STRIDE-QA-Bench"
+          icon: "images/database-solid.svg"
+        - kind: "code"
+          label: "code"
+          href: "https://github.com/turingmotors/STRIDE-QA-Dataset"
+          icon: "images/github.svg"
 
     - title: "Batch-wise Convergent Pre-training: Step-by-Step Learning Inspired by Child Language Development"
+      venue_short: "BabyLM"
+      year: "2025"
+      image: "images/pubs/batch-convergent.webp"
       authors_html: "Ko Yoshida, <u>Daiki Shiono</u>, Kai Sato, Toko Miura, Momoka Furuhashi, Jun Suzuki."
-      venue_html: "Proceedings of <em>the First BabyLM Workshop on Association for Computational Linguistics</em>, Suzhou, China, November 2025."
+      venue_html: "Proceedings of <em>the First BabyLM Workshop</em>, Association for Computational Linguistics, Suzhou, China, pp.508-524, November 2025."
       links:
         - kind: "pdf"
           label: "pdf"
@@ -132,6 +353,9 @@ publications:
           icon: "images/file-regular.svg"
 
     - title: "Evaluating Model Alignment with Human Perception: A Study on Shitsukan in LLMs and LVLMs"
+      venue_short: "COLING"
+      year: "2025"
+      image: "images/pubs/shitsukan.webp"
       authors_html: "<u>Daiki Shiono</u>, Ana Brassard, Yukiko Ishizuki, Jun Suzuki."
       venue_html: "Proceedings of <em>the 31st International Conference on Computational Linguistics (COLING 2025)</em>, Abu Dhabi, UAE, January 2025."
       links:
@@ -143,13 +367,27 @@ publications:
           label: "poster"
           href: "materials/coling2025_poster_shiono.pdf"
           icon: "images/file-regular.svg"
+        - kind: "dataset"
+          label: "dataset"
+          href: "https://huggingface.co/datasets/tohoku-nlp/Shitsukan"
+          icon: "images/database-solid.svg"
+        - kind: "code"
+          label: "code"
+          href: "https://github.com/cl-tohoku/shitsukan-eval"
+          icon: "images/github.svg"
 
     - title: "Instruction-Following Evaluation for Large Vision-Language Models"
+      venue_short: "NAACL SRW"
+      year: "2024"
+      image: "images/pubs/ifeval-lvlm.webp"
       authors_html: "<u>Daiki Shiono</u>, Shumpei Miyawaki, Ryota Tanaka, Jun Suzuki."
       venue_html: "Non-archival submission for <em>the 2024 Conference of the North American Chapter of the Association for Computational Linguistics Student Research Workshop (NAACL SRW 2024)</em>, Mexico City, Mexico, June 2024."
       links: []
 
     - title: "Detecting Response Generation Not Requiring Factual Judgment"
+      venue_short: "NAACL SRW"
+      year: "2024"
+      image: "images/pubs/factual-judgment.webp"
       authors_html: "Ryohei Kamei, <u>Daiki Shiono</u>, Reina Akama, Jun Suzuki."
       venue_html: "Proceedings of <em>the 2024 Conference of the North American Chapter of the Association for Computational Linguistics Student Research Workshop (NAACL SRW 2024)</em>, Mexico City, Mexico, June 2024."
       links:
@@ -163,14 +401,21 @@ publications:
           icon: "images/file-regular.svg"
 
     - title: "Exploring Large Language Models' Understanding of Shitsukan"
-      authors_html: "Yukiko Ishizuki*, <u>Daiki Shiono*</u>, Ana Brassard, Jun Suzuki. (*: equal contribution)"
+      venue_short: "EACL SRW"
+      year: "2024"
+      image: "images/pubs/shitsukan.webp"
+      authors_html: "Yukiko Ishizuki*, <u>Daiki Shiono*</u>, Ana Brassard, Jun Suzuki. (*:&nbsp;equal&nbsp;contribution)"
       venue_html: "Non-archival submission for <em>the 18th Conference of the European Chapter of the Association for Computational Linguistics Student Research Workshop (EACL SRW 2024)</em>, Malta, March 2024."
       links: []
 
   domestic_conferences:
     - title: "MOMIJI: 日本語大規模インターリーブ視覚言語データセット"
-      authors_html: "<u>塩野 大輝</u>, 横井 慎吾, 犬塚 眞太郎, 髙橋 翼, 鈴木 潤, 山口 祐."
-      venue_html: "<em>言語処理学会第32回年次大会（NLP 2026）</em>, 宇都宮, 栃木, pp.717-722, March 2026."
+      title_lang: "ja"
+      venue_short: "NLP"
+      year: "2026"
+      image: "images/pubs/momiji.webp"
+      authors_html: "<u>Daiki Shiono</u>, Shingo Yokoi, Shintaro Inuzuka, Tsubasa Takahashi, Jun Suzuki, Yu Yamaguchi."
+      venue_html: "<em>言語処理学会第32回年次大会 (NLP 2026)</em>, Utsunomiya, Tochigi, pp.717-722, March 2026."
       links:
         - kind: "pdf"
           label: "pdf"
@@ -180,10 +425,18 @@ publications:
           label: "poster"
           href: "materials/nlp2026_poster_shiono.pdf"
           icon: "images/file-regular.svg"
+        - kind: "dataset"
+          label: "dataset"
+          href: "https://huggingface.co/datasets/turing-motors/MOMIJI"
+          icon: "images/database-solid.svg"
 
     - title: "JCuisines: 日本の地域文化の理解にむけた郷土料理視覚言語ベンチマーク"
-      authors_html: "猪股 和樹, 吉田 遥音, <u>塩野 大輝</u>, 赤間 怜奈, 坂口 慶祐."
-      venue_html: "<em>言語処理学会第32回年次大会（NLP 2026）</em>, 宇都宮, 栃木, pp.711-716, March 2026."
+      title_lang: "ja"
+      venue_short: "NLP"
+      year: "2026"
+      image: "images/pubs/jcuisines.webp"
+      authors_html: "Kazuki Inomata, Haruto Yoshida, <u>Daiki Shiono</u>, Reina Akama, Keisuke Sakaguchi."
+      venue_html: "<em>言語処理学会第32回年次大会 (NLP 2026)</em>, Utsunomiya, Tochigi, pp.711-716, March 2026."
       links:
         - kind: "pdf"
           label: "pdf"
@@ -195,8 +448,12 @@ publications:
           icon: "images/file-regular.svg"
 
     - title: "注意機構における Attention Sink のバイアス項的解釈"
-      authors_html: "大橋 諭貴, 木谷 頼斗, 佐藤 宏亮, 高橋 良允, 鴨田 豪, 山本 悠士, <u>塩野 大輝</u>, 坂口 慶祐, 小林 悟郎."
-      venue_html: "<em>言語処理学会第32回年次大会（NLP 2026）</em>, 宇都宮, 栃木, pp.2591-2596, March 2026. 若手奨励賞."
+      title_lang: "ja"
+      venue_short: "NLP"
+      year: "2026"
+      image: "images/pubs/sink-bias.webp"
+      authors_html: "Satoki Ohashi, Raito Kiya, Kosuke Sato, Ryosuke Takahashi, Go Kamoda, Yuji Yamamoto, <u>Daiki Shiono</u>, Keisuke Sakaguchi, Goro Kobayashi."
+      venue_html: "<em>言語処理学会第32回年次大会 (NLP 2026)</em>, Utsunomiya, Tochigi, pp.2591-2596, March 2026."
       links:
         - kind: "pdf"
           label: "pdf"
@@ -212,12 +469,16 @@ publications:
           icon: "images/file-powerpoint-regular.svg"
       badges:
         - kind: "prize"
-          label: "prize"
+          label: "Young Researcher Encouragement Award"
           icon: "images/star-solid.svg"
 
     - title: "Attention Sink および Massive Activation の発生機序の分解"
-      authors_html: "木谷 頼斗, 大橋 諭貴, 佐藤 宏亮, 鴨田 豪, 高橋 良允, 山本 悠士, <u>塩野 大輝</u>, 坂口 慶祐, 小林 悟郎."
-      venue_html: "<em>言語処理学会第32回年次大会（NLP 2026）</em>, 宇都宮, 栃木, pp.2579-2584, March 2026. 若手奨励賞."
+      title_lang: "ja"
+      venue_short: "NLP"
+      year: "2026"
+      image: "images/pubs/sink-mechanism.webp"
+      authors_html: "Raito Kiya, Satoki Ohashi, Kosuke Sato, Go Kamoda, Ryosuke Takahashi, Yuji Yamamoto, <u>Daiki Shiono</u>, Keisuke Sakaguchi, Goro Kobayashi."
+      venue_html: "<em>言語処理学会第32回年次大会 (NLP 2026)</em>, Utsunomiya, Tochigi, pp.2579-2584, March 2026."
       links:
         - kind: "pdf"
           label: "pdf"
@@ -233,21 +494,29 @@ publications:
           icon: "images/file-powerpoint-regular.svg"
       badges:
         - kind: "prize"
-          label: "prize"
+          label: "Young Researcher Encouragement Award"
           icon: "images/star-solid.svg"
 
     - title: "バッチ単位収束型事前学習：子どもの言語発達に着想を得た一歩ずつの学習"
-      authors_html: "吉田 倖, <u>塩野 大輝</u>, 佐藤 魁, 古橋 萌々香, 三浦 東子, 鈴木 潤."
-      venue_html: "<em>NLP若手の会第20回シンポジウム（YANS 2025）</em>, 浜松, 静岡, August 2025. 奨励賞受賞."
+      title_lang: "ja"
+      venue_short: "YANS"
+      year: "2025"
+      image: "images/pubs/batch-convergent.webp"
+      authors_html: "Ko Yoshida, <u>Daiki Shiono</u>, Kai Sato, Momoka Furuhashi, Toko Miura, Jun Suzuki."
+      venue_html: "<em>NLP若手の会第20回シンポジウム (YANS 2025)</em>, Hamamatsu, Shizuoka, August 2025."
       links: []
       badges:
         - kind: "prize"
-          label: "prize"
+          label: "Encouragement Award"
           icon: "images/star-solid.svg"
 
     - title: "Padding vs. Packing: 大規模言語モデルのファインチューニングにおける学習効果の検証"
-      authors_html: "<u>塩野 大輝</u>, 田中 涼太, 宮脇 峻平, 工藤 慧音, 鈴木 潤."
-      venue_html: "<em>言語処理学会第31回年次大会（NLP 2025）</em>, 長崎, pp.1698-1703, March 2025."
+      title_lang: "ja"
+      venue_short: "NLP"
+      year: "2025"
+      image: "images/pubs/padding-packing.webp"
+      authors_html: "<u>Daiki Shiono</u>, Ryota Tanaka, Shumpei Miyawaki, Keito Kudo, Jun Suzuki."
+      venue_html: "<em>言語処理学会第31回年次大会 (NLP 2025)</em>, Nagasaki, pp.1698-1703, March 2025."
       links:
         - kind: "pdf"
           label: "pdf"
@@ -259,8 +528,12 @@ publications:
           icon: "images/file-regular.svg"
 
     - title: "大規模視覚言語モデルの質感知覚能力の分析"
-      authors_html: "松田 陵佑, <u>塩野 大輝</u>, Ana Brassard, 鈴木 潤."
-      venue_html: "<em>言語処理学会第31回年次大会（NLP 2025）</em>, 長崎, pp.2550-2555, March 2025."
+      title_lang: "ja"
+      venue_short: "NLP"
+      year: "2025"
+      image: "images/pubs/shitsukan-lvlm.webp"
+      authors_html: "Ryosuke Matsuda, <u>Daiki Shiono</u>, Ana Brassard, Jun Suzuki."
+      venue_html: "<em>言語処理学会第31回年次大会 (NLP 2025)</em>, Nagasaki, pp.2550-2555, March 2025."
       links:
         - kind: "pdf"
           label: "pdf"
@@ -272,21 +545,25 @@ publications:
           icon: "images/file-regular.svg"
 
     - title: "日本語バイト符号化マスク言語モデルの開発と分析"
-      authors_html: "工藤 慧音, 鴨田 豪, <u>塩野 大輝</u>, 鈴木 潤."
-      venue_html: "<em>言語処理学会第31回年次大会（NLP 2025）</em>, 長崎, pp.3356-3361, March 2025."
+      title_lang: "ja"
+      venue_short: "NLP"
+      year: "2025"
+      image: "images/pubs/byte-mlm.webp"
+      authors_html: "Keito Kudo, Go Kamoda, <u>Daiki Shiono</u>, Jun Suzuki."
+      venue_html: "<em>言語処理学会第31回年次大会 (NLP 2025)</em>, Nagasaki, pp.3356-3361, March 2025."
       links:
         - kind: "pdf"
           label: "pdf"
           href: "https://www.anlp.jp/proceedings/annual_meeting/2025/pdf_dir/Q8-5.pdf"
           icon: "images/file-pdf-solid.svg"
-        - kind: "poster"
-          label: "poster"
-          href: "materials/nlp2025_poster_kudo.pdf"
-          icon: "images/file-regular.svg"
 
     - title: "大規模視覚言語モデルに関する指示追従能力の検証"
-      authors_html: "<u>塩野 大輝</u>, 宮脇 峻平, 田中 涼太, 鈴木 潤."
-      venue_html: "<em>言語処理学会第30回年次大会（NLP 2024）</em>, 神戸, pp.2057-2062, March 2024. 委員特別賞受賞."
+      title_lang: "ja"
+      venue_short: "NLP"
+      year: "2024"
+      image: "images/pubs/ifeval-lvlm.webp"
+      authors_html: "<u>Daiki Shiono</u>, Shumpei Miyawaki, Ryota Tanaka, Jun Suzuki."
+      venue_html: "<em>言語処理学会第30回年次大会 (NLP 2024)</em>, Kobe, pp.2057-2062, March 2024."
       links:
         - kind: "pdf"
           label: "pdf"
@@ -298,12 +575,16 @@ publications:
           icon: "images/file-regular.svg"
       badges:
         - kind: "prize"
-          label: "prize"
+          label: "Committee Special Award"
           icon: "images/star-solid.svg"
 
     - title: "事実正誤判定が不要な生成応答の検出に向けたデータセットの収集と分析"
-      authors_html: "亀井 遼平, <u>塩野 大輝</u>, 赤間 怜奈, 鈴木 潤."
-      venue_html: "<em>言語処理学会第30回年次大会（NLP 2024）</em>, 神戸, pp.2125-2130, March 2024."
+      title_lang: "ja"
+      venue_short: "NLP"
+      year: "2024"
+      image: "images/pubs/factual-judgment.webp"
+      authors_html: "Ryohei Kamei, <u>Daiki Shiono</u>, Reina Akama, Jun Suzuki."
+      venue_html: "<em>言語処理学会第30回年次大会 (NLP 2024)</em>, Kobe, pp.2125-2130, March 2024."
       links:
         - kind: "pdf"
           label: "pdf"
@@ -314,27 +595,29 @@ publications:
           href: "materials/nlp2024_slide_kamei.pdf"
           icon: "images/file-powerpoint-regular.svg"
 
-    - title: "Instruction-Following Evaluation for Large Vision-Language Models"
-      authors_html: "<u>塩野 大輝</u>."
-      venue_html: "<em>The 5th International Symposium on AI Electronics</em>, 仙台, February 2023."
-      links:
-        - kind: "poster"
-          label: "poster"
-          href: "materials/the_5th_International_Symposium_on_AIE_poster_shiono.pdf"
-          icon: "images/file-regular.svg"
-
     - title: "生成応答に含まれる事実に基づかない情報の自動検出の試み"
-      authors_html: "亀井 遼平, <u>塩野 大輝</u>, 赤間 怜奈, 鈴木 潤."
-      venue_html: "<em>NLP若手の会第18回シンポジウム（YANS 2023）</em>, 浅草橋, August 2023. 奨励賞受賞. スポンサー賞受賞."
+      title_lang: "ja"
+      venue_short: "YANS"
+      year: "2023"
+      image: "images/pubs/factual-judgment.webp"
+      authors_html: "Ryohei Kamei, <u>Daiki Shiono</u>, Reina Akama, Jun Suzuki."
+      venue_html: "<em>NLP若手の会第18回シンポジウム (YANS 2023)</em>, Tokyo, August 2023."
       links: []
       badges:
         - kind: "prize"
-          label: "prize"
+          label: "Encouragement Award"
+          icon: "images/star-solid.svg"
+        - kind: "prize"
+          label: "CyberAgent Award"
           icon: "images/star-solid.svg"
 
     - title: "画像キャプションを利用したIconQAタスクへのアプローチ"
-      authors_html: "<u>塩野 大輝</u>, 宮脇 峻平, 長澤 春希, 鈴木 潤."
-      venue_html: "<em>言語処理学会第29回年次大会（NLP 2023）</em>, 宜野湾, pp.1857-1862, March 2023."
+      title_lang: "ja"
+      venue_short: "NLP"
+      year: "2023"
+      image: "images/pubs/iconqa.webp"
+      authors_html: "<u>Daiki Shiono</u>, Shumpei Miyawaki, Haruki Nagasawa, Jun Suzuki."
+      venue_html: "<em>言語処理学会第29回年次大会 (NLP 2023)</em>, Ginowan, Okinawa, pp.1857-1862, March 2023."
       links:
         - kind: "pdf"
           label: "pdf"
@@ -346,8 +629,12 @@ publications:
           icon: "images/file-powerpoint-regular.svg"
 
     - title: "aoba_v3 bot: 多様な応答生成モデルとルールベースを統合したマルチモーダル雑談対話システム"
-      authors_html: "守屋 彰二*, <u>塩野 大輝*</u>, 岸波 洋介, 藤原 吏生, 木村 昴, 松本 悠太, 曾根 周作, 赤間 怜奈, 鈴木 潤, 乾 健太郎.（*: 共同主著）"
-      venue_html: "<em>人工知能学会 音声・言語理解と対話処理研究会第96回研究会（JSAI SIG-SLUD 96）第13回対話システムシンポジウム</em>, 立川, December 2022. 第5回対話システムライブコンペティション 優秀賞受賞（第2位）."
+      title_lang: "ja"
+      venue_short: "SIG-SLUD"
+      year: "2022"
+      image: "images/pubs/aoba-v3.webp"
+      authors_html: "Shoji Moriya*, <u>Daiki Shiono*</u>, Yosuke Kishinami, Riki Fujihara, Subaru Kimura, Yuta Matsumoto, Shusaku Sone, Reina Akama, Jun Suzuki, Kentaro Inui. (*:&nbsp;equal&nbsp;contribution)"
+      venue_html: "<em>人工知能学会 音声・言語理解と対話処理研究会第96回研究会 (JSAI SIG-SLUD 96) 第13回対話システムシンポジウム</em>, Tachikawa, Tokyo, December 2022."
       links:
         - kind: "pdf"
           label: "pdf"
@@ -359,101 +646,131 @@ publications:
           icon: "images/file-powerpoint-regular.svg"
       badges:
         - kind: "prize"
-          label: "prize"
+          label: "Excellence Award, 2nd Place (Open Track, 5th Dialogue System Live Competition)"
           icon: "images/star-solid.svg"
 
+  books:
+    - title: "マルチモーダルモデル入門 (Introduction to Multimodal Models)"
+      title_lang: "ja"
+      venue_short: "Book"
+      year: "2026"
+      image: "images/pubs/multimodal-book.webp"
+      authors_html: "Shuhei Kurita, Seitaro Shinagawa, Rintaro Yanagi, <u>Daiki Shiono</u>, Shinnosuke Takamichi, Daisuke Niizumi, Tomohiko Nakamura, Takuma Yagi, Takayuki Shinohara."
+      venue_html: "Gijutsu-Hyoron Co., Ltd., September 28, 2026. ISBN 978-4-297-15836-1."
+      links:
+        - kind: "book"
+          label: "Amazon"
+          href: "https://www.amazon.co.jp/dp/4297158361/"
+          icon: "images/amazon.svg"
+        - kind: "book"
+          label: "publisher"
+          href: "https://gihyo.jp/book/2026/978-4-297-15836-1"
+          icon: "images/book-solid.svg"
+
+projects:
+  - title: "Building a Large-Scale Collection of SFT Datasets Translated into Japanese"
+    lines:
+      - "Independent project (FineVision_JA)."
+    date: "Ongoing"
+    links:
+      - kind: "dataset"
+        label: "Hugging Face"
+        href: "https://huggingface.co/datasets/Onely7/FineVision_JA"
+        icon: "images/database-solid.svg"
+
+  - title: "Large-Scale Fine-Tuning of a Japanese LLM for Mathematical Reasoning"
+    lines:
+      - "Collaborated on the large-scale fine-tuning of a Japanese LLM specialized for mathematical reasoning tasks, using NeMo on the ABCI 3.0 supercomputer."
+      - "Achieved <strong>1st place</strong> in the open division and <strong>2nd place</strong> overall in the <a href=\"https://llm-jp.github.io/tuning-competition/2026/feature.html\">FT-LLM2026 Math Task</a>."
+    date: "Mar 2026"
+    links:
+      - kind: "model"
+        label: "Hugging Face"
+        href: "https://huggingface.co/team-dentaku"
+        icon: "images/database-solid.svg"
+
+  - title: "Sharing Slides Summarizing Insights on LVLMs as of 2024"
+    lines:
+      - "Independent project: “Large Vision Language Model (LVLM) に関する最新知見まとめ (Part 1)”"
+    date: "Nov 2024"
+    links:
+      - kind: "slide"
+        label: "slide"
+        href: "https://speakerdeck.com/onely7/large-vision-language-model-lvlm-niguan-suruzui-xin-zhi-jian-matome-part-1"
+        icon: "images/speaker-deck.svg"
+
+  - title: "Building SFT Datasets for Japanese LVLMs"
+    lines:
+      - "Outcome from my internship at <a href=\"https://tur.ing/\">Turing Inc.</a>: The Cauldron JA and Wikipedia Vision JA."
+    date: "Sep 2024"
+    links:
+      - kind: "blog"
+        label: "blog"
+        href: "https://zenn.dev/turing_motors/articles/23df51c37967f0"
+        icon: "images/zenn.svg"
+
+  - title: "Building a Japanese BERT Model for Long-Sequence Processing"
+    lines:
+      - "Collaborated on the development and distributed pretraining of a Japanese BERT model supporting long-sequence inputs, using Megatron-LM on the TSUBAME4.0 supercomputer."
+    date: "Jun 2024"
+    links:
+      - kind: "model"
+        label: "Hugging Face"
+        href: "https://huggingface.co/tohoku-nlp/tohokunlp-bert-500m-sq4096-alpha/blob/main/README.md"
+        icon: "images/database-solid.svg"
+
 awards:
-  - title_html: "第5回対話システムライブコンペティション オープントラック <strong>優秀賞受賞（第2位）</strong>"
-    date: "December 2022."
-  - title_html: "言語処理学会第30回年次大会（NLP 2024） <strong>委員特別賞受賞</strong>"
-    date: "March 2024."
-    note: "(26件/567件≒4.59%)"
+  - title_html: "<strong>1st Place</strong> in the Open Division and <strong>2nd Place</strong> Overall, <a href=\"https://llm-jp.github.io/tuning-competition/2026/feature.html\">FT-LLM2026 Math Task</a>"
+    date: "Mar 2026"
+  - title_html: "<strong>Committee Special Award</strong>, 言語処理学会第30回年次大会 (NLP 2024)"
+    date: "Mar 2024"
+    note: "(26/567 ≈ 4.59%)"
+  - title_html: "<strong>Excellence Award, 2nd Place</strong>, Open Track, 5th Dialogue System Live Competition"
+    date: "Dec 2022"
+
+talks:
+  - title: "Words or Vision: Do Vision-Language Models Have Blind Faith in Text? (CVPR 2025)"
+    lines:
+      - "<a href=\"https://sites.google.com/view/snlp-jp/home/2025\">The 17th <em>Saisentan</em> NLP Study Group (SNLP 2025)</a>"
+    date: "Aug 2025"
+    links:
+      - kind: "slide"
+        label: "slide"
+        href: "https://speakerdeck.com/onely7/words-or-vision-do-vision-language-models-have-blind-faith-in-text-cvpr2025"
+        icon: "images/speaker-deck.svg"
 
 activities:
   - category: "Research Fellowship / Scholarship"
     items:
-      - title: "BOOST Program for next-generation AI areas"
+      - title: "BOOST Program for Next-Generation AI Areas"
         lines:
           - "※ BOOST: Broadening Opportunities for Outstanding young researchers and doctoral students in STrategic areas"
           - "Research Fellow (Subsidized Project by the JST (Japan Science and Technology Agency))"
-          - "September 2024 - present"
+        date: "Sep 2024 – Mar 2027 (expected)"
       - title: "WISE Program for AI Electronics (AIE)"
         lines:
           - "Research Fellow (Subsidized Project by the Ministry of Education, Culture, Sports, Science and Technology)"
-          - "April 2020 - March 2025"
-      - title: "Japan Student Services Organization (JASSO) Scholarships"
+        date: "Apr 2020 – Mar 2025"
+      - title: "Japan Student Services Organization (JASSO) Scholarship"
         lines:
           - "Scholarship. <u>Half Repayment Exemption due to outstanding achievements.</u>"
-          - "April 2022 - March 2024"
-
-  - category: "Intern / Part-time"
-    items:
-      - title_html: "Research Intern @ <a href=\"https://tur.ing/\">Turing Inc.</a>"
-        lines:
-          - "Member of Fundamental AI Group"
-          - "Responsible for work related to <a href=\"https://huggingface.co/turing-motors/Heron-Idefics2-8B-v0.1\">training large-scale vision-language models (LVLMs)</a> / <a href=\"https://huggingface.co/datasets/turing-motors/MOMIJI\">building a large-scale Japanese vision-language pretraining dataset</a> / <a href=\"https://huggingface.co/datasets/turing-motors/Cauldron-JA\">building a Japanese visual instruction-tuning dataset</a>."
-          - "April 2024 - present"
-      - title_html: "Machine Learning Engineer Part-time @ <a href=\"https://www.future.co.jp/\">Future Inc.</a>"
-        lines:
-          - "Member of Strategic AI Group"
-          - "March 2023 - December 2023"
+        date: "Apr 2022 – Mar 2024"
 
   - category: "Teaching Assistant"
     items:
       - title: "Natural Language Processing"
         lines:
-          - "Lecture at Graduate School of Information Sciences, Tohoku University"
-          - "October 2023 - February 2024"
+          - "Graduate-level course, Graduate School of Information Sciences, Tohoku University"
+        date: "Oct 2023 – Feb 2024"
       - title: "Introduction to Programming for Artificial Intelligence Technology"
         lines:
-          - "General Education Lecture at Tohoku University"
-          - "October 2022 - December 2023"
-
-  - category: "Research Assistant"
-    items:
-      - title: "Center for Data-driven Science and Artificial Intelligence Tohoku University"
-        lines:
-          - "Environment, documentation, data maintenance, experiments, and other supportive tasks necessary to carry out research on the research topic"
-          - "April 2023 - present"
-      - title: "Server Management in Our Lab"
-        lines:
-          - "April 2023 - July 2024"
-
-  - category: "Slide"
-    items:
-      - title: "Words or Vision: Do Vision-Language Models Have Blind Faith in Text? (CVPR2025)"
-        lines:
-          - "<a href=\"https://sites.google.com/view/snlp-jp/home/2025\">The 17th <em>Saisentan</em> NLP Study Group (SNLP2025)</a> Presentation Materials"
-          - "August 2025"
-        links:
-          - kind: "slide"
-            label: "slide"
-            href: "https://speakerdeck.com/onely7/words-or-vision-do-vision-language-models-have-blind-faith-in-text-cvpr2025"
-            icon: "images/speaker-deck.svg"
-
-      - title: "Large Vision Language Model (LVLM) に関する最新知見まとめ (Part 1)"
-        lines:
-          - "November 2024"
-        links:
-          - kind: "slide"
-            label: "slide"
-            href: "https://speakerdeck.com/onely7/large-vision-language-model-lvlm-niguan-suruzui-xin-zhi-jian-matome-part-1"
-            icon: "images/speaker-deck.svg"
-
-  - category: "Blog"
-    items:
-      - title: "【日本語V&Lデータセット】The Cauldron JA, Wikipedia Vision JA を公開しました！"
-        lines:
-          - "Blog post from my internship at <a href=\"https://tur.ing/\">Turing Inc.</a>"
-        links:
-          - kind: "blog"
-            label: "blog"
-            href: "https://zenn.dev/turing_motors/articles/23df51c37967f0"
-            icon: "images/zenn.svg"
+          - "General education course, Tohoku University"
+        date: "Oct 2022 – Dec 2023"
 
 skills:
   - "Python"
   - "PyTorch"
+  - "Transformers"
+  - "Linux"
   - "Docker"
   - "Singularity"
-  - "HTML/CSS"
