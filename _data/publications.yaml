@@ -8,6 +8,7 @@
 # publications: `image` (640x400 figure, e.g. images/pubs/foo.webp) is shown on
 # the left; without it, a tile with venue_short + year is shown instead.
 # `title_lang: "ja"` marks a Japanese title (line breaks between phrases).
+# `<wbr>` in a Japanese title marks where a long word may break across lines.
 # experience / projects / talks / activities / biography: `date` is shown in
 # the left column; `lines` are the description.
 
@@ -430,7 +431,7 @@ publications:
           href: "https://huggingface.co/datasets/turing-motors/MOMIJI"
           icon: "images/database-solid.svg"
 
-    - title: "JCuisines: 日本の地域文化の理解にむけた郷土料理視覚言語ベンチマーク"
+    - title: "JCuisines: 日本の地域文化の理解にむけた郷土料理<wbr>視覚言語ベンチマーク"
       title_lang: "ja"
       venue_short: "NLP"
       year: "2026"
@@ -497,7 +498,7 @@ publications:
           label: "Young Researcher Encouragement Award"
           icon: "images/star-solid.svg"
 
-    - title: "バッチ単位収束型事前学習：子どもの言語発達に着想を得た一歩ずつの学習"
+    - title: "バッチ単位<wbr>収束型<wbr>事前学習：<span class=\"nowrap\">子ども</span>の言語発達に着想を得た一歩ずつの学習"
       title_lang: "ja"
       venue_short: "YANS"
       year: "2025"
@@ -510,7 +511,7 @@ publications:
           label: "Encouragement Award"
           icon: "images/star-solid.svg"
 
-    - title: "Padding vs. Packing: 大規模言語モデルのファインチューニングにおける学習効果の検証"
+    - title: "Padding vs. Packing: 大規模言語モデルのファインチューニング<wbr><span class=\"nowrap\">における</span>学習効果の検証"
       title_lang: "ja"
       venue_short: "NLP"
       year: "2025"
@@ -557,7 +558,7 @@ publications:
           href: "https://www.anlp.jp/proceedings/annual_meeting/2025/pdf_dir/Q8-5.pdf"
           icon: "images/file-pdf-solid.svg"
 
-    - title: "大規模視覚言語モデルに関する指示追従能力の検証"
+    - title: "大規模視覚言語モデル<wbr><span class=\"nowrap\">に関する</span>指示追従能力の検証"
       title_lang: "ja"
       venue_short: "NLP"
       year: "2024"
@@ -611,7 +612,7 @@ publications:
           label: "CyberAgent Award"
           icon: "images/star-solid.svg"
 
-    - title: "画像キャプションを利用したIconQAタスクへのアプローチ"
+    - title: "画像キャプションを利用したIconQA<wbr>タスクへのアプローチ"
       title_lang: "ja"
       venue_short: "NLP"
       year: "2023"
@@ -628,7 +629,7 @@ publications:
           href: "materials/nlp2023_slide_shiono.pdf"
           icon: "images/file-powerpoint-regular.svg"
 
-    - title: "aoba_v3 bot: 多様な応答生成モデルとルールベースを統合したマルチモーダル雑談対話システム"
+    - title: "aoba_v3 bot: 多様な応答生成<wbr>モデルとルールベースを統合したマルチモーダル雑談対話システム"
       title_lang: "ja"
       venue_short: "SIG-SLUD"
       year: "2022"
@@ -650,7 +651,7 @@ publications:
           icon: "images/star-solid.svg"
 
   books:
-    - title: "マルチモーダルモデル入門 (Introduction to Multimodal Models)"
+    - title: "マルチモーダル<wbr>モデル入門 (Introduction to Multimodal Models)"
       title_lang: "ja"
       venue_short: "Book"
       year: "2026"
@@ -722,7 +723,7 @@ projects:
 awards:
   - title_html: "<strong>1st Place</strong> in the Open Division and <strong>2nd Place</strong> Overall, <a href=\"https://llm-jp.github.io/tuning-competition/2026/feature.html\">FT-LLM2026 Math Task</a>"
     date: "Mar 2026"
-  - title_html: "<strong>Committee Special Award</strong>, 言語処理学会第30回年次大会 (NLP 2024)"
+  - title_html: "<strong>Committee Special Award</strong>, <span class=\"nowrap\">言語処理学会</span><span class=\"nowrap\">第30回年次大会</span> (NLP 2024)"
     date: "Mar 2024"
     note: "(26/567 ≈ 4.59%)"
   - title_html: "<strong>Excellence Award, 2nd Place</strong>, Open Track, 5th Dialogue System Live Competition"

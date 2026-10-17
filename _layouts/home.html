@@ -387,9 +387,9 @@
 
         <footer class="footer">
           <p>
-            &copy; 2023&ndash;{{ site.time | date: "%Y" }} {{ data.profile.name_en | default: data.profile.name }}
+            <span class="footer-credit nowrap">&copy; 2023&ndash;{{ site.time | date: "%Y" }} {{ data.profile.name_en | default: data.profile.name }}</span>
             <span class="footer-sep" aria-hidden="true">·</span>
-            Implemented by {{ data.profile.name_en | default: data.profile.name }}
+            <span class="footer-credit nowrap">Implemented by {{ data.profile.name_en | default: data.profile.name }}</span>
           </p>
           <p>{{ data.labels.last_updated }}: {{ site.time | date: data.labels.last_updated_format }}</p>
         </footer>

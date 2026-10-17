@@ -5,7 +5,8 @@
             authors_html, venue_html, links (optional), badges (optional)
   Without `image`, a tile with the venue and year is shown instead.
   `title_lang` marks a title written in another language than the page.
-  Short hyphenated words in a title (e.g. "Image-Text") are kept on one line.
+  Short hyphenated words in a title (e.g. "Image-Text") are kept on one line;
+  long Japanese compound words get line-break hints (_includes/ja-wbr.html).
 {%- endcomment -%}
 <ol class="pub-list">
   {%- for pub in include.pubs %}
@@ -35,7 +36,7 @@
       {%- assign title_words = pub.title | split: " " %}
       <p class="pub-title"{% if pub.title_lang and pub.title_lang != page.lang %} lang="{{ pub.title_lang }}"{% endif %}>
         {%- for w in title_words -%}
-          {%- if w contains "-" and w.size <= 15 -%}<span class="nowrap">{{ w }}</span>{%- else -%}{{ w }}{%- endif -%}
+          {%- if w contains "-" and w.size <= 15 -%}<span class="nowrap">{{ w }}</span>{%- else -%}{%- include ja-wbr.html text=w -%}{%- endif -%}
           {%- unless forloop.last -%}{{ " " }}{%- endunless -%}
         {%- endfor -%}
       </p>

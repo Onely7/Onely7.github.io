@@ -177,15 +177,26 @@ summary:focus-visible {
 .lead {
     text-wrap: balance;
 }
-/* Japanese headings and the short introduction break between phrases (and
-   never start a line with "ー" or a small kana); longer paragraphs keep the
-   normal line breaking so that their lines stay evenly filled */
+/* Japanese titles: break between phrases (long compound words get extra
+   break hints, see _includes/ja-wbr.html); `text-wrap: pretty` (set above)
+   avoids a lone fragment on the last line. (`balance` is not used here:
+   in Chrome it ignores the phrase boundaries and splits words.) */
+.pub-title:lang(ja),
+.row-title:lang(ja) {
+    word-break: auto-phrase;
+}
+/* Japanese: the lead and section titles break between phrases (item titles:
+   see below); paragraphs keep the normal Japanese line breaking so that their
+   lines stay evenly filled. No line starts with "ー" or a small kana. */
+.lead:lang(ja),
+.section-title:lang(ja) {
+    word-break: auto-phrase;
+}
 .lead:lang(ja),
 .hero-sub:lang(ja),
 .section-title:lang(ja),
 .pub-title:lang(ja),
 .row-title:lang(ja) {
-    word-break: auto-phrase;
     line-break: strict;
 }
 
@@ -797,7 +808,7 @@ a.chip:hover {
     }
 }
 
-/* short desktop screens: compact sidebar */
+/* short desktop screens: compact sidebar (an even more compact one below 680px) */
 @media (min-width: 961px) and (max-height: 820px) {
     .sidebar-inner {
         gap: 14px;
@@ -829,6 +840,31 @@ a.chip:hover {
     }
     .toc-list a {
         padding: 1px 10px;
+    }
+}
+@media (min-width: 961px) and (max-height: 680px) {
+    .sidebar-inner {
+        gap: 10px;
+        padding-top: 16px;
+        padding-bottom: 14px;
+    }
+    .avatar {
+        width: 72px;
+        height: 72px;
+        margin-bottom: 6px;
+        padding: 3px;
+    }
+    .profile-position,
+    .social {
+        margin-top: 2px;
+    }
+    .nav-list,
+    .toc {
+        padding-top: 8px;
+    }
+    .nav-link {
+        padding-top: 1px;
+        padding-bottom: 1px;
     }
 }
 
@@ -868,9 +904,19 @@ a.chip:hover {
         overflow: visible;
     }
     .sidebar-inner {
-        max-width: 440px;
+        max-width: 600px;
         margin: 0 auto;
         padding: 48px 24px 32px;
+    }
+    /* site links in three columns (two on phones) to keep the header short */
+    .nav-list {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 2px 8px;
+    }
+    .nav-link {
+        gap: 10px;
+        padding: 8px 10px;
     }
     .toc {
         display: none;
@@ -911,12 +957,7 @@ a.chip:hover {
         font-size: var(--fs-xxl);
     }
     .nav-list {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 2px 8px;
-    }
-    .nav-link {
-        padding: 8px 10px;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
     }
     .scroll-cue {
         --icon-size: 20px;
@@ -952,10 +993,6 @@ a.chip:hover {
     .section-note {
         margin-top: -12px;
     }
-    /* on narrow screens, phrase breaks leave the introduction too ragged */
-    .hero-sub:lang(ja) {
-        word-break: normal;
-    }
     /* long subsection headings wrap: keep the count right after the text
        and draw the rule below instead of beside it */
     .subsection-title {
@@ -987,20 +1024,16 @@ a.chip:hover {
         padding-top: 0;
     }
 
-    /* publications: small figure next to the title, details below */
+    /* publications: a small figure at the top left; the venue and title
+       wrap around it and then use the full width, the details follow below */
     .pub {
-        column-gap: 14px;
-        row-gap: 0;
+        display: flow-root;
         padding: 22px 0;
     }
-    .pub-body {
-        display: contents;
-    }
     .pub-media {
-        grid-column: 1;
-        grid-row: 1 / span 2;
-        margin-top: 2px;
-        margin-bottom: 10px;
+        float: left;
+        width: var(--media-w);
+        margin: 3px 14px 10px 0;
     }
     .pub-image,
     .pub-tile {
@@ -1010,20 +1043,19 @@ a.chip:hover {
         padding: 6px;
     }
     .pub-tag {
-        grid-column: 2;
-        grid-row: 1;
         margin-bottom: 2px;
         letter-spacing: 0.02em;
     }
-    .pub-title {
-        grid-column: 2;
-        grid-row: 2;
-        align-self: start;
+    .pub-authors {
+        clear: left;
     }
-    .pub-authors,
-    .pub-venue,
-    .pub .chips {
-        grid-column: 1 / -1;
+
+    /* the footer credits on separate lines */
+    .footer-sep {
+        display: none;
+    }
+    .footer-credit {
+        display: block;
     }
 }
 
@@ -1053,6 +1085,42 @@ a.chip:hover {
     }
     .nav-link {
         font-size: var(--fs-s);
+    }
+}
+
+/* short phones (portrait): a smaller photo, so the cover fits on the screen */
+@media (max-width: 600px) and (max-height: 700px) {
+    .sidebar-inner {
+        padding-top: 28px;
+    }
+    .avatar {
+        width: 136px;
+        height: 136px;
+    }
+}
+
+/* phones and tablets in landscape: a compact header instead of a
+   full-screen cover, so that the links are visible on the first screen */
+@media (max-width: 960px) and (max-height: 500px) {
+    .sidebar {
+        min-height: 0;
+    }
+    .sidebar-inner {
+        padding-top: 24px;
+        padding-bottom: 20px;
+    }
+    .avatar {
+        width: 104px;
+        height: 104px;
+    }
+    .profile-name {
+        font-size: var(--fs-xl);
+    }
+    .nav-list {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+    .scroll-cue {
+        display: none;
     }
 }
 

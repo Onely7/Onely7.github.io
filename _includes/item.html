@@ -3,12 +3,15 @@
   usage: {% include item.html item=it %}
   item: date, title or title_html, lines (optional), note (optional),
         links (optional), badges (optional)
+  Long Japanese compound words in the title get line-break hints
+  (_includes/ja-wbr.html).
 {%- endcomment -%}
+{%- assign row_title = include.item.title_html | default: include.item.title -%}
 <li class="row">
   <p class="row-date">{{ include.item.date }}</p>
   <div class="row-body">
     <p class="row-title">
-      {%- if include.item.title_html %}{{ include.item.title_html }}{% else %}{{ include.item.title }}{% endif -%}
+      {%- include ja-wbr.html text=row_title -%}
     </p>
     {%- for line in include.item.lines %}
     <p class="row-text">{{ line }}</p>

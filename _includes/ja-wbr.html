@@ -1,0 +1,41 @@
+{%- comment -%}
+  Line-break hints for Japanese titles.
+  Inside a long run of kanji / katakana (9 or more characters, such as
+  日本語大規模インターリーブ視覚言語データセット), a <wbr> is added where the
+  script changes between kanji and katakana. Together with
+  `word-break: auto-phrase` (css/style.css), long compound words then break
+  between their parts (日本語大規模 / インターリーブ / 視覚言語データセット)
+  instead of in the middle of a word. Text without such runs is unchanged.
+  usage: {% include ja-wbr.html text=pub.title %}
+{%- endcomment -%}
+{%- assign jw_run = "" -%}
+{%- assign jw_len = 0 -%}
+{%- assign jw_prev = "" -%}
+{%- assign jw_chars = include.text | split: "" -%}
+{%- for jw_c in jw_chars -%}
+  {%- assign jw_cls = "" -%}
+  {%- if jw_c == "々" -%}
+    {%- assign jw_cls = "k" -%}
+  {%- elsif jw_c >= "一" and jw_c <= "鿿" -%}
+    {%- assign jw_cls = "k" -%}
+  {%- elsif jw_c == "ー" -%}
+    {%- assign jw_cls = "a" -%}
+  {%- elsif jw_c >= "ァ" and jw_c <= "ヺ" -%}
+    {%- assign jw_cls = "a" -%}
+  {%- endif -%}
+  {%- if jw_cls == "" -%}
+    {%- if jw_len >= 9 -%}{{ jw_run | replace: "¶", "<wbr>" }}{%- else -%}{{ jw_run | remove: "¶" }}{%- endif -%}
+    {{- jw_c -}}
+    {%- assign jw_run = "" -%}
+    {%- assign jw_len = 0 -%}
+    {%- assign jw_prev = "" -%}
+  {%- else -%}
+    {%- if jw_prev != "" and jw_prev != jw_cls -%}
+      {%- assign jw_run = jw_run | append: "¶" -%}
+    {%- endif -%}
+    {%- assign jw_run = jw_run | append: jw_c -%}
+    {%- assign jw_len = jw_len | plus: 1 -%}
+    {%- assign jw_prev = jw_cls -%}
+  {%- endif -%}
+{%- endfor -%}
+{%- if jw_len >= 9 -%}{{ jw_run | replace: "¶", "<wbr>" }}{%- else -%}{{ jw_run | remove: "¶" }}{%- endif -%}

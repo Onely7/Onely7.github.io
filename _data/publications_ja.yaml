@@ -6,12 +6,13 @@
 # badges: - kind / label / icon         (リンクの横に表示する受賞チップ)
 # publications: `image`（640x400 の図。例: images/pubs/foo.webp）を左側に表示します。
 # image が無い場合は venue_short と year のタイルを表示します。
+# タイトル中の `<wbr>` は、長い語を行末で区切ってよい位置を示します。
 # experience / projects / talks / activities / biography: `date` は左の列に、
 # `lines` は説明文として表示されます。
 
 site:
   title: "塩野 大輝 | Daiki Shiono"
-  description: "塩野大輝のポートフォリオサイトです。東北大学大学院情報科学研究科の博士課程にて、大規模視覚言語モデル（LVLM）を中心に Vision & Language・自然言語処理の研究をしています。"
+  description: "塩野大輝のポートフォリオサイトです。東北大学 大学院情報科学研究科の博士課程にて、大規模視覚言語モデル（LVLM）を中心に Vision & Language・自然言語処理の研究をしています。"
   google_site_verification: "OKyxije2NXEpCIJsRreRnmuD0KnuTtxK0mBQU-x4mqU"
   base_url: "https://onely7.github.io"
   page_path: "/index.ja.html"
@@ -116,7 +117,7 @@ labels:
 # 1 段落目は大きな文字（リード文）、2 段落目以降は通常の文字で表示されます。
 about:
   - "大学では主に、大規模視覚言語モデル（LVLM）の開発・応用・分析に関する研究に従事。"
-  - "<a href=\"https://scholar.google.com/citations?user=XO5CrIsAAAAJ&amp;hl=en\">鈴木 潤</a> 教授の指導のもと、東北大学 大学院情報科学研究科 博士後期課程 3&nbsp;年に在籍中。"
+  - "<a href=\"https://scholar.google.com/citations?user=XO5CrIsAAAAJ&amp;hl=en\">鈴木 潤</a> 教授の指導のもと、<span class=\"nowrap\">東北大学</span> <span class=\"nowrap\">大学院情報科学研究科</span> <span class=\"nowrap\">博士後期課程 3&nbsp;年に在籍中。</span>"
 
 research_interests:
   - "Vision & Language"
@@ -151,12 +152,12 @@ biography:
   - date: "2024.04 – 2027.03（修了予定）"
     title: "東北大学（博士）"
     lines:
-      - "情報科学研究科 システム情報科学専攻 鈴木(潤)研究室"
+      - "<span class=\"nowrap\">大学院情報科学研究科</span> <span class=\"nowrap\">システム情報科学専攻</span> <span class=\"nowrap\">鈴木(潤)研究室</span>"
       - "指導教員: 鈴木 潤 教授"
   - date: "2022.04 – 2024.03"
     title: "東北大学（修士）"
     lines:
-      - "情報科学研究科 システム情報科学専攻 鈴木(潤)研究室"
+      - "<span class=\"nowrap\">大学院情報科学研究科</span> <span class=\"nowrap\">システム情報科学専攻</span> <span class=\"nowrap\">鈴木(潤)研究室</span>"
       - "指導教員: 鈴木 潤 教授"
   - date: "2018.04 – 2022.03"
     title: "東北大学（学士）"
@@ -428,7 +429,7 @@ publications:
           href: "https://huggingface.co/datasets/turing-motors/MOMIJI"
           icon: "images/database-solid.svg"
 
-    - title: "JCuisines: 日本の地域文化の理解にむけた郷土料理視覚言語ベンチマーク"
+    - title: "JCuisines: 日本の地域文化の理解にむけた郷土料理<wbr>視覚言語ベンチマーク"
       venue_short: "NLP"
       year: "2026"
       image: "images/pubs/jcuisines.webp"
@@ -492,7 +493,7 @@ publications:
           label: "若手奨励賞"
           icon: "images/star-solid.svg"
 
-    - title: "バッチ単位収束型事前学習：子どもの言語発達に着想を得た一歩ずつの学習"
+    - title: "バッチ単位<wbr>収束型<wbr>事前学習：<span class=\"nowrap\">子ども</span>の言語発達に着想を得た一歩ずつの学習"
       venue_short: "YANS"
       year: "2025"
       image: "images/pubs/batch-convergent.webp"
@@ -504,7 +505,7 @@ publications:
           label: "奨励賞"
           icon: "images/star-solid.svg"
 
-    - title: "Padding vs. Packing: 大規模言語モデルのファインチューニングにおける学習効果の検証"
+    - title: "Padding vs. Packing: 大規模言語モデルのファインチューニング<wbr><span class=\"nowrap\">における</span>学習効果の検証"
       venue_short: "NLP"
       year: "2025"
       image: "images/pubs/padding-packing.webp"
@@ -548,7 +549,7 @@ publications:
           href: "https://www.anlp.jp/proceedings/annual_meeting/2025/pdf_dir/Q8-5.pdf"
           icon: "images/file-pdf-solid.svg"
 
-    - title: "大規模視覚言語モデルに関する指示追従能力の検証"
+    - title: "大規模視覚言語モデル<wbr><span class=\"nowrap\">に関する</span>指示追従能力の検証"
       venue_short: "NLP"
       year: "2024"
       image: "images/pubs/ifeval-lvlm.webp"
@@ -599,7 +600,7 @@ publications:
           label: "スポンサー賞（CyberAgent賞）"
           icon: "images/star-solid.svg"
 
-    - title: "画像キャプションを利用したIconQAタスクへのアプローチ"
+    - title: "画像キャプションを利用したIconQA<wbr>タスクへのアプローチ"
       venue_short: "NLP"
       year: "2023"
       image: "images/pubs/iconqa.webp"
@@ -615,7 +616,7 @@ publications:
           href: "materials/nlp2023_slide_shiono.pdf"
           icon: "images/file-powerpoint-regular.svg"
 
-    - title: "aoba_v3 bot: 多様な応答生成モデルとルールベースを統合したマルチモーダル雑談対話システム"
+    - title: "aoba_v3 bot: 多様な応答生成<wbr>モデルとルールベースを統合したマルチモーダル雑談対話システム"
       venue_short: "SIG-SLUD"
       year: "2022"
       image: "images/pubs/aoba-v3.webp"
@@ -636,7 +637,7 @@ publications:
           icon: "images/star-solid.svg"
 
   books:
-    - title: "マルチモーダルモデル入門"
+    - title: "マルチモーダル<wbr>モデル入門"
       venue_short: "書籍"
       year: "2026"
       image: "images/pubs/multimodal-book.webp"
@@ -711,7 +712,7 @@ awards:
   - title_html: "言語処理学会第30回年次大会（NLP 2024） <strong>委員特別賞受賞</strong>"
     date: "2024.03"
     note: "(26件/567件≒4.59%)"
-  - title_html: "第5回対話システムライブコンペティション オープントラック <strong>優秀賞受賞（第2位）</strong>"
+  - title_html: "第5回対話<wbr>システム<wbr>ライブ<wbr>コンペティション オープントラック <strong>優秀賞受賞（第2位）</strong>"
     date: "2022.12"
 
 talks:
@@ -746,7 +747,7 @@ activities:
     items:
       - title: "自然言語処理学"
         lines:
-          - "東北大学大学院 情報科学研究科 講義"
+          - "東北大学 大学院情報科学研究科 講義"
         date: "2023.10 – 2024.02"
       - title: "人工知能技術のためのプログラミング入門"
         lines:
