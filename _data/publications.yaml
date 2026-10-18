@@ -702,7 +702,7 @@ projects:
       - kind: "dataset"
         label: "Hugging Face"
         href: "https://huggingface.co/datasets/Onely7/FineVision_JA"
-        icon: "images/database-solid.svg"
+        icon: "images/hugging-face.svg"
 
   - title: "Large-Scale Fine-Tuning of a Japanese LLM for Mathematical Reasoning"
     lines:
@@ -713,7 +713,7 @@ projects:
       - kind: "model"
         label: "Hugging Face"
         href: "https://huggingface.co/team-dentaku"
-        icon: "images/database-solid.svg"
+        icon: "images/hugging-face.svg"
 
   - title: "Sharing Slides Summarizing Insights on LVLMs as of 2024"
     lines:
@@ -743,7 +743,7 @@ projects:
       - kind: "model"
         label: "Hugging Face"
         href: "https://huggingface.co/tohoku-nlp/tohokunlp-bert-500m-sq4096-alpha/blob/main/README.md"
-        icon: "images/database-solid.svg"
+        icon: "images/hugging-face.svg"
 
 awards:
   - title_html: "<strong>1st Place</strong> in the Open Division and <strong>2nd Place</strong> Overall, <a href=\"https://llm-jp.github.io/tuning-competition/2026/feature.html\">FT-LLM2026 Math Task</a>"

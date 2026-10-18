@@ -687,7 +687,7 @@ projects:
       - kind: "dataset"
         label: "Hugging Face"
         href: "https://huggingface.co/datasets/Onely7/FineVision_JA"
-        icon: "images/database-solid.svg"
+        icon: "images/hugging-face.svg"
 
   - title: "数学的推論に特化した日本語 LLM の大規模ファインチューニング"
     lines:
@@ -698,7 +698,7 @@ projects:
       - kind: "model"
         label: "Hugging Face"
         href: "https://huggingface.co/team-dentaku"
-        icon: "images/database-solid.svg"
+        icon: "images/hugging-face.svg"
 
   - title_html: "LVLM に関する最新知見（2024年時点）を<span class=\"nowrap\">まとめた</span>スライドの公開"
     lines:
@@ -729,7 +729,7 @@ projects:
       - kind: "model"
         label: "Hugging Face"
         href: "https://huggingface.co/tohoku-nlp/tohokunlp-bert-500m-sq4096-alpha/blob/main/README.md"
-        icon: "images/database-solid.svg"
+        icon: "images/hugging-face.svg"
 
 awards:
   - title_html: "<a href=\"https://llm-jp.github.io/tuning-competition/2026/feature.html\">FT-LLM2026</a> 数学タスクにて <strong>オープン部門 1位・総合部門 2位</strong>"
