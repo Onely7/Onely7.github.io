@@ -32,11 +32,11 @@
 
     /* Type scale: the font sizes of otofu.org (the same for English and
        Japanese). Heading jump ratios to the 15.5px body text:
-       name 2.84 (44px) / section titles 1.68 (26px) / subsections 1.23 (19px).
+       section titles 1.68 (26px) / subsections 1.23 (19px).
        Phones (560px and below): body 15px, section titles 22px (1.47),
-       subsections 17px (1.13). The name is 44px in the sidebar (otofu.org:
-       44px to 72px with the screen width; the same on tablets, see below). */
-    --fs-name: 44px;       /* profile name (serif) */
+       subsections 17px (1.13). The name in the sidebar is 40px (2.58),
+       a little smaller than otofu.org (44px to 72px). */
+    --fs-name: 40px;       /* profile name (serif) */
     --fs-h2: 26px;         /* section titles (serif) */
     --fs-h3: 19px;         /* subsection titles (serif) */
     --fs-h4: 17px;         /* venue on the figure tiles (serif) */
@@ -156,7 +156,6 @@ summary:focus-visible {
 
 /* links inside running text */
 .lead a,
-.hero-sub a,
 .news-text a,
 .row-title a,
 .row-text a,
@@ -168,7 +167,6 @@ summary:focus-visible {
     transition: text-decoration-color 0.2s;
 }
 .lead a:hover,
-.hero-sub a:hover,
 .news-text a:hover,
 .row-title a:hover,
 .row-text a:hover,
@@ -197,7 +195,7 @@ summary:focus-visible {
 .section-title,
 .pub-title,
 .row-title,
-.hero-sub,
+.affiliations li,
 .news-text,
 .row-text,
 .pub-authors,
@@ -212,15 +210,17 @@ summary:focus-visible {
 .row-title:lang(ja) {
     word-break: auto-phrase;
 }
-/* Japanese: the lead and section titles break between phrases (item titles:
-   see above); paragraphs keep the normal Japanese line breaking so that their
-   lines stay evenly filled. No line starts with "ー" or a small kana. */
+/* Japanese: the About text, affiliations and section titles break between
+   phrases (item titles: see above); paragraphs keep the normal Japanese line
+   breaking so that their lines stay evenly filled. No line starts with "ー"
+   or a small kana. */
 .lead:lang(ja),
+.affiliations li:lang(ja),
 .section-title:lang(ja) {
     word-break: auto-phrase;
 }
 .lead:lang(ja),
-.hero-sub:lang(ja),
+.affiliations li:lang(ja),
 .section-title:lang(ja),
 .pub-title:lang(ja),
 .row-title:lang(ja) {
@@ -491,17 +491,29 @@ summary:focus-visible {
     border-radius: 2px;
     background: var(--accent);
 }
-.hero-text {
-    max-width: 44em;
-    margin-top: 20px;
-}
 .lead {
+    margin-top: 20px;
     font-size: var(--fs-lede);
 }
-.hero-sub {
-    margin-top: 10px;
-    font-size: var(--fs-lede);
+/* current affiliations ("organization — role") with a rule on the left */
+.affiliations {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 22px;
+    padding-left: 16px;
+    border-left: 2px solid var(--line);
+    list-style: none;
+    font-size: var(--fs-text);
+    line-height: 1.7;
     color: var(--text-2);
+}
+.affiliation-org {
+    font-weight: 500;
+    color: var(--main);
+}
+.affiliation-sep {
+    color: var(--text-3);
 }
 .hero-actions {
     display: flex;
@@ -529,20 +541,6 @@ summary:focus-visible {
 }
 .button-primary:hover {
     background: #2d2217;
-}
-.button-secondary {
-    background: #fff;
-    box-shadow: inset 0 0 0 1px var(--line-strong);
-}
-.button-secondary:hover {
-    background: var(--base);
-}
-.button .button-arrow {
-    --icon-size: 13px;
-    transition: transform 0.2s;
-}
-.button:hover .button-arrow {
-    transform: translateX(3px);
 }
 .interests {
     display: flex;
@@ -1085,8 +1083,8 @@ a.chip:hover {
    (below 960px a side-by-side layout leaves too little room for the text) */
 @media (max-width: 960px) {
     :root {
-        /* the name grows with the screen, as on otofu.org (44px to 72px) */
-        --fs-name: clamp(44px, 7vw, 72px);
+        /* the name grows with the screen (40px to 64px), as on otofu.org */
+        --fs-name: clamp(40px, 6.4vw, 64px);
     }
     .page {
         display: block;

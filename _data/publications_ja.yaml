@@ -23,7 +23,7 @@ profile:
   name: "塩野 大輝"
   name_en: "Daiki Shiono"
   name_alt: "Daiki Shiono"
-  position: "東北大学 博士後期課程"
+  position: "東北大学 博士後期課程在学"
   belongings: "Tohoku NLP Group"
   affiliation: "東北大学"
   email: "daiki.shiono.s1@dc.tohoku.ac.jp"
@@ -110,7 +110,7 @@ labels:
   older_news: "過去のニュースを表示"
   pub_note: "<u>下線</u>: 本人, *: 共同第一著者"
   cta_cv: "CV をダウンロード"
-  cta_blog: "ブログを読む"
+  affiliation: "所属"
   last_updated: "最終更新"
   last_updated_format: "%Y年%-m月"
 
@@ -130,10 +130,19 @@ pub_ui:
   empty: "該当する業績が見つかりませんでした。"
   reset: "すべての業績を表示"
 
-# 1 段落目は大きな文字（リード文）、2 段落目以降は通常の文字で表示されます。
+# About の文章。1 つのブロックにまとめ、項目ごとに改行して表示されます。
 about:
-  - "大学では主に、大規模視覚言語モデル（LVLM）の開発・応用・分析に関する研究に従事。"
+  - "大規模視覚言語モデル（LVLM）の開発・応用・分析に関する研究に従事。"
   - "<a href=\"https://scholar.google.com/citations?user=XO5CrIsAAAAJ&amp;hl=en\">鈴木 潤</a> 教授の指導のもと、<span class=\"nowrap\">東北大学</span> <span class=\"nowrap\">大学院情報科学研究科</span> <span class=\"nowrap\">博士後期課程 3&nbsp;年に在籍中。</span>"
+
+# 現在の所属。About の文章の下に「所属 — 役職」の形で表示されます。
+affiliations:
+  - org: "東北大学 大学院情報科学研究科"
+    role: "<span class=\"nowrap\">鈴木(潤)研究室</span> <span class=\"nowrap\">博士後期課程 3&nbsp;年</span>"
+  - org: "ケンブリッジ大学 Department of Computer Science and Technology"
+    role: "Visiting Researcher (Departmental Visiting Student)"
+  - org: "Turing Inc."
+    role: "Machine Learning Research Engineer (Intern / Contractor), Fundamental AI Group"
 
 research_interests:
   - "Vision & Language"

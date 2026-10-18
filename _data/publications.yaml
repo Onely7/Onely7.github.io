@@ -111,7 +111,7 @@ labels:
   older_news: "Show older news"
   pub_note: "<u>Underline</u>: myself, *: equal contribution"
   cta_cv: "Download CV"
-  cta_blog: "Read the blog"
+  affiliation: "Affiliation"
   last_updated: "Last updated"
   last_updated_format: "%B %Y"
 
@@ -131,10 +131,19 @@ pub_ui:
   empty: "No publications match your search."
   reset: "Show all publications"
 
-# The first paragraph is shown large (lead); the others in normal size.
+# About text: shown as one block, each item on a line of its own.
 about:
   - "My research mainly focuses on the development, application, and analysis of large <span class=\"nowrap\">vision-language</span> models (LVLMs)."
   - "I am a third-year Ph.D. student at the Graduate School of Information Sciences, Tohoku&nbsp;University, advised by Prof. <a href=\"https://scholar.google.com/citations?user=XO5CrIsAAAAJ&amp;hl=en\">Jun Suzuki</a>."
+
+# Current affiliations, shown under the About text as "organization — role".
+affiliations:
+  - org: "Tohoku University, Graduate School of Information Sciences"
+    role: "Ph.D.&nbsp;Student, Fundamental Artificial Intelligence Laboratory"
+  - org: "University of Cambridge, Department of Computer Science and Technology"
+    role: "Visiting Researcher (Departmental Visiting Student)"
+  - org: "Turing Inc."
+    role: "Machine Learning Research Engineer (Intern / Contractor), Fundamental AI Group"
 
 research_interests:
   - "Vision & Language"
