@@ -110,7 +110,7 @@ labels:
   older_news: "過去のニュースを表示"
   pub_note: "<u>下線</u>: 本人, *: 共同第一著者"
   cta_cv: "CV をダウンロード"
-  affiliation: "所属"
+  affiliation: "Affiliation"
   last_updated: "最終更新"
   last_updated_format: "%Y年%-m月"
 

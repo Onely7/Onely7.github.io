@@ -244,11 +244,14 @@
           </p>
           <!-- current affiliations: organization — role -->
           {%- if data.affiliations %}
-          <ul class="affiliations" aria-label="{{ data.labels.affiliation }}">
-            {%- for af in data.affiliations %}
-            <li><span class="affiliation-org">{{ af.org }}</span>&nbsp;<span class="affiliation-sep">—</span> {{ af.role }}</li>
-            {%- endfor %}
-          </ul>
+          <div class="affiliation">
+            <h3 class="label" id="affiliation-title">{{ data.labels.affiliation }}</h3>
+            <ul class="affiliations" aria-labelledby="affiliation-title">
+              {%- for af in data.affiliations %}
+              <li><span class="affiliation-org">{{ af.org }}</span>&nbsp;<span class="affiliation-sep">—</span> {{ af.role }}</li>
+              {%- endfor %}
+            </ul>
+          </div>
           {%- endif %}
           <div class="hero-actions">
             <a class="button button-primary" href="{{ cv_href }}" download="{{ data.profile.cv_filename }}">

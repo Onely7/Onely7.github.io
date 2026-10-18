@@ -34,9 +34,9 @@
        Japanese). Heading jump ratios to the 15.5px body text:
        section titles 1.68 (26px) / subsections 1.23 (19px).
        Phones (560px and below): body 15px, section titles 22px (1.47),
-       subsections 17px (1.13). The name in the sidebar is 40px (2.58),
+       subsections 17px (1.13). The name in the sidebar is 36px (2.32),
        a little smaller than otofu.org (44px to 72px). */
-    --fs-name: 40px;       /* profile name (serif) */
+    --fs-name: 36px;       /* profile name (serif) */
     --fs-h2: 26px;         /* section titles (serif) */
     --fs-h3: 19px;         /* subsection titles (serif) */
     --fs-h4: 17px;         /* venue on the figure tiles (serif) */
@@ -495,12 +495,16 @@ summary:focus-visible {
     margin-top: 20px;
     font-size: var(--fs-lede);
 }
-/* current affiliations ("organization — role") with a rule on the left */
+/* current affiliations: the "Affiliation" label, then "organization — role"
+   lines with a rule on the left */
+.affiliation {
+    margin-top: 24px;
+}
 .affiliations {
     display: flex;
     flex-direction: column;
     gap: 8px;
-    margin-top: 22px;
+    margin-top: 8px;
     padding-left: 16px;
     border-left: 2px solid var(--line);
     list-style: none;
@@ -1083,8 +1087,8 @@ a.chip:hover {
    (below 960px a side-by-side layout leaves too little room for the text) */
 @media (max-width: 960px) {
     :root {
-        /* the name grows with the screen (40px to 64px), as on otofu.org */
-        --fs-name: clamp(40px, 6.4vw, 64px);
+        /* the name grows with the screen (36px to 58px), as on otofu.org */
+        --fs-name: clamp(36px, 5.8vw, 58px);
     }
     .page {
         display: block;
