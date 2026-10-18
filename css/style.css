@@ -18,6 +18,7 @@
     --bg: #ffffff;
     --line: rgba(68, 51, 34, 0.12);
     --line-strong: rgba(68, 51, 34, 0.22);
+    --section-tint: #f9fafb;   /* every other section: a very light tint of the base colour */
 
     /* Fonts (the same three families as otofu.org)
        serif: the name and headings      (Shippori Mincho)
@@ -403,7 +404,13 @@ summary:focus-visible {
    ---------------------------------------------------------- */
 .section {
     padding: 60px 0;
-    border-top: 1px solid var(--line);
+}
+/* every other section (News, Experience, Projects, Talks, Skills) has a very
+   light tint across the whole width of the content area, so that the sections
+   stand apart. The colour is painted as a border image that reaches 100vmax
+   to the left and right (under the sidebar; it does not widen the page). */
+.section:nth-of-type(even) {
+    border-image: conic-gradient(var(--section-tint) 0 0) fill 0 / / 0 100vmax;
 }
 /* section title; on the Japanese page the English title follows as a label */
 .section-title {
@@ -470,7 +477,6 @@ summary:focus-visible {
 /* hero (about) */
 .hero {
     padding-top: 4px;
-    border-top: 0;
 }
 .eyebrow {
     display: flex;
@@ -939,7 +945,6 @@ a.chip:hover {
 /* footer */
 .footer {
     padding: 36px 0 8px;
-    border-top: 1px solid var(--line);
     font-family: var(--mono);
     font-size: var(--fs-meta);
     line-height: 1.8;
@@ -985,6 +990,23 @@ a.chip:hover {
     .main > * {
         margin-left: auto;
         margin-right: auto;
+    }
+}
+
+/* desktop sidebar: the six link icons fit in one row */
+@media (min-width: 961px) {
+    .social {
+        gap: 0;
+    }
+    .icon-button {
+        width: 38px;
+        height: 38px;
+    }
+}
+@media (min-width: 961px) and (max-width: 1100px) {
+    .icon-button {
+        width: 36px;
+        height: 36px;
     }
 }
 
