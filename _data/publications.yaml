@@ -5,6 +5,24 @@
 # links:  - kind / label / href / icon  (href may be a site path like
 #           "materials/foo.pdf" or a full URL)
 # badges: - kind / label / icon         (award chips shown next to the links)
+#
+# Link chip names (keep to these when adding links):
+#   - project page              -> label "project" (icon images/globe-solid.svg)
+#   - Hugging Face (icon images/hugging-face.svg), by what the URL holds:
+#       training dataset            -> "train dataset"
+#       evaluation dataset          -> "eval dataset"  (benchmarks, test sets)
+#       training + evaluation data  -> "train/eval dataset"  (datasets only, e.g. a
+#                                      dataset with a training and an evaluation split)
+#       model                       -> "model"
+#       a model plus datasets, or any other mix of two or more of the above
+#                                   -> "collection"  (e.g. an organization page)
+#     A validation split used only during training is not evaluation data
+#     (e.g. STRIDE-QA-Dataset is "train dataset"; its benchmark is separate).
+#   - datasets hosted elsewhere (icon images/database-solid.svg):
+#       training dataset            -> "train dataset"
+#       evaluation dataset          -> "eval dataset"
+#       training + evaluation data  -> "train/eval dataset"
+#   - others: "pdf", "poster", "slide", "code" (GitHub), "blog", ...
 # publications: `image` (640x400 figure, e.g. images/pubs/foo.webp) is shown on
 # the left; without it, a tile with venue_short + year is shown instead.
 # `title_lang: "ja"` marks a Japanese title (line breaks between phrases).
@@ -229,9 +247,9 @@ publications:
           href: "https://www.anlp.jp/guide/saitaku.html"
           icon: "images/link-solid.svg"
         - kind: "dataset"
-          label: "dataset"
+          label: "train dataset"
           href: "https://huggingface.co/datasets/turing-motors/MOMIJI"
-          icon: "images/database-solid.svg"
+          icon: "images/hugging-face.svg"
         - kind: "code"
           label: "code"
           href: "https://github.com/turingmotors/MOMIJI"
@@ -249,9 +267,9 @@ publications:
           href: "https://link.springer.com/article/10.1007/s00354-025-00308-2"
           icon: "images/file-pdf-solid.svg"
         - kind: "dataset"
-          label: "dataset"
+          label: "train dataset"
           href: "https://huggingface.co/datasets/tohoku-nlp/fovit-foit"
-          icon: "images/database-solid.svg"
+          icon: "images/hugging-face.svg"
 
     - title: "Aoba_v3 bot: a multimodal chatbot system combining rules and various response generation models"
       venue_short: "Advanced Robotics"
@@ -294,7 +312,7 @@ publications:
           href: "https://eccv.ecva.net/virtual/2026/poster/4589"
           icon: "images/file-pdf-solid.svg"
         - kind: "project"
-          label: "project page"
+          label: "project"
           href: "https://turingmotors.github.io/rio-vqa/"
           icon: "images/globe-solid.svg"
         - kind: "poster"
@@ -306,9 +324,9 @@ publications:
           href: "https://eccv.ecva.net/media/eccv-2026/Slides/4589.pdf"
           icon: "images/file-powerpoint-regular.svg"
         - kind: "dataset"
-          label: "dataset"
+          label: "train/eval dataset"
           href: "https://huggingface.co/datasets/turing-motors/RIO-Bench"
-          icon: "images/database-solid.svg"
+          icon: "images/hugging-face.svg"
         - kind: "code"
           label: "code"
           href: "https://github.com/turingmotors/RIO-Bench"
@@ -346,7 +364,7 @@ publications:
           href: "https://ojs.aaai.org/index.php/AAAI/article/view/37441"
           icon: "images/file-pdf-solid.svg"
         - kind: "project"
-          label: "project page"
+          label: "project"
           href: "https://turingmotors.github.io/stride-qa/"
           icon: "images/globe-solid.svg"
         - kind: "slide"
@@ -354,13 +372,13 @@ publications:
           href: "materials/aaai2026_slide_ishihara.pdf"
           icon: "images/file-powerpoint-regular.svg"
         - kind: "dataset"
-          label: "dataset"
+          label: "train dataset"
           href: "https://huggingface.co/datasets/turing-motors/STRIDE-QA-Dataset"
-          icon: "images/database-solid.svg"
+          icon: "images/hugging-face.svg"
         - kind: "dataset"
-          label: "benchmark"
+          label: "eval dataset"
           href: "https://huggingface.co/datasets/turing-motors/STRIDE-QA-Bench"
-          icon: "images/database-solid.svg"
+          icon: "images/hugging-face.svg"
         - kind: "code"
           label: "code"
           href: "https://github.com/turingmotors/STRIDE-QA-Dataset"
@@ -398,9 +416,9 @@ publications:
           href: "materials/coling2025_poster_shiono.pdf"
           icon: "images/file-regular.svg"
         - kind: "dataset"
-          label: "dataset"
+          label: "eval dataset"
           href: "https://huggingface.co/datasets/tohoku-nlp/Shitsukan"
-          icon: "images/database-solid.svg"
+          icon: "images/hugging-face.svg"
         - kind: "code"
           label: "code"
           href: "https://github.com/cl-tohoku/shitsukan-eval"
@@ -456,9 +474,9 @@ publications:
           href: "materials/nlp2026_poster_shiono.pdf"
           icon: "images/file-regular.svg"
         - kind: "dataset"
-          label: "dataset"
+          label: "train dataset"
           href: "https://huggingface.co/datasets/turing-motors/MOMIJI"
-          icon: "images/database-solid.svg"
+          icon: "images/hugging-face.svg"
 
     - title: "JCuisines: 日本の地域文化の理解にむけた郷土料理<wbr>視覚言語ベンチマーク"
       title_lang: "ja"
@@ -547,8 +565,8 @@ publications:
           label: "slide"
           href: "https://llm-jp.github.io/tuning-competition/2026/pdfs/math_team003_slide.pdf"
           icon: "images/file-powerpoint-regular.svg"
-        - kind: "model"
-          label: "Hugging Face"
+        - kind: "collection"
+          label: "collection"
           href: "https://huggingface.co/team-dentaku"
           icon: "images/hugging-face.svg"
         - kind: "code"
@@ -737,7 +755,7 @@ projects:
     date: "Ongoing"
     links:
       - kind: "dataset"
-        label: "Hugging Face"
+        label: "train dataset"
         href: "https://huggingface.co/datasets/Onely7/FineVision_JA"
         icon: "images/hugging-face.svg"
 
@@ -767,7 +785,7 @@ projects:
     date: "Jun 2024"
     links:
       - kind: "model"
-        label: "Hugging Face"
+        label: "model"
         href: "https://huggingface.co/tohoku-nlp/tohokunlp-bert-500m-sq4096-alpha/blob/main/README.md"
         icon: "images/hugging-face.svg"
 
