@@ -115,6 +115,22 @@ labels:
   last_updated: "Last updated"
   last_updated_format: "%B %Y"
 
+# Filter buttons and search box above the publications.
+# {shown} and {total} in `status` are replaced with numbers.
+pub_ui:
+  filter_label: "Filter publications by type"
+  all: "All"
+  journals: "Journals"
+  international_conferences: "International Conferences"
+  domestic_conferences: "Domestic Conferences"
+  books: "Book"
+  search: "Search by title or author"
+  search_label: "Search publications"
+  clear: "Clear search"
+  status: "Showing {shown} of {total} publications"
+  empty: "No publications match your search."
+  reset: "Show all publications"
+
 # The first paragraph is shown large (lead); the others in normal size.
 about:
   - "My research mainly focuses on the development, application, and analysis of large <span class=\"nowrap\">vision-language</span> models (LVLMs)."
@@ -723,16 +739,16 @@ projects:
 awards:
   - title_html: "<strong>1st Place</strong> in the Open Division and <strong>2nd Place</strong> Overall, <a href=\"https://llm-jp.github.io/tuning-competition/2026/feature.html\">FT-LLM2026 Math Task</a>"
     date: "Mar 2026"
-  - title_html: "<strong>Committee Special Award</strong>, <span class=\"nowrap\">言語処理学会</span><span class=\"nowrap\">第30回年次大会</span> (NLP 2024)"
+  - title_html: "<strong>Committee Special Award</strong>, <span class=\"nowrap\">言語処理学会</span><span class=\"nowrap\">第30回年次大会</span> (NLP&nbsp;2024)"
     date: "Mar 2024"
     note: "(26/567 ≈ 4.59%)"
   - title_html: "<strong>Excellence Award, 2nd Place</strong>, Open Track, 5th Dialogue System Live Competition"
     date: "Dec 2022"
 
 talks:
-  - title: "Words or Vision: Do Vision-Language Models Have Blind Faith in Text? (CVPR 2025)"
+  - title: "Words or Vision: Do Vision-Language Models Have Blind Faith in Text? (CVPR&nbsp;2025)"
     lines:
-      - "<a href=\"https://sites.google.com/view/snlp-jp/home/2025\">The 17th <em>Saisentan</em> NLP Study Group (SNLP 2025)</a>"
+      - "<a href=\"https://sites.google.com/view/snlp-jp/home/2025\">The 17th <em>Saisentan</em> NLP Study Group (SNLP&nbsp;2025)</a>"
     date: "Aug 2025"
     links:
       - kind: "slide"

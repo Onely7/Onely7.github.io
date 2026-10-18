@@ -99,3 +99,126 @@
   window.addEventListener('resize', onScroll);
   update();
 })();
+
+// Publications: filter buttons (show one kind only) and a search box for
+// titles and authors. Without JavaScript the tools stay hidden and every
+// publication is shown.
+(() => {
+  const tools = document.getElementById('pub-tools');
+  const input = document.getElementById('pub-search');
+  const status = document.getElementById('pub-status');
+  const empty = document.getElementById('pub-empty');
+  if (!tools || !input || !status || !empty) return;
+  const buttons = Array.from(tools.querySelectorAll('.filter-btn'));
+  const clearButton = tools.querySelector('.search-clear');
+  const resetButton = empty.querySelector('.pub-reset');
+  const groups = Array.from(document.querySelectorAll('.pub-group')).map((el) => ({
+    el,
+    id: el.dataset.group,
+    count: el.querySelector('.subsection-title .count'),
+  }));
+
+  // NFKC: full-width letters and digits match their ASCII forms
+  const normalize = (s) => s.normalize('NFKC').toLowerCase().replace(/\s+/g, ' ').trim();
+  const pubs = [];
+  groups.forEach((group) => {
+    group.el.querySelectorAll('.pub').forEach((el) => {
+      const text = normalize(
+        ['.pub-tag', '.pub-title', '.pub-authors']
+          .map((sel) => el.querySelector(sel))
+          .filter(Boolean)
+          .map((x) => x.textContent)
+          .join(' ')
+      );
+      // `compact` lets "塩野大輝" match "塩野 大輝"
+      pubs.push({ el, group, text, compact: text.replace(/ /g, '') });
+    });
+  });
+  const total = pubs.length;
+  let filter = 'all';
+
+  const apply = () => {
+    const query = normalize(input.value);
+    const terms = query ? query.split(' ') : [];
+    const hits = { all: 0 };
+    groups.forEach((group) => {
+      hits[group.id] = 0;
+    });
+    let shown = 0;
+    pubs.forEach((pub) => {
+      // every word of the query has to appear in the venue, title or authors
+      const match = terms.every((t) => pub.text.includes(t) || pub.compact.includes(t));
+      if (match) {
+        hits.all += 1;
+        hits[pub.group.id] += 1;
+      }
+      const visible = match && (filter === 'all' || filter === pub.group.id);
+      pub.el.hidden = !visible;
+      if (visible) shown += 1;
+    });
+    groups.forEach((group) => {
+      group.el.hidden = !((filter === 'all' || filter === group.id) && hits[group.id] > 0);
+      if (group.count) group.count.textContent = hits[group.id];
+    });
+    buttons.forEach((button) => {
+      const id = button.dataset.filter;
+      button.setAttribute('aria-pressed', String(id === filter));
+      const count = button.querySelector('.filter-count');
+      if (count) count.textContent = hits[id];
+      button.classList.toggle('is-empty', hits[id] === 0);
+    });
+    if (clearButton) clearButton.hidden = !input.value;
+    empty.hidden = shown > 0;
+    const filtered = terms.length > 0 || filter !== 'all';
+    status.textContent = filtered
+      ? (tools.dataset.status || '{shown} / {total}')
+          .replace('{shown}', shown)
+          .replace('{total}', total)
+      : '';
+  };
+
+  const reset = () => {
+    input.value = '';
+    filter = 'all';
+    apply();
+  };
+
+  buttons.forEach((button) => {
+    button.addEventListener('click', () => {
+      filter = button.dataset.filter;
+      apply();
+    });
+  });
+  input.addEventListener('input', apply);
+  input.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && input.value) {
+      e.preventDefault();
+      input.value = '';
+      apply();
+    }
+  });
+  if (clearButton) {
+    clearButton.addEventListener('click', () => {
+      input.value = '';
+      apply();
+      input.focus();
+    });
+  }
+  if (resetButton) {
+    resetButton.addEventListener('click', () => {
+      reset();
+      input.focus();
+    });
+  }
+  // a link to a publication heading that is hidden by the filter shows everything again
+  window.addEventListener('hashchange', () => {
+    const target = document.getElementById(decodeURIComponent(location.hash.slice(1)));
+    if (target && target.closest('.pub-group[hidden], .pub[hidden]')) {
+      reset();
+      target.scrollIntoView();
+    }
+  });
+
+  tools.hidden = false;
+  apply(); // the browser may have restored a query
+})();

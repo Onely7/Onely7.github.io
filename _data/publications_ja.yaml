@@ -114,6 +114,22 @@ labels:
   last_updated: "最終更新"
   last_updated_format: "%Y年%-m月"
 
+# 業績の上に表示する絞り込みボタンと検索窓。
+# status の {shown} と {total} は件数に置き換わります。
+pub_ui:
+  filter_label: "種類で絞り込む"
+  all: "すべて"
+  journals: "ジャーナル"
+  international_conferences: "国際会議"
+  domestic_conferences: "国内会議"
+  books: "書籍"
+  search: "タイトル・著者名で検索"
+  search_label: "業績を検索"
+  clear: "検索語を消去"
+  status: "{total} 件中 {shown} 件を表示"
+  empty: "該当する業績が見つかりませんでした。"
+  reset: "すべての業績を表示"
+
 # 1 段落目は大きな文字（リード文）、2 段落目以降は通常の文字で表示されます。
 about:
   - "大学では主に、大規模視覚言語モデル（LVLM）の開発・応用・分析に関する研究に従事。"
@@ -168,7 +184,7 @@ experience:
   - title_html: "Visiting Researcher (Departmental Visiting Student) @ <a href=\"https://www.cst.cam.ac.uk/\">ケンブリッジ大学</a>"
     lines:
       - "Department of Computer Science and Technology"
-      - "Andreas Vlachos 教授の受け入れのもと、Diana Galván Sosa 氏と密に連携して Vision&nbsp;&amp;&nbsp;Language・自然言語処理の研究に従事"
+      - "Andreas Vlachos 教授の受け入れのもと、Diana Galván Sosa 氏と密に連携して Vision&nbsp;&amp;&nbsp;Language・自然言語処理の<span class=\"nowrap\">研究に従事</span>"
     date: "2026.09 – 現在"
   - title_html: "Machine Learning Research Engineer Intern / Contractor @ <a href=\"https://tur.ing/\">Turing Inc.</a>"
     lines:
@@ -177,7 +193,7 @@ experience:
     date: "2024.04 – 現在"
   - title_html: "Research Assistant @ 東北大学 データ駆動科学・AI教育研究センター"
     lines:
-      - "実験環境の構築、ドキュメント・データの整備、関連プロジェクトの運営などを通じた研究活動の支援"
+      - "実験環境の構築、ドキュメント・データの整備、関連プロジェクトの運営などを通じた<span class=\"nowrap\">研究活動の支援</span>"
     date: "2023.04 – 2027.03（予定）"
   - title_html: "Part-time Machine Learning Engineer @ <a href=\"https://www.future.co.jp/\">Future Inc.</a>"
     lines:
@@ -633,7 +649,7 @@ publications:
           icon: "images/file-powerpoint-regular.svg"
       badges:
         - kind: "prize"
-          label: "第5回対話システムライブコンペティション 優秀賞（第2位）"
+          label: "第5回対話システムライブコンペティション <span class=\"nowrap\">優秀賞（第2位）</span>"
           icon: "images/star-solid.svg"
 
   books:
@@ -666,7 +682,7 @@ projects:
 
   - title: "数学的推論に特化した日本語 LLM の大規模ファインチューニング"
     lines:
-      - "スーパーコンピュータ ABCI 3.0 上で NeMo を用いた、数学的推論タスクに特化した日本語 LLM の大規模ファインチューニングに共同で従事"
+      - "スーパーコンピュータ ABCI 3.0 上で NeMo を用いた、数学的推論タスクに特化した日本語 LLM の大規模ファインチューニングに<span class=\"nowrap\">共同で従事</span>"
       - "<a href=\"https://llm-jp.github.io/tuning-competition/2026/feature.html\">FT-LLM2026 数学タスク</a>にて <strong>オープン部門 1位</strong>・<strong>総合部門 2位</strong>を獲得"
     date: "2026.03"
     links:
@@ -675,7 +691,7 @@ projects:
         href: "https://huggingface.co/team-dentaku"
         icon: "images/database-solid.svg"
 
-  - title: "LVLM に関する最新知見（2024年時点）をまとめたスライドの公開"
+  - title_html: "LVLM に関する最新知見（2024年時点）を<span class=\"nowrap\">まとめた</span>スライドの公開"
     lines:
       - "個人プロジェクト:「Large Vision Language Model (LVLM) に関する最新知見まとめ (Part 1)」"
     date: "2024.11"
@@ -698,7 +714,7 @@ projects:
 
   - title: "長系列処理に対応した日本語 BERT モデルの構築"
     lines:
-      - "スーパーコンピュータ TSUBAME4.0 上で Megatron-LM を用いた、長系列入力に対応する日本語 BERT モデルの開発・分散事前学習に共同で従事"
+      - "スーパーコンピュータ TSUBAME4.0 上で Megatron-LM を用いた、長系列入力に対応する日本語 BERT モデルの開発・分散事前学習に<span class=\"nowrap\">共同で従事</span>"
     date: "2024.06"
     links:
       - kind: "model"
@@ -709,16 +725,16 @@ projects:
 awards:
   - title_html: "<a href=\"https://llm-jp.github.io/tuning-competition/2026/feature.html\">FT-LLM2026</a> 数学タスクにて <strong>オープン部門 1位・総合部門 2位</strong>"
     date: "2026.03"
-  - title_html: "言語処理学会第30回年次大会（NLP 2024） <strong>委員特別賞受賞</strong>"
+  - title_html: "言語処理学会第30回年次大会（NLP&nbsp;2024） <strong>委員特別賞受賞</strong>"
     date: "2024.03"
     note: "(26件/567件≒4.59%)"
   - title_html: "第5回対話<wbr>システム<wbr>ライブ<wbr>コンペティション オープントラック <strong>優秀賞受賞（第2位）</strong>"
     date: "2022.12"
 
 talks:
-  - title: "Words or Vision: Do Vision-Language Models Have Blind Faith in Text? (CVPR 2025)"
+  - title: "Words or Vision: Do Vision-Language Models Have Blind Faith in Text? (CVPR&nbsp;2025)"
     lines:
-      - "<a href=\"https://sites.google.com/view/snlp-jp/home/2025\">第17回 最先端NLP勉強会（SNLP 2025）</a> 発表資料"
+      - "<a href=\"https://sites.google.com/view/snlp-jp/home/2025\">第17回 最先端NLP勉強会（SNLP&nbsp;2025）</a> <span class=\"nowrap\">発表資料</span>"
     date: "2025.08"
     links:
       - kind: "slide"

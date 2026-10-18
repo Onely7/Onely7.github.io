@@ -40,7 +40,32 @@
           {%- unless forloop.last -%}{{ " " }}{%- endunless -%}
         {%- endfor -%}
       </p>
-      <p class="pub-authors">{{ pub.authors_html }}</p>
+      {%- comment -%}
+        Each author name is kept on one line (no break inside "山口 祐" or
+        "Jun Suzuki"). A note after the last name, such as
+        " (*: equal contribution)", follows as a unit of its own.
+      {%- endcomment -%}
+      {%- assign author_list = pub.authors_html | split: ", " %}
+      <p class="pub-authors">
+        {%- for a in author_list -%}
+          {%- assign a_name = a -%}
+          {%- assign a_note = "" -%}
+          {%- assign a_sep = "" -%}
+          {%- if forloop.last and a contains ". (" -%}
+            {%- assign a_parts = a | split: ". (" -%}
+            {%- assign a_name = a_parts[0] | append: "." -%}
+            {%- assign a_note = a_parts[1] | prepend: "(" -%}
+            {%- assign a_sep = " " -%}
+          {%- elsif forloop.last and a contains ".（" -%}
+            {%- assign a_parts = a | split: ".（" -%}
+            {%- assign a_name = a_parts[0] | append: "." -%}
+            {%- assign a_note = a_parts[1] | prepend: "（" -%}
+          {%- endif -%}
+          <span class="author">{{ a_name }}</span>
+          {%- if a_note != "" -%}{{ a_sep }}<span class="nowrap">{{ a_note }}</span>{%- endif -%}
+          {%- unless forloop.last -%}{{ ", " }}{%- endunless -%}
+        {%- endfor -%}
+      </p>
       <p class="pub-venue">{{ pub.venue_html }}</p>
       {%- include link-buttons.html links=pub.links badges=pub.badges %}
     </div>

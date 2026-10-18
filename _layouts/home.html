@@ -2,7 +2,8 @@
   Shared layout for index.html (English) and index.ja.html (Japanese).
   The page's front matter `lang` selects the data file:
     en -> _data/publications.yaml, ja -> _data/publications_ja.yaml
-  Repeated blocks live in _includes/ (pub-list, item, link-buttons, icon).
+  Repeated blocks live in _includes/ (section-title, pub-list, item,
+  link-buttons, icon, ja-wbr).
 {%- endcomment -%}
 {%- if page.lang == "ja" -%}
   {%- assign data = site.data.publications_ja -%}
@@ -80,11 +81,12 @@
     <!-- reset css (version pinned so that future releases cannot change the layout) -->
     <link rel="stylesheet" href="https://unpkg.com/ress@5.0.2/dist/ress.min.css" />
 
-    <!-- fonts: Inter (Latin) + Noto Sans JP (Japanese) -->
+    <!-- fonts: Shippori Mincho (name, headings), Zen Kaku Gothic New (text),
+         IBM Plex Mono (dates, labels, link chips) -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@300..700&family=Noto+Sans+JP:wght@300..700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Shippori+Mincho:wght@600;700&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap"
       rel="stylesheet"
     />
 
@@ -153,6 +155,9 @@
             </a>
 
             <h1 class="profile-name">{{ data.profile.name }}</h1>
+            {%- if page_lang == "ja" and data.profile.name_en %}
+            <p class="profile-romaji" lang="en">{{ data.profile.name_en }}</p>
+            {%- endif %}
             {%- if data.profile.position %}
             <p class="profile-position">{{ data.profile.position }}</p>
             {%- endif %}
@@ -259,7 +264,7 @@
 
         <!-- News -->
         <section class="section" id="news" aria-labelledby="news-title">
-          <h2 class="section-title" id="news-title">{{ data.headings.news }}</h2>
+          {% include section-title.html key="news" id="news-title" %}
           <ol class="news-list">
             {%- for n in data.news limit: 6 %}
             <li class="news-item">
@@ -288,7 +293,7 @@
 
         <!-- Education -->
         <section class="section" id="education" aria-labelledby="education-title">
-          <h2 class="section-title" id="education-title">{{ data.headings.biography }}</h2>
+          {% include section-title.html key="biography" id="education-title" %}
           <ol class="row-list">
             {%- for it in data.biography %}
             {% include item.html item=it %}
@@ -298,7 +303,7 @@
 
         <!-- Experience -->
         <section class="section" id="experience" aria-labelledby="experience-title">
-          <h2 class="section-title" id="experience-title">{{ data.headings.experience }}</h2>
+          {% include section-title.html key="experience" id="experience-title" %}
           <ol class="row-list">
             {%- for it in data.experience %}
             {% include item.html item=it %}
@@ -308,33 +313,72 @@
 
         <!-- Publications -->
         <section class="section" id="publications" aria-labelledby="publications-title">
-          <h2 class="section-title" id="publications-title">{{ data.headings.publications }}</h2>
+          {% include section-title.html key="publications" id="publications-title" %}
           <p class="section-note">{{ data.labels.pub_note }}</p>
 
-          <h3 class="subsection-title" id="journals">
-            {{ data.headings.journals }}<span class="count">{{ data.publications.journals.size }}</span>
-          </h3>
-          {% include pub-list.html pubs=data.publications.journals %}
+          {%- comment -%}
+            The four kinds of publications (key in the data files / anchor id).
+            Each kind is a group that the filter buttons show or hide.
+          {%- endcomment -%}
+          {%- assign pub_keys = "journals,international_conferences,domestic_conferences,books" | split: "," %}
+          {%- assign pub_ids = "journals,international-conferences,domestic-conferences,books" | split: "," %}
+          {%- assign pub_total = 0 %}
+          {%- for k in pub_keys %}
+          {%- assign pub_items = data.publications[k] %}
+          {%- assign pub_total = pub_total | plus: pub_items.size %}
+          {%- endfor %}
 
-          <h3 class="subsection-title" id="international-conferences">
-            {{ data.headings.international_conferences }}<span class="count">{{ data.publications.international_conferences.size }}</span>
-          </h3>
-          {% include pub-list.html pubs=data.publications.international_conferences %}
+          <!-- filter buttons and search box (shown by js/style.js) -->
+          <div class="pub-tools" id="pub-tools" data-status="{{ data.pub_ui.status | escape }}" hidden>
+            <div class="pub-filter" role="group" aria-label="{{ data.pub_ui.filter_label }}">
+              <button type="button" class="filter-btn" data-filter="all" aria-pressed="true">
+                <span>{{ data.pub_ui.all }}</span><span class="filter-count">{{ pub_total }}</span>
+              </button>
+              {%- for k in pub_keys %}
+              {%- assign pub_items = data.publications[k] %}
+              <button type="button" class="filter-btn" data-filter="{{ pub_ids[forloop.index0] }}" aria-pressed="false">
+                <span>{{ data.pub_ui[k] }}</span><span class="filter-count">{{ pub_items.size }}</span>
+              </button>
+              {%- endfor %}
+            </div>
+            <div class="pub-search">
+              <label class="visually-hidden" for="pub-search">{{ data.pub_ui.search_label }}</label>
+              {%- include icon.html src="images/magnifying-glass-solid.svg" class="pub-search-icon" %}
+              <input
+                type="search"
+                id="pub-search"
+                placeholder="{{ data.pub_ui.search }}"
+                autocomplete="off"
+                spellcheck="false"
+                enterkeyhint="search"
+              />
+              <button type="button" class="search-clear" aria-label="{{ data.pub_ui.clear }}" title="{{ data.pub_ui.clear }}" hidden>
+                {%- include icon.html src="images/xmark-solid.svg" %}
+              </button>
+            </div>
+          </div>
+          <p class="pub-status" id="pub-status" role="status" aria-live="polite"></p>
 
-          <h3 class="subsection-title" id="domestic-conferences">
-            {{ data.headings.domestic_conferences }}<span class="count">{{ data.publications.domestic_conferences.size }}</span>
-          </h3>
-          {% include pub-list.html pubs=data.publications.domestic_conferences %}
+          {%- for k in pub_keys %}
+          {%- assign pub_id = pub_ids[forloop.index0] %}
+          {%- assign pub_items = data.publications[k] %}
+          <div class="pub-group" data-group="{{ pub_id }}">
+            <h3 class="subsection-title" id="{{ pub_id }}">
+              {{ data.headings[k] }}<span class="count">{{ pub_items.size }}</span>
+            </h3>
+            {% include pub-list.html pubs=pub_items %}
+          </div>
+          {%- endfor %}
 
-          <h3 class="subsection-title" id="books">
-            {{ data.headings.books }}<span class="count">{{ data.publications.books.size }}</span>
-          </h3>
-          {% include pub-list.html pubs=data.publications.books %}
+          <div class="pub-empty" id="pub-empty" hidden>
+            <p>{{ data.pub_ui.empty }}</p>
+            <button type="button" class="pub-reset">{{ data.pub_ui.reset }}</button>
+          </div>
         </section>
 
         <!-- Projects -->
         <section class="section" id="projects" aria-labelledby="projects-title">
-          <h2 class="section-title" id="projects-title">{{ data.headings.projects }}</h2>
+          {% include section-title.html key="projects" id="projects-title" %}
           <ol class="row-list">
             {%- for it in data.projects %}
             {% include item.html item=it %}
@@ -344,7 +388,7 @@
 
         <!-- Awards -->
         <section class="section" id="awards" aria-labelledby="awards-title">
-          <h2 class="section-title" id="awards-title">{{ data.headings.awards }}</h2>
+          {% include section-title.html key="awards" id="awards-title" %}
           <ol class="row-list">
             {%- for it in data.awards %}
             {% include item.html item=it %}
@@ -354,7 +398,7 @@
 
         <!-- Talks -->
         <section class="section" id="talks" aria-labelledby="talks-title">
-          <h2 class="section-title" id="talks-title">{{ data.headings.talks }}</h2>
+          {% include section-title.html key="talks" id="talks-title" %}
           <ol class="row-list">
             {%- for it in data.talks %}
             {% include item.html item=it %}
@@ -364,7 +408,7 @@
 
         <!-- Activities -->
         <section class="section" id="activities" aria-labelledby="activities-title">
-          <h2 class="section-title" id="activities-title">{{ data.headings.activities }}</h2>
+          {% include section-title.html key="activities" id="activities-title" %}
           {%- for cat in data.activities %}
           <h3 class="subsection-title">{{ cat.category }}</h3>
           <ol class="row-list">
@@ -377,7 +421,7 @@
 
         <!-- Skills -->
         <section class="section" id="skills" aria-labelledby="skills-title">
-          <h2 class="section-title" id="skills-title">{{ data.headings.skills }}</h2>
+          {% include section-title.html key="skills" id="skills-title" %}
           <ul class="tag-list">
             {%- for s in data.skills %}
             <li class="tag">{{ s }}</li>

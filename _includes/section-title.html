@@ -1,0 +1,14 @@
+{%- comment -%}
+  A section title. On the Japanese page the English title follows as a small
+  label (hidden from screen readers, as it repeats the title).
+  usage: {% include section-title.html key="news" id="news-title" %}
+  key: a key of `headings` in the data files
+{%- endcomment -%}
+{%- assign st_title = data.headings[include.key] -%}
+{%- assign st_en = site.data.publications.headings[include.key] -%}
+<h2 class="section-title" id="{{ include.id }}">
+  <span>{{ st_title }}</span>
+  {%- if page.lang == "ja" and st_en != st_title %}
+  <span class="title-en" lang="en" aria-hidden="true">{{ st_en }}</span>
+  {%- endif %}
+</h2>

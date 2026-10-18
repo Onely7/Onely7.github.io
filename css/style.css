@@ -19,20 +19,37 @@
     --line: rgba(68, 51, 34, 0.12);
     --line-strong: rgba(68, 51, 34, 0.22);
 
-    --font: "Inter", "Noto Sans JP", "Hiragino Sans", "Hiragino Kaku Gothic ProN",
-        "Yu Gothic", YuGothic, Meiryo, system-ui, sans-serif;
+    /* Fonts (the same three families as otofu.org)
+       serif: the name and headings      (Shippori Mincho)
+       sans:  body text, Japanese and English (Zen Kaku Gothic New)
+       mono:  dates, labels, counts, link chips, footer (IBM Plex Mono;
+              Japanese characters in these fall back to the sans) */
+    --serif: "Shippori Mincho", "Hiragino Mincho ProN", "Yu Mincho", YuMincho, serif;
+    --sans: "Zen Kaku Gothic New", "Hiragino Kaku Gothic ProN", "Hiragino Sans",
+        "Yu Gothic", YuGothic, Meiryo, sans-serif;
+    --mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Consolas,
+        "Zen Kaku Gothic New", "Hiragino Kaku Gothic ProN", "Yu Gothic", monospace;
 
-    /* Type scale: only these five sizes are used on a page.
-       The body size is chosen first; the others are derived from it.
-       s: captions, dates, chips, labels   m: body text (base)
-       l: item titles                       xl: lead text, name
-       xxl: section titles (jump ratio about 2.5 to the body) */
-    --fs-s: 14px;
-    --fs-m: 17px;
-    --fs-l: 21px;
-    --fs-xl: 27px;
-    --fs-xxl: 42px;
-    --lh-body: 1.7;
+    /* Type scale: the font sizes of otofu.org (the same for English and
+       Japanese). Heading jump ratios to the 15.5px body text:
+       name 2.84 (44px) / section titles 1.68 (26px) / subsections 1.23 (19px).
+       Phones (560px and below): body 15px, section titles 22px (1.47),
+       subsections 17px (1.13). The name is 44px in the sidebar (otofu.org:
+       44px to 72px with the screen width; the same on tablets, see below). */
+    --fs-name: 44px;       /* profile name (serif) */
+    --fs-h2: 26px;         /* section titles (serif) */
+    --fs-h3: 19px;         /* subsection titles (serif) */
+    --fs-h4: 17px;         /* venue on the figure tiles (serif) */
+    --fs-body: 15.5px;     /* body text, item and paper titles */
+    --fs-lede: 15px;       /* About text */
+    --fs-text: 14px;       /* news, small headings, sidebar, tags, buttons */
+    --fs-sub: 13.5px;      /* authors, item details */
+    --fs-small: 13px;      /* venue, notes, table of contents, search */
+    --fs-filter: 13px;     /* filter buttons */
+    --fs-meta: 12px;       /* dates, labels, counts, footer (mono) */
+    --fs-badge: 11.5px;    /* award badges */
+    --fs-chip: 11px;       /* link chips (mono) */
+    --lh-body: 1.85;
 
     --sidebar-w: 300px;
     --content-max: 880px;
@@ -40,13 +57,13 @@
     --radius-md: 16px;
     --radius-sm: 10px;
 }
-/* Japanese glyphs look larger, so the Japanese page uses one step smaller sizes */
-:root:lang(ja) {
-    --fs-m: 16px;
-    --fs-l: 20px;
-    --fs-xl: 24px;
-    --fs-xxl: 40px;
-    --lh-body: 1.85;
+@media (max-width: 560px) {
+    :root {
+        --fs-h2: 22px;
+        --fs-h3: 17px;
+        --fs-body: 15px;
+        --fs-filter: 12.5px;
+    }
 }
 
 /* ----------------------------------------------------------
@@ -57,8 +74,8 @@ html {
     scroll-behavior: smooth;
 }
 body {
-    font-family: var(--font);
-    font-size: var(--fs-m);
+    font-family: var(--sans);
+    font-size: var(--fs-body);
     line-height: var(--lh-body);
     color: var(--text);
     background: var(--bg);
@@ -70,7 +87,7 @@ a {
     color: inherit;
     text-decoration: none;
 }
-/* a fixed weight, so emphasis inside bold titles does not jump to black (900) */
+/* the sans font is loaded in 400, 500 and 700 */
 b,
 strong {
     font-weight: 700;
@@ -85,6 +102,19 @@ img {
 }
 [hidden] {
     display: none !important;
+}
+/* text for screen readers only */
+.visually-hidden {
+    position: absolute !important;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    clip-path: inset(50%);
+    white-space: nowrap;
+    border: 0;
 }
 
 /* keyboard focus (ress removes the default outline) */
@@ -106,8 +136,8 @@ summary:focus-visible {
     border-radius: 999px;
     background: var(--main);
     color: #fff;
-    font-size: var(--fs-s);
-    font-weight: 600;
+    font-size: var(--fs-small);
+    font-weight: 700;
 }
 .skip-link:focus {
     top: 12px;
@@ -174,9 +204,6 @@ summary:focus-visible {
 .pub-venue {
     text-wrap: pretty;
 }
-.lead {
-    text-wrap: balance;
-}
 /* Japanese titles: break between phrases (long compound words get extra
    break hints, see _includes/ja-wbr.html); `text-wrap: pretty` (set above)
    avoids a lone fragment on the last line. (`balance` is not used here:
@@ -186,7 +213,7 @@ summary:focus-visible {
     word-break: auto-phrase;
 }
 /* Japanese: the lead and section titles break between phrases (item titles:
-   see below); paragraphs keep the normal Japanese line breaking so that their
+   see above); paragraphs keep the normal Japanese line breaking so that their
    lines stay evenly filled. No line starts with "ー" or a small kana. */
 .lead:lang(ja),
 .section-title:lang(ja) {
@@ -233,7 +260,7 @@ summary:focus-visible {
     display: block;
     width: 148px;
     height: 148px;
-    margin-bottom: 16px;
+    margin-bottom: 18px;
     padding: 5px;
     border-radius: 50%;
     background: #fff;
@@ -252,26 +279,37 @@ summary:focus-visible {
 .avatar img {
     object-fit: cover;
 }
+/* the tracking after the last letter is balanced by the left padding,
+   so that the centred name stays in the middle */
 .profile-name {
-    font-size: var(--fs-xl);
-    font-weight: 600;
-    line-height: 1.25;
-    letter-spacing: -0.015em;
+    padding-left: 0.14em;
+    font-family: var(--serif);
+    font-size: var(--fs-name);
+    font-weight: 700;
+    line-height: 1.15;
+    letter-spacing: 0.14em;
 }
-.profile-name:lang(ja) {
-    letter-spacing: 0.04em;
+.profile-romaji {
+    margin-top: 10px;
+    padding-left: 0.28em;
+    font-family: var(--mono);
+    font-size: var(--fs-text);
+    line-height: 1.5;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--text-2);
 }
 .profile-position {
-    margin-top: 6px;
-    font-size: var(--fs-s);
-    line-height: 1.5;
+    margin-top: 10px;
+    font-size: var(--fs-text);
+    line-height: 1.6;
     color: var(--text-2);
 }
 .profile-group {
     margin-top: 2px;
-    font-size: var(--fs-s);
+    font-size: var(--fs-text);
     font-weight: 500;
-    line-height: 1.5;
+    line-height: 1.6;
 }
 .social {
     display: flex;
@@ -307,9 +345,10 @@ summary:focus-visible {
     gap: 12px;
     padding: 6px 12px;
     border-radius: var(--radius-sm);
-    font-size: var(--fs-m);
+    font-size: var(--fs-text);
     font-weight: 500;
     line-height: 1.5;
+    letter-spacing: 0.04em;
     transition: background-color 0.2s;
 }
 .nav-link:hover {
@@ -322,11 +361,11 @@ summary:focus-visible {
     border-top: 1px solid var(--line);
 }
 .toc-title {
-    margin: 0 0 6px 12px;
-    font-size: var(--fs-s);
-    font-weight: 600;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
+    margin: 0 0 4px 12px;
+    font-size: var(--fs-text);
+    font-weight: 700;
+    line-height: 1.6;
+    letter-spacing: 0.14em;
     color: var(--text-2);
 }
 .toc-list {
@@ -339,8 +378,9 @@ summary:focus-visible {
     display: block;
     padding: 2px 10px;
     border-left: 2px solid transparent;
-    font-size: var(--fs-s);
-    line-height: 1.6;
+    font-size: var(--fs-small);
+    line-height: 1.7;
+    letter-spacing: 0.05em;
     color: var(--text-2);
     transition: color 0.2s, border-color 0.2s;
 }
@@ -350,7 +390,7 @@ summary:focus-visible {
 .toc-list a.is-active {
     border-left-color: var(--accent);
     color: var(--main);
-    font-weight: 600;
+    font-weight: 700;
 }
 
 /* scroll cue (phones only) */
@@ -362,22 +402,33 @@ summary:focus-visible {
    Sections
    ---------------------------------------------------------- */
 .section {
-    padding: 72px 0;
+    padding: 60px 0;
     border-top: 1px solid var(--line);
 }
+/* section title; on the Japanese page the English title follows as a label */
 .section-title {
-    margin-bottom: 32px;
-    font-size: var(--fs-xxl);
-    font-weight: 500;
-    line-height: 1.15;
-    letter-spacing: -0.025em;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    column-gap: 16px;
+    margin-bottom: 28px;
+    font-family: var(--serif);
+    font-size: var(--fs-h2);
+    font-weight: 600;
+    line-height: 1.5;
+    letter-spacing: 0.12em;
 }
-.section-title:lang(ja) {
-    letter-spacing: 0.02em;
+.title-en {
+    font-family: var(--mono);
+    font-size: var(--fs-meta);
+    font-weight: 400;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--text-3);
 }
 .section-note {
-    margin: -18px 0 8px;
-    font-size: var(--fs-s);
+    margin: -16px 0 0;
+    font-size: var(--fs-small);
     color: var(--text-2);
 }
 .section-note u {
@@ -388,18 +439,14 @@ summary:focus-visible {
 .subsection-title {
     display: flex;
     align-items: center;
-    gap: 10px;
-    margin: 44px 0 8px;
-    font-size: var(--fs-s);
+    gap: 12px;
+    margin: 44px 0 6px;
+    font-family: var(--serif);
+    font-size: var(--fs-h3);
     font-weight: 600;
     line-height: 1.5;
     letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--accent-ink);
     scroll-margin-top: 24px;
-}
-.subsection-title:lang(ja) {
-    letter-spacing: 0.06em;
 }
 .subsection-title::after {
     content: "";
@@ -408,14 +455,16 @@ summary:focus-visible {
     background: var(--line);
 }
 .subsection-title .count {
-    min-width: 26px;
+    min-width: 28px;
     padding: 0 8px;
     border-radius: 999px;
     background: var(--accent-soft);
-    font-weight: 600;
+    font-family: var(--mono);
+    font-size: var(--fs-meta);
+    font-weight: 500;
+    line-height: 1.8;
     letter-spacing: 0;
     text-align: center;
-    color: var(--main);
 }
 
 /* hero (about) */
@@ -427,10 +476,11 @@ summary:focus-visible {
     display: flex;
     align-items: center;
     gap: 12px;
-    font-size: var(--fs-s);
-    font-weight: 600;
+    font-family: var(--mono);
+    font-size: var(--fs-meta);
+    font-weight: 400;
     line-height: 1.5;
-    letter-spacing: 0.14em;
+    letter-spacing: 0.22em;
     text-transform: uppercase;
     color: var(--accent-ink);
 }
@@ -442,41 +492,35 @@ summary:focus-visible {
     background: var(--accent);
 }
 .hero-text {
-    margin-top: 22px;
-}
-.lead {
-    font-size: var(--fs-xl);
-    font-weight: 400;
-    line-height: 1.5;
-    letter-spacing: -0.015em;
-}
-.lead:lang(ja) {
-    line-height: 1.75;
-    letter-spacing: 0.02em;
-}
-.hero-sub {
     max-width: 44em;
     margin-top: 20px;
-    font-size: var(--fs-m);
+}
+.lead {
+    font-size: var(--fs-lede);
+}
+.hero-sub {
+    margin-top: 10px;
+    font-size: var(--fs-lede);
     color: var(--text-2);
 }
 .hero-actions {
     display: flex;
     flex-wrap: wrap;
     gap: 12px;
-    margin-top: 32px;
+    margin-top: 28px;
 }
 .button {
-    --icon-size: 17px;
+    --icon-size: 15px;
     display: inline-flex;
     align-items: center;
     gap: 10px;
-    min-height: 50px;
-    padding: 10px 24px;
+    min-height: 46px;
+    padding: 10px 22px;
     border-radius: 999px;
-    font-size: var(--fs-m);
-    font-weight: 600;
+    font-size: var(--fs-text);
+    font-weight: 500;
     line-height: 1.3;
+    letter-spacing: 0.04em;
     transition: background-color 0.2s, box-shadow 0.2s;
 }
 .button-primary {
@@ -494,7 +538,7 @@ summary:focus-visible {
     background: var(--base);
 }
 .button .button-arrow {
-    --icon-size: 14px;
+    --icon-size: 13px;
     transition: transform 0.2s;
 }
 .button:hover .button-arrow {
@@ -505,14 +549,13 @@ summary:focus-visible {
     flex-wrap: wrap;
     align-items: center;
     gap: 12px 16px;
-    margin-top: 40px;
+    margin-top: 36px;
 }
 .label {
-    font-size: var(--fs-s);
-    font-weight: 600;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--text-2);
+    font-size: var(--fs-text);
+    font-weight: 700;
+    line-height: 1.6;
+    letter-spacing: 0.14em;
 }
 .tag-list {
     display: flex;
@@ -521,12 +564,12 @@ summary:focus-visible {
     list-style: none;
 }
 .tag {
-    padding: 6px 16px;
+    padding: 5px 15px;
     border-radius: 999px;
     background: var(--base);
-    font-size: var(--fs-s);
+    font-size: var(--fs-text);
     font-weight: 500;
-    line-height: 1.45;
+    line-height: 1.5;
 }
 
 /* news */
@@ -536,8 +579,9 @@ summary:focus-visible {
 .news-item {
     display: grid;
     grid-template-columns: 6rem minmax(0, 1fr);
+    align-items: baseline;
     gap: 24px;
-    padding: 16px 0;
+    padding: 14px 0;
     border-top: 1px solid var(--line);
 }
 .news-item:first-child {
@@ -545,29 +589,32 @@ summary:focus-visible {
     padding-top: 0;
 }
 .news-date {
-    padding-top: 0.15em;
-    font-size: var(--fs-s);
-    font-weight: 600;
+    font-family: var(--mono);
+    font-size: var(--fs-meta);
     line-height: 1.7;
     color: var(--text-3);
-    font-variant-numeric: tabular-nums;
 }
 .news-text {
-    font-size: var(--fs-m);
+    font-size: var(--fs-text);
+    line-height: 1.7;
 }
 .more {
     margin-top: 12px;
 }
-.more summary {
-    --icon-size: 12px;
+.more summary,
+.pub-reset {
+    --icon-size: 11px;
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    padding: 8px 18px;
+    min-height: 38px;
+    padding: 7px 18px;
     border-radius: 999px;
     box-shadow: inset 0 0 0 1px var(--line-strong);
-    font-size: var(--fs-s);
-    font-weight: 600;
+    font-size: var(--fs-small);
+    font-weight: 500;
+    line-height: 1.4;
+    letter-spacing: 0.06em;
     list-style: none;
     cursor: pointer;
     transition: background-color 0.2s;
@@ -575,7 +622,8 @@ summary:focus-visible {
 .more summary::-webkit-details-marker {
     display: none;
 }
-.more summary:hover {
+.more summary:hover,
+.pub-reset:hover {
     background: var(--base);
 }
 .more .more-icon {
@@ -588,7 +636,7 @@ summary:focus-visible {
     margin-top: 16px;
 }
 .more > .news-list .news-item:first-child {
-    padding-top: 16px;
+    padding-top: 14px;
     border-top: 1px solid var(--line);
 }
 
@@ -599,8 +647,9 @@ summary:focus-visible {
 .row {
     display: grid;
     grid-template-columns: 12rem minmax(0, 1fr);
+    align-items: baseline;
     gap: 28px;
-    padding: 22px 0;
+    padding: 20px 0;
     border-top: 1px solid var(--line);
 }
 .row:first-child {
@@ -608,28 +657,151 @@ summary:focus-visible {
     padding-top: 4px;
 }
 .row-date {
-    padding-top: 0.3em;
     word-break: keep-all;
     overflow-wrap: anywhere;
-    font-size: var(--fs-s);
-    font-weight: 500;
-    line-height: 1.6;
+    font-family: var(--mono);
+    font-size: var(--fs-meta);
+    line-height: 1.7;
     color: var(--text-3);
-    font-variant-numeric: tabular-nums;
 }
 .row-title {
-    font-size: var(--fs-l);
-    font-weight: 600;
-    line-height: 1.4;
-    letter-spacing: -0.01em;
-}
-.row-title:lang(ja) {
-    letter-spacing: 0.01em;
+    font-size: var(--fs-body);
+    font-weight: 500;
+    line-height: 1.6;
 }
 .row-text {
-    margin-top: 4px;
-    font-size: var(--fs-m);
+    margin-top: 2px;
+    font-size: var(--fs-sub);
     color: var(--text-2);
+}
+
+/* publications: filter buttons and search box (shown only with JavaScript) */
+.pub-tools {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 12px 16px;
+    margin-top: 24px;
+}
+.pub-filter {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+.filter-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    min-height: 36px;
+    padding: 6px 15px 6px 16px;
+    border-radius: 999px;
+    background: #fff;
+    box-shadow: inset 0 0 0 1px var(--line-strong);
+    font-size: var(--fs-filter);
+    font-weight: 500;
+    line-height: 1.4;
+    letter-spacing: 0.06em;
+    color: var(--main);
+    cursor: pointer;
+    transition: background-color 0.2s, box-shadow 0.2s, color 0.2s;
+}
+.filter-btn:hover {
+    background: var(--base);
+}
+.filter-btn[aria-pressed="true"] {
+    background: var(--main);
+    box-shadow: none;
+    color: #fff;
+}
+.filter-count {
+    font-family: var(--mono);
+    font-size: var(--fs-chip);
+    font-weight: 400;
+    letter-spacing: 0;
+    color: var(--text-3);
+}
+.filter-btn[aria-pressed="true"] .filter-count {
+    color: rgba(255, 255, 255, 0.75);
+}
+/* a kind without any paper matching the search */
+.filter-btn.is-empty:not([aria-pressed="true"]) {
+    color: var(--text-3);
+}
+.pub-search {
+    position: relative;
+    flex: 1 1 240px;
+    max-width: 360px;
+}
+.pub-search-icon {
+    --icon-size: 14px;
+    position: absolute;
+    top: 50%;
+    left: 15px;
+    color: var(--text-3);
+    transform: translateY(-50%);
+    pointer-events: none;
+}
+.pub-search input {
+    width: 100%;
+    min-height: 40px;
+    padding: 8px 40px;
+    border-radius: 999px;
+    background: #fff;
+    box-shadow: inset 0 0 0 1px var(--line-strong);
+    font-size: var(--fs-small);
+    line-height: 1.4;
+    color: var(--main);
+    transition: box-shadow 0.2s;
+}
+.pub-search input::placeholder {
+    color: var(--text-3);
+    opacity: 1;
+}
+.pub-search input:focus {
+    outline: none;
+    box-shadow: inset 0 0 0 2px var(--accent-ink);
+}
+/* the search box has its own clear button */
+.pub-search input::-webkit-search-cancel-button {
+    -webkit-appearance: none;
+    appearance: none;
+}
+.search-clear {
+    --icon-size: 12px;
+    position: absolute;
+    top: 50%;
+    right: 5px;
+    display: grid;
+    place-items: center;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    color: var(--text-2);
+    transform: translateY(-50%);
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+.search-clear:hover {
+    background: var(--base);
+}
+.pub-status:not(:empty) {
+    margin-top: 14px;
+    font-size: var(--fs-small);
+    color: var(--text-2);
+}
+.pub-empty {
+    margin-top: 28px;
+    padding: 28px 20px;
+    border-radius: var(--radius-md);
+    background: var(--base);
+    font-size: var(--fs-text);
+    text-align: center;
+    color: var(--text-2);
+}
+.pub-reset {
+    margin-top: 12px;
+    background: #fff;
+    color: var(--main);
 }
 
 /* publications: figure on the left, text on the right */
@@ -640,11 +812,11 @@ summary:focus-visible {
     display: grid;
     grid-template-columns: var(--media-w) minmax(0, 1fr);
     gap: 32px;
-    padding: 26px 0;
-    border-top: 1px solid var(--line);
+    padding: 24px 0;
 }
-.pub:first-child {
-    border-top: 0;
+/* a rule above every shown paper except the first one of its list */
+.pub:not([hidden]) ~ .pub {
+    border-top: 1px solid var(--line);
 }
 .pub-media {
     align-self: start;
@@ -671,52 +843,51 @@ summary:focus-visible {
     text-align: center;
 }
 .pub-tile-venue {
-    font-size: var(--fs-m);
-    font-weight: 700;
-    line-height: 1.2;
+    padding-left: 0.04em;
+    font-family: var(--serif);
+    font-size: var(--fs-h4);
+    font-weight: 600;
+    line-height: 1.3;
+    letter-spacing: 0.04em;
 }
 .pub-tile-year {
-    margin-top: 4px;
-    font-size: var(--fs-s);
-    font-weight: 500;
+    margin-top: 2px;
+    font-family: var(--mono);
+    font-size: var(--fs-meta);
     color: var(--text-2);
-    font-variant-numeric: tabular-nums;
 }
 .pub-tag {
-    margin-bottom: 4px;
-    font-size: var(--fs-s);
-    font-weight: 600;
-    line-height: 1.5;
-    letter-spacing: 0.06em;
+    margin-bottom: 2px;
+    font-family: var(--mono);
+    font-size: var(--fs-meta);
+    line-height: 1.6;
+    letter-spacing: 0.04em;
     color: var(--accent-ink);
 }
 .pub-title {
-    font-size: var(--fs-l);
-    font-weight: 600;
-    line-height: 1.4;
-    letter-spacing: -0.01em;
-}
-.pub-title:lang(ja) {
-    letter-spacing: 0.01em;
+    font-size: var(--fs-body);
+    font-weight: 500;
+    line-height: 1.6;
 }
 .pub-authors {
-    margin-top: 8px;
-    font-size: var(--fs-m);
-    line-height: 1.6;
+    margin-top: 6px;
+    font-size: var(--fs-sub);
     color: var(--text-2);
 }
+/* names are not broken across lines (_includes/pub-list.html) */
+.pub-authors .author {
+    white-space: nowrap;
+}
 .pub-authors u {
-    white-space: nowrap;    /* keep the highlighted name on one line */
     color: var(--main);
-    font-weight: 600;
+    font-weight: 700;
     text-decoration-color: var(--accent);
     text-decoration-thickness: 2px;
     text-underline-offset: 3px;
 }
 .pub-venue {
-    margin-top: 4px;
-    font-size: var(--fs-m);
-    line-height: 1.6;
+    margin-top: 2px;
+    font-size: var(--fs-small);
     color: var(--text-2);
 }
 .pub-venue em {
@@ -728,23 +899,25 @@ summary:focus-visible {
 .chips {
     display: flex;
     flex-wrap: wrap;
-    gap: 8px;
-    margin-top: 14px;
+    gap: 6px;
+    margin-top: 12px;
 }
 .chip {
-    --icon-size: 14px;
+    --icon-size: 12px;
     display: inline-flex;
     align-items: center;
-    gap: 7px;
+    gap: 6px;
     max-width: 100%;
-    min-height: 32px;
-    padding: 6px 14px 6px 12px;
+    min-height: 28px;
+    padding: 4px 12px 4px 10px;
     border-radius: 999px;
     background: #fff;
     box-shadow: inset 0 0 0 1px var(--line-strong);
-    font-size: var(--fs-s);
-    font-weight: 500;
-    line-height: 1.35;
+    font-family: var(--mono);
+    font-size: var(--fs-chip);
+    font-weight: 400;
+    line-height: 1.5;
+    letter-spacing: 0.04em;
     color: var(--main);
     transition: background-color 0.2s, box-shadow 0.2s;
 }
@@ -755,15 +928,20 @@ a.chip:hover {
 .chip-award {
     background: var(--accent-soft);
     box-shadow: none;
-    font-weight: 600;
+    font-family: var(--sans);
+    font-size: var(--fs-badge);
+    font-weight: 700;
+    letter-spacing: 0.06em;
 }
 
 /* footer */
 .footer {
     padding: 36px 0 8px;
     border-top: 1px solid var(--line);
-    font-size: var(--fs-s);
-    line-height: 1.7;
+    font-family: var(--mono);
+    font-size: var(--fs-meta);
+    line-height: 1.8;
+    letter-spacing: 0.06em;
     color: var(--text-3);
 }
 .footer-sep {
@@ -781,7 +959,7 @@ a.chip:hover {
     border-radius: 999px;
     background: var(--main);
     color: #fff;
-    font-size: var(--fs-s);
+    font-size: var(--fs-small);
     overflow-wrap: anywhere;
     opacity: 0;
     pointer-events: none;
@@ -808,20 +986,28 @@ a.chip:hover {
     }
 }
 
-/* short desktop screens: compact sidebar (an even more compact one below 680px) */
+/* desktop screens up to 900px tall: a slightly smaller photo */
+@media (min-width: 961px) and (max-height: 900px) {
+    .sidebar-inner {
+        padding-top: 32px;
+        padding-bottom: 24px;
+    }
+    .avatar {
+        width: 132px;
+        height: 132px;
+    }
+}
+/* short desktop screens: compact sidebar (an even more compact one below 720px) */
 @media (min-width: 961px) and (max-height: 820px) {
     .sidebar-inner {
-        gap: 14px;
-        padding: 26px 22px 22px;
+        gap: 12px;
+        padding: 24px 22px 20px;
     }
     .avatar {
         width: 104px;
         height: 104px;
-        margin-bottom: 10px;
+        margin-bottom: 12px;
         padding: 4px;
-    }
-    .profile-name {
-        font-size: var(--fs-l);
     }
     .social {
         margin-top: 6px;
@@ -842,18 +1028,22 @@ a.chip:hover {
         padding: 1px 10px;
     }
 }
-@media (min-width: 961px) and (max-height: 680px) {
+@media (min-width: 961px) and (max-height: 720px) {
+    :root {
+        --fs-name: 30px;    /* the English name fits on one line (two below 1100px) */
+    }
     .sidebar-inner {
         gap: 10px;
         padding-top: 16px;
-        padding-bottom: 14px;
+        padding-bottom: 10px;
     }
     .avatar {
         width: 72px;
         height: 72px;
-        margin-bottom: 6px;
+        margin-bottom: 8px;
         padding: 3px;
     }
+    .profile-romaji,
     .profile-position,
     .social {
         margin-top: 2px;
@@ -863,8 +1053,8 @@ a.chip:hover {
         padding-top: 8px;
     }
     .nav-link {
-        padding-top: 1px;
-        padding-bottom: 1px;
+        padding-top: 2px;
+        padding-bottom: 2px;
     }
 }
 
@@ -875,8 +1065,8 @@ a.chip:hover {
         --media-w: 200px;
     }
     .sidebar-inner {
-        padding-left: 22px;
-        padding-right: 22px;
+        padding-left: 20px;
+        padding-right: 20px;
     }
     .main {
         padding-left: 40px;
@@ -894,6 +1084,10 @@ a.chip:hover {
 /* tablets and phones: the sidebar is shown above the content
    (below 960px a side-by-side layout leaves too little room for the text) */
 @media (max-width: 960px) {
+    :root {
+        /* the name grows with the screen, as on otofu.org (44px to 72px) */
+        --fs-name: clamp(44px, 7vw, 72px);
+    }
     .page {
         display: block;
     }
@@ -904,7 +1098,7 @@ a.chip:hover {
         overflow: visible;
     }
     .sidebar-inner {
-        max-width: 600px;
+        max-width: 640px;
         margin: 0 auto;
         padding: 48px 24px 32px;
     }
@@ -928,13 +1122,7 @@ a.chip:hover {
 
 /* phones */
 @media (max-width: 600px) {
-    :root,
-    :root:lang(ja) {
-        --fs-s: 14px;
-        --fs-m: 16px;
-        --fs-l: 18px;
-        --fs-xl: 22px;
-        --fs-xxl: 30px;
+    :root {
         --media-w: 120px;
     }
     .sidebar {
@@ -952,9 +1140,6 @@ a.chip:hover {
     .avatar {
         width: 168px;
         height: 168px;
-    }
-    .profile-name {
-        font-size: var(--fs-xxl);
     }
     .nav-list {
         grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -985,13 +1170,13 @@ a.chip:hover {
         padding: 48px 20px 28px;
     }
     .section {
-        padding: 52px 0;
+        padding: 48px 0;
     }
     .section-title {
-        margin-bottom: 24px;
+        margin-bottom: 22px;
     }
     .section-note {
-        margin-top: -12px;
+        margin-top: -10px;
     }
     /* long subsection headings wrap: keep the count right after the text
        and draw the rule below instead of beside it */
@@ -999,7 +1184,6 @@ a.chip:hover {
         display: block;
         padding-bottom: 8px;
         border-bottom: 1px solid var(--line);
-        letter-spacing: 0.08em;
     }
     .subsection-title::after {
         content: none;
@@ -1007,21 +1191,18 @@ a.chip:hover {
     .subsection-title .count {
         /* inline (not inline-block), so it never wraps away from the last word */
         display: inline;
-        margin-left: 8px;
+        margin-left: 10px;
+        vertical-align: 0.1em;
     }
     .button {
-        min-height: 48px;
+        min-height: 46px;
         padding: 10px 20px;
     }
 
     .news-item,
     .row {
         grid-template-columns: minmax(0, 1fr);
-        gap: 4px;
-    }
-    .news-date,
-    .row-date {
-        padding-top: 0;
+        gap: 2px;
     }
 
     /* publications: a small figure at the top left; the venue and title
@@ -1048,6 +1229,11 @@ a.chip:hover {
     }
     .pub-authors {
         clear: left;
+    }
+    /* the search box gets a row of its own */
+    .pub-search {
+        flex-basis: 100%;
+        max-width: none;
     }
 
     /* the footer credits on separate lines */
@@ -1079,12 +1265,11 @@ a.chip:hover {
     }
 }
 @media (max-width: 359px) {
-    :root,
-    :root:lang(ja) {
+    :root {
         --media-w: 104px;
     }
     .nav-link {
-        font-size: var(--fs-s);
+        font-size: var(--fs-small);
     }
 }
 
@@ -1098,10 +1283,26 @@ a.chip:hover {
         height: 136px;
     }
 }
+@media (max-width: 600px) and (max-height: 600px) {
+    .sidebar-inner {
+        padding-top: 20px;
+    }
+    .avatar {
+        width: 104px;
+        height: 104px;
+        margin-bottom: 14px;
+    }
+    .social {
+        margin-top: 8px;
+    }
+}
 
 /* phones and tablets in landscape: a compact header instead of a
    full-screen cover, so that the links are visible on the first screen */
 @media (max-width: 960px) and (max-height: 500px) {
+    :root {
+        --fs-name: 30px;
+    }
     .sidebar {
         min-height: 0;
     }
@@ -1113,14 +1314,22 @@ a.chip:hover {
         width: 104px;
         height: 104px;
     }
-    .profile-name {
-        font-size: var(--fs-xl);
+    .profile-romaji,
+    .profile-position {
+        margin-top: 4px;
     }
     .nav-list {
         grid-template-columns: repeat(3, minmax(0, 1fr));
     }
     .scroll-cue {
         display: none;
+    }
+}
+
+/* touch screens: 16px in the search box, so that phones do not zoom in on focus */
+@media (hover: none) and (pointer: coarse) {
+    .pub-search input {
+        font-size: 16px;
     }
 }
 
