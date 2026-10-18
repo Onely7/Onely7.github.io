@@ -75,7 +75,7 @@ nav_items:
     icon: "images/file-arrow-down-solid.svg"
   - label: "ブログ"
     href: "https://onely7.github.io/my-dl-wiki/"
-    icon: "images/blog-solid.svg"
+    icon: "images/blog_mydlwiki_logo.svg"
   - label: "Tohoku NLP"
     href: "https://www.nlp.ecei.tohoku.ac.jp/"
     icon: "images/tohoku-nlp_logo.svg"
