@@ -175,6 +175,8 @@ research_interests:
 # 新しい順に記載。先頭 6 件を表示し、残りは「過去のニュースを表示」に折りたたみます。
 news:
   - date: "2026.10"
+    text_html: "ケンブリッジ大学の <a href=\"https://www.cst.cam.ac.uk/seminars/list/273207\"><strong>NLIP Seminar Series</strong></a> で「Large Vision-Language Models: How They See, Pass, and Answer」<span class=\"nowrap\">と題して講演しました。</span>"
+  - date: "2026.10"
     text_html: "共著論文「It's Not RoPE That Creates Sinks: The Role of Self-Concentration and Value-Non-Mixing in Attention」が <strong>EMNLP 2026</strong> に採択されました。"
   - date: "2026.09"
     text_html: "<strong>ケンブリッジ大学</strong>に留学し、Department of Computer Science and Technology の Andreas Vlachos 教授のもとで Visiting Researcher として研究を始めました。"
@@ -296,6 +298,10 @@ publications:
           label: "pdf"
           href: "https://openreview.net/forum?id=V7wtCCCvUZ"
           icon: "images/file-pdf-solid.svg"
+        - kind: "poster"
+          label: "poster"
+          href: "materials/emnlp2026_poster_kiya.pdf"
+          icon: "images/file-regular.svg"
         - kind: "code"
           label: "code"
           href: "https://github.com/kiya-raito/value-non-mixing"
@@ -786,6 +792,11 @@ awards:
     date: "2022.12"
 
 talks:
+  - title: "Large Vision-Language Models: How They See, Pass, and Answer"
+    lines:
+      - "<a href=\"https://www.cst.cam.ac.uk/seminars/list/273207\">NLIP Seminar Series</a>（ケンブリッジ大学 Department of Computer Science and Technology）"
+    date: "2026.10"
+
   - title: "Words or Vision: Do Vision-Language Models Have Blind Faith in Text? (CVPR&nbsp;2025)"
     lines:
       - "<a href=\"https://sites.google.com/view/snlp-jp/home/2025\">第17回 最先端NLP勉強会（SNLP&nbsp;2025）</a> <span class=\"nowrap\">発表資料</span>"

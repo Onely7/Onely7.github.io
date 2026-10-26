@@ -176,6 +176,8 @@ research_interests:
 # Newest first. The first 6 items are shown; the rest go under "Show older news".
 news:
   - date: "2026.10"
+    text_html: "Gave a talk titled “Large Vision-Language Models: How They See, Pass, and Answer” at the <a href=\"https://www.cst.cam.ac.uk/seminars/list/273207\"><strong>NLIP Seminar Series</strong></a>, University of Cambridge."
+  - date: "2026.10"
     text_html: "Our paper “It's Not RoPE That Creates Sinks: The Role of Self-Concentration and Value-Non-Mixing in Attention” was accepted to <strong>EMNLP 2026</strong>."
   - date: "2026.09"
     text_html: "Started a research visit at the <strong>University of Cambridge</strong> (Department of Computer Science and Technology) as a visiting researcher, hosted by Prof. Andreas Vlachos."
@@ -297,6 +299,10 @@ publications:
           label: "pdf"
           href: "https://openreview.net/forum?id=V7wtCCCvUZ"
           icon: "images/file-pdf-solid.svg"
+        - kind: "poster"
+          label: "poster"
+          href: "materials/emnlp2026_poster_kiya.pdf"
+          icon: "images/file-regular.svg"
         - kind: "code"
           label: "code"
           href: "https://github.com/kiya-raito/value-non-mixing"
@@ -801,6 +807,11 @@ awards:
     date: "Dec 2022"
 
 talks:
+  - title: "Large Vision-Language Models: How They See, Pass, and Answer"
+    lines:
+      - "<a href=\"https://www.cst.cam.ac.uk/seminars/list/273207\">NLIP Seminar Series</a>, Department of Computer Science and Technology, University&nbsp;of&nbsp;Cambridge"
+    date: "Oct 2026"
+
   - title: "Words or Vision: Do Vision-Language Models Have Blind Faith in Text? (CVPR&nbsp;2025)"
     lines:
       - "<a href=\"https://sites.google.com/view/snlp-jp/home/2025\">The 17th <em>Saisentan</em> NLP Study Group (SNLP&nbsp;2025)</a>"
