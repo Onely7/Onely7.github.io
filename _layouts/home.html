@@ -3,7 +3,7 @@
   The page's front matter `lang` selects the data file:
     en -> _data/publications.yaml, ja -> _data/publications_ja.yaml
   Repeated blocks live in _includes/ (section-title, pub-list, item,
-  link-buttons, icon, ja-wbr).
+  link-buttons, icon, ja-wbr, toc-list, nav-list).
 {%- endcomment -%}
 {%- if page.lang == "ja" -%}
   {%- assign data = site.data.publications_ja -%}
@@ -22,6 +22,8 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- "js" on <html>: styles that apply only when js/style.js runs (top bar) -->
+    <script>document.documentElement.classList.add("js");</script>
     <title>{{ data.site.title }}</title>
     <meta name="description" content="{{ data.site.description | escape }}" />
     <meta name="author" content="{{ data.profile.name_en | default: data.profile.name }}" />
@@ -128,7 +130,54 @@
   <body>
     <a class="skip-link" href="#main">{{ data.labels.skip_to_content }}</a>
 
-    <div class="page">
+    <!-- top bar (tablets and phones, hidden on desktop): a frosted-glass bar
+         fixed to the top of the screen. The name appears in it once the name
+         on the cover has scrolled under the bar; the menu button (shown by
+         js/style.js) opens a drawer with the table of contents and the site
+         links. -->
+    <header class="topbar" id="topbar">
+      <div class="topbar-bar">
+        <a class="topbar-brand" href="#top">
+          <picture>
+            <source
+              type="image/webp"
+              srcset="{{ data.profile.photo.webp_320 | relative_url }} 320w, {{ data.profile.photo.webp_480 | relative_url }} 480w"
+              sizes="30px"
+            />
+            <img
+              class="topbar-avatar"
+              src="{{ data.profile.photo.jpg | relative_url }}"
+              alt=""
+              width="30"
+              height="30"
+              decoding="async"
+            />
+          </picture>
+          <span class="topbar-name">{{ data.profile.name }}</span>
+        </a>
+        <button type="button" class="topbar-toggle" aria-expanded="false" aria-controls="topbar-menu" hidden>
+          <span class="topbar-toggle-icon" aria-hidden="true"><span></span><span></span><span></span></span>
+          <!-- "Menu" while closed, "Close" while open (the other is hidden) -->
+          <span class="topbar-toggle-label">
+            <span class="label-menu">{{ data.labels.menu }}</span>
+            <span class="label-close">{{ data.labels.close }}</span>
+          </span>
+        </button>
+      </div>
+      <nav class="topbar-menu" id="topbar-menu" aria-label="{{ data.labels.menu }}">
+        <div class="topbar-menu-scroll">
+          <div class="topbar-menu-inner">
+            <p class="toc-title">{{ data.headings.contents }}</p>
+            {% include toc-list.html %}
+            {% include nav-list.html %}
+          </div>
+        </div>
+      </nav>
+    </header>
+    <!-- dims the page while the drawer is open; a tap closes the drawer -->
+    <div class="topbar-scrim" aria-hidden="true"></div>
+
+    <div class="page" id="top">
       <!-- (left column): navigation -->
       <nav class="sidebar">
         <div class="sidebar-inner">
@@ -191,37 +240,12 @@
           </div>
 
           <!-- other links -->
-          <ul class="nav-list">
-            {%- for item in data.nav_items %}
-            {%- assign nav_href = item.href %}
-            <li>
-              <a
-                class="nav-link"
-                href="{% if nav_href contains '://' %}{{ nav_href }}{% else %}{{ nav_href | relative_url }}{% endif %}"
-                {%- if item.hreflang %} hreflang="{{ item.hreflang }}"{% endif %}
-              >
-                {%- include icon.html src=item.icon %}
-                <span>{{ item.label }}</span>
-              </a>
-            </li>
-            {%- endfor %}
-          </ul>
+          {% include nav-list.html %}
 
           <!-- table of contents (larger screens) -->
           <div class="toc" aria-labelledby="toc-title">
             <p class="toc-title" id="toc-title">{{ data.headings.contents }}</p>
-            <ol class="toc-list">
-              <li><a href="#about">{{ data.headings.about }}</a></li>
-              <li><a href="#news">{{ data.headings.news }}</a></li>
-              <li><a href="#education">{{ data.headings.biography }}</a></li>
-              <li><a href="#experience">{{ data.headings.experience }}</a></li>
-              <li><a href="#publications">{{ data.headings.publications }}</a></li>
-              <li><a href="#projects">{{ data.headings.projects }}</a></li>
-              <li><a href="#awards">{{ data.headings.awards }}</a></li>
-              <li><a href="#talks">{{ data.headings.talks }}</a></li>
-              <li><a href="#activities">{{ data.headings.activities }}</a></li>
-              <li><a href="#skills">{{ data.headings.skills }}</a></li>
-            </ol>
+            {% include toc-list.html %}
           </div>
         </div>
 

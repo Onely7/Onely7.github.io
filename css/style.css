@@ -57,6 +57,9 @@
     --media-w: 240px;
     --radius-md: 16px;
     --radius-sm: 10px;
+
+    /* motion: short and decelerating; nothing loops except the scroll cue */
+    --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
 }
 @media (max-width: 560px) {
     :root {
@@ -268,8 +271,11 @@ summary:focus-visible {
     box-shadow: 0 0 0 1px var(--accent), 0 12px 30px rgba(68, 51, 34, 0.12);
     transition: transform 0.3s ease;
 }
-.avatar:hover {
-    transform: translateY(-2px);
+/* (hover effects only with a mouse: on touch screens they would stay after a tap) */
+@media (hover: hover) {
+    .avatar:hover {
+        transform: translateY(-2px);
+    }
 }
 .avatar picture,
 .avatar img {
@@ -327,10 +333,21 @@ summary:focus-visible {
     height: 42px;
     border-radius: 50%;
     color: var(--main);
-    transition: background-color 0.2s;
+    transition: background-color 0.2s, transform 0.15s;
 }
-.icon-button:hover {
-    background: #fff;
+.icon-button .icon {
+    transition: translate 0.2s var(--ease-out);
+}
+.icon-button:active {
+    transform: scale(0.92);
+}
+@media (hover: hover) {
+    .icon-button:hover {
+        background: #fff;
+    }
+    .icon-button:hover .icon {
+        translate: 0 -1px;
+    }
 }
 
 /* site links */
@@ -350,10 +367,15 @@ summary:focus-visible {
     font-weight: 500;
     line-height: 1.5;
     letter-spacing: 0.04em;
-    transition: background-color 0.2s;
+    transition: background-color 0.2s, transform 0.15s;
 }
-.nav-link:hover {
-    background: rgba(255, 255, 255, 0.8);
+.nav-link:active {
+    transform: scale(0.98);
+}
+@media (hover: hover) {
+    .nav-link:hover {
+        background: rgba(255, 255, 255, 0.8);
+    }
 }
 
 /* table of contents */
@@ -385,8 +407,10 @@ summary:focus-visible {
     color: var(--text-2);
     transition: color 0.2s, border-color 0.2s;
 }
-.toc-list a:hover {
-    color: var(--main);
+@media (hover: hover) {
+    .toc-list a:hover {
+        color: var(--main);
+    }
 }
 .toc-list a.is-active {
     border-left-color: var(--accent);
@@ -543,14 +567,25 @@ summary:focus-visible {
     font-weight: 500;
     line-height: 1.3;
     letter-spacing: 0.04em;
-    transition: background-color 0.2s, box-shadow 0.2s;
+    transition: background-color 0.2s, box-shadow 0.2s, transform 0.15s;
+}
+.button .icon {
+    transition: translate 0.25s var(--ease-out);
+}
+.button:active {
+    transform: scale(0.97);
 }
 .button-primary {
     background: var(--main);
     color: #fff;
 }
-.button-primary:hover {
-    background: #2d2217;
+@media (hover: hover) {
+    .button-primary:hover {
+        background: #2d2217;
+    }
+    .button-primary:hover .icon {
+        translate: 0 2px;
+    }
 }
 .interests {
     display: flex;
@@ -625,20 +660,29 @@ summary:focus-visible {
     letter-spacing: 0.06em;
     list-style: none;
     cursor: pointer;
-    transition: background-color 0.2s;
+    transition: background-color 0.2s, transform 0.15s;
 }
 .more summary::-webkit-details-marker {
     display: none;
 }
-.more summary:hover,
-.pub-reset:hover {
-    background: var(--base);
+.more summary:active,
+.pub-reset:active {
+    transform: scale(0.97);
+}
+@media (hover: hover) {
+    .more summary:hover,
+    .pub-reset:hover {
+        background: var(--base);
+    }
 }
 .more .more-icon {
     transition: transform 0.2s;
 }
 .more[open] .more-icon {
     transform: rotate(180deg);
+}
+.more[open] > .news-list {
+    animation: rise-in 0.36s var(--ease-out) both;
 }
 .more > .news-list {
     margin-top: 16px;
@@ -711,10 +755,15 @@ summary:focus-visible {
     letter-spacing: 0.06em;
     color: var(--main);
     cursor: pointer;
-    transition: background-color 0.2s, box-shadow 0.2s, color 0.2s;
+    transition: background-color 0.2s, box-shadow 0.2s, color 0.2s, transform 0.15s;
 }
-.filter-btn:hover {
-    background: var(--base);
+.filter-btn:active {
+    transform: scale(0.96);
+}
+@media (hover: hover) {
+    .filter-btn:hover {
+        background: var(--base);
+    }
 }
 .filter-btn[aria-pressed="true"] {
     background: var(--main);
@@ -787,10 +836,16 @@ summary:focus-visible {
     color: var(--text-2);
     transform: translateY(-50%);
     cursor: pointer;
-    transition: background-color 0.2s;
+    transition: background-color 0.2s, scale 0.15s;
+    animation: fade-in 0.2s ease both;
 }
-.search-clear:hover {
-    background: var(--base);
+.search-clear:active {
+    scale: 0.9;
+}
+@media (hover: hover) {
+    .search-clear:hover {
+        background: var(--base);
+    }
 }
 .pub-status:not(:empty) {
     margin-top: 14px;
@@ -805,6 +860,7 @@ summary:focus-visible {
     font-size: var(--fs-text);
     text-align: center;
     color: var(--text-2);
+    animation: rise-in 0.36s var(--ease-out) both;
 }
 .pub-reset {
     margin-top: 12px;
@@ -821,6 +877,12 @@ summary:focus-visible {
     grid-template-columns: var(--media-w) minmax(0, 1fr);
     gap: 32px;
     padding: 24px 0;
+}
+/* papers (or a whole kind) brought back by the filter buttons or the search
+   rise in briefly (js/style.js adds .is-entering) */
+.pub-group.is-entering,
+.pub.is-entering {
+    animation: rise-in 0.36s var(--ease-out) both;
 }
 /* a rule above every shown paper except the first one of its list */
 .pub:not([hidden]) ~ .pub {
@@ -927,11 +989,16 @@ summary:focus-visible {
     line-height: 1.5;
     letter-spacing: 0.04em;
     color: var(--main);
-    transition: background-color 0.2s, box-shadow 0.2s;
+    transition: background-color 0.2s, box-shadow 0.2s, transform 0.15s;
 }
-a.chip:hover {
-    background: var(--accent-soft);
-    box-shadow: inset 0 0 0 1px var(--accent);
+a.chip:active {
+    transform: scale(0.96);
+}
+@media (hover: hover) {
+    a.chip:hover {
+        background: var(--accent-soft);
+        box-shadow: inset 0 0 0 1px var(--accent);
+    }
 }
 .chip-award {
     background: var(--accent-soft);
@@ -976,6 +1043,368 @@ a.chip:hover {
 .toast.is-visible {
     opacity: 1;
     transform: translate(-50%, 0);
+}
+
+/* ----------------------------------------------------------
+   Motion (shared keyframes). The small motions of this page: buttons and
+   chips sink a little while pressed, icons nudge on hover, content that
+   appears (papers brought back by the filter, older news, the search's
+   clear button, the empty message) rises or fades in once. All motion
+   stops when the reader prefers reduced motion (end of this file).
+   ---------------------------------------------------------- */
+@keyframes rise-in {
+    from {
+        opacity: 0;
+        transform: translateY(6px);
+    }
+}
+@keyframes fade-in {
+    from {
+        opacity: 0;
+    }
+}
+
+/* ----------------------------------------------------------
+   Top bar and menu drawer (tablets and phones: 960px and below;
+   hidden on desktop)
+   The bar: frosted glass fixed to the top of the screen. The page scrolls
+   behind it and shows through, blurred (backdrop-filter on the bar only,
+   so its own text and icons stay sharp). Left: the photo and the name,
+   which appear once the name on the cover has scrolled under the bar.
+   Right: the menu button.
+   The drawer: slides in below the bar from the right edge of the screen
+   while the page beside it dims, and slides back out the same way; it
+   holds the table of contents and the site links (what the sidebar shows
+   on desktop).
+   js/style.js sets .is-scrolled, .has-title and .is-open on .topbar and
+   .menu-open on <html>.
+   ---------------------------------------------------------- */
+.topbar,
+.topbar-scrim {
+    display: none;
+}
+@media (max-width: 960px) {
+    :root {
+        --topbar-h: 56px;
+        --topbar-pad: 28px;    /* the side margin of the content */
+        --drawer-w: 420px;     /* phones: all but a strip of the dimmed page */
+        /* the drawer moves fast and then slows down, both ways */
+        --drawer-open-time: 0.48s;
+        --drawer-open-ease: cubic-bezier(0.35, 0.15, 0.25, 0.9);
+        --drawer-close-time: 0.46s;
+        --drawer-close-ease: cubic-bezier(0.3, 0.2, 0.25, 0.9);
+    }
+    /* a link to a section stops below the bar (the sections have their own
+       top padding; the About section has almost none, so it gets a margin) */
+    html {
+        scroll-padding-top: var(--topbar-h);
+    }
+    .hero {
+        scroll-margin-top: 20px;
+    }
+    /* the page stays still behind the open drawer */
+    html.menu-open {
+        overflow: hidden;
+    }
+    .topbar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 60;
+        display: block;
+    }
+    .topbar-bar {
+        position: relative;
+        z-index: 1;    /* above the drawer and its shadow */
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        height: var(--topbar-h);
+        /* the menu button's label ends at the content margin */
+        padding: 0 calc(var(--topbar-pad) - 12px) 0 var(--topbar-pad);
+        /* the base colour, translucent, over the blurred page */
+        background: rgba(238, 240, 243, 0.62);
+        -webkit-backdrop-filter: blur(14px) saturate(170%);
+        backdrop-filter: blur(14px) saturate(170%);
+        transition: background-color 0.3s, box-shadow 0.3s;
+    }
+    /* a hairline and a soft shadow once the page has scrolled */
+    .topbar.is-scrolled .topbar-bar {
+        box-shadow: 0 1px 0 var(--line), 0 6px 24px rgba(68, 51, 34, 0.06);
+    }
+    /* while the drawer is open the bar takes the drawer's colour */
+    .topbar.is-open .topbar-bar {
+        background: rgba(238, 240, 243, 0.96);
+        box-shadow: 0 1px 0 var(--line);
+    }
+    /* browsers without backdrop-filter: an almost opaque bar */
+    @supports not ((-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px))) {
+        .topbar-bar {
+            background: rgba(238, 240, 243, 0.96);
+        }
+    }
+
+    /* photo and name (a link to the top of the page) */
+    .topbar-brand {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        min-width: 0;
+        min-height: 44px;
+        transition: opacity 0.3s, transform 0.3s, visibility 0.3s;
+    }
+    /* with JavaScript they appear once the name on the cover has scrolled
+       under the bar, or while the drawer is open */
+    .js .topbar:not(.has-title):not(.is-open) .topbar-brand {
+        visibility: hidden;
+        opacity: 0;
+        transform: translateY(6px);
+    }
+    .topbar-brand picture {
+        flex: none;
+    }
+    .topbar-avatar {
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        object-fit: cover;
+        box-shadow: 0 0 0 1px var(--accent);
+    }
+    .topbar-name {
+        overflow: hidden;
+        font-family: var(--serif);
+        font-size: 17px;
+        font-weight: 700;
+        line-height: 1.3;
+        letter-spacing: 0.1em;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+    }
+
+    /* menu button: three lines and a label ("Menu" / "Close"; both are
+       stacked so that the button keeps its width) */
+    .topbar-toggle {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        flex: none;
+        min-height: 40px;
+        padding: 0 12px;
+        border-radius: 999px;
+        font-family: var(--mono);
+        font-size: var(--fs-meta);
+        font-weight: 500;
+        line-height: 1;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: var(--main);
+        cursor: pointer;
+        -webkit-tap-highlight-color: transparent;
+        transition: background-color 0.2s, transform 0.15s;
+    }
+    .topbar-toggle:lang(ja) {
+        font-family: var(--sans);
+        font-size: var(--fs-small);
+        letter-spacing: 0.08em;
+    }
+    .topbar.is-open .topbar-toggle {
+        background: #fff;
+    }
+    .topbar-toggle:active {
+        transform: scale(0.96);
+    }
+    /* (hover only with a mouse: on touch screens it would stay after a tap) */
+    @media (hover: hover) {
+        .topbar-toggle:hover {
+            background: rgba(255, 255, 255, 0.7);
+        }
+    }
+    /* the three lines: opening, they meet in the middle and then turn into
+       a cross; closing, the cross turns back into one line that then
+       splits into three. (With a mouse, the middle line shortens on hover.) */
+    .topbar-toggle-icon {
+        position: relative;
+        width: 18px;
+        height: 14px;
+    }
+    .topbar-toggle-icon > span {
+        position: absolute;
+        left: 0;
+        width: 100%;
+        height: 2px;
+        border-radius: 2px;
+        background: currentColor;
+    }
+    .topbar-toggle-icon > span:nth-child(1) {
+        top: 0;
+    }
+    .topbar-toggle-icon > span:nth-child(2) {
+        top: 6px;
+        transform-origin: right center;
+        transition: opacity 0s 0.16s, scale 0.25s ease;
+    }
+    .topbar-toggle-icon > span:nth-child(3) {
+        bottom: 0;
+    }
+    .topbar-toggle-icon > span:nth-child(odd) {
+        transition: translate 0.16s ease 0.16s, rotate 0.16s ease;
+    }
+    .topbar.is-open .topbar-toggle-icon > span:nth-child(odd) {
+        transition: translate 0.16s ease, rotate 0.16s ease 0.16s;
+    }
+    .topbar.is-open .topbar-toggle-icon > span:nth-child(1) {
+        translate: 0 6px;
+        rotate: 45deg;
+    }
+    .topbar.is-open .topbar-toggle-icon > span:nth-child(2) {
+        opacity: 0;
+    }
+    .topbar.is-open .topbar-toggle-icon > span:nth-child(3) {
+        translate: 0 -6px;
+        rotate: -45deg;
+    }
+    @media (hover: hover) {
+        .topbar:not(.is-open) .topbar-toggle:hover .topbar-toggle-icon > span:nth-child(2) {
+            scale: 0.6 1;
+        }
+    }
+    .topbar-toggle-label {
+        display: grid;
+    }
+    /* the label fades out, then the other one fades in */
+    .topbar-toggle-label > span {
+        grid-area: 1 / 1;
+        transition: opacity 0.12s 0.12s, visibility 0s 0.12s;
+    }
+    .topbar.is-open .label-menu,
+    .topbar:not(.is-open) .label-close {
+        visibility: hidden;
+        opacity: 0;
+        transition: opacity 0.12s, visibility 0s 0.12s;
+    }
+
+    /* the drawer: below the bar, slides in from the right edge of the screen */
+    .topbar-menu {
+        position: fixed;
+        top: var(--topbar-h);
+        right: 0;
+        bottom: 0;
+        width: min(var(--drawer-w), 100%);
+        background: var(--base);
+        box-shadow: -10px 0 32px rgba(68, 51, 34, 0.12);
+        visibility: hidden;
+        transform: translateX(100%);
+        transition: transform var(--drawer-close-time) var(--drawer-close-ease),
+            visibility 0s var(--drawer-close-time);
+    }
+    .topbar.is-open .topbar-menu {
+        visibility: visible;
+        transform: translateX(0);
+        transition: transform var(--drawer-open-time) var(--drawer-open-ease);
+    }
+    .topbar-menu-scroll {
+        height: 100%;
+        overflow-y: auto;
+        overscroll-behavior: contain;
+    }
+    .topbar-menu-inner {
+        padding: 22px var(--topbar-pad) 32px;
+    }
+    /* "Contents": a small label, like the label of the About section */
+    .topbar-menu .toc-title {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin: 0 0 12px;
+        font-family: var(--mono);
+        font-size: var(--fs-meta);
+        font-weight: 400;
+        line-height: 1.5;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        color: var(--accent-ink);
+    }
+    .topbar-menu .toc-title::before {
+        content: "";
+        width: 28px;
+        height: 2px;
+        border-radius: 2px;
+        background: var(--accent);
+    }
+    /* the sections, one per row, in the serif of the section titles; the
+       section being read is white with an accent line */
+    .topbar-menu .toc-list {
+        display: block;
+    }
+    .topbar-menu .toc-list a {
+        display: flex;
+        align-items: center;
+        min-height: 44px;
+        padding: 6px 16px;
+        border-left: 0;
+        border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+        font-family: var(--serif);
+        font-size: 16px;
+        font-weight: 600;
+        line-height: 1.4;
+        letter-spacing: 0.1em;
+        color: var(--text-2);
+        transition: color 0.2s, background-color 0.2s, box-shadow 0.2s;
+    }
+    .topbar-menu .toc-list a.is-active {
+        background: #fff;
+        box-shadow: inset 3px 0 0 var(--accent);
+        color: var(--main);
+        font-weight: 600;
+    }
+    .topbar-menu .toc-list a:active {
+        background: rgba(255, 255, 255, 0.7);
+    }
+    @media (hover: hover) {
+        .topbar-menu .toc-list a:hover {
+            background: rgba(255, 255, 255, 0.7);
+            color: var(--main);
+        }
+    }
+    /* the site links in as many columns as the drawer's width allows
+       (one on small phones, so that no label breaks) */
+    .topbar-menu .nav-list {
+        grid-template-columns: repeat(auto-fit, minmax(148px, 1fr));
+        margin-top: 20px;
+    }
+
+    /* dims the page beside the open drawer (in step with the drawer);
+       a tap closes the drawer */
+    .topbar-scrim {
+        position: fixed;
+        inset: 0;
+        z-index: 59;
+        display: block;
+        background: rgba(68, 51, 34, 0.32);
+        opacity: 0;
+        visibility: hidden;
+        touch-action: none;
+        -webkit-tap-highlight-color: transparent;
+        transition: opacity var(--drawer-close-time) var(--drawer-close-ease),
+            visibility 0s var(--drawer-close-time);
+    }
+    .topbar.is-open + .topbar-scrim {
+        opacity: 1;
+        visibility: visible;
+        transition: opacity var(--drawer-open-time) var(--drawer-open-ease);
+    }
+}
+/* not on paper (a fixed bar would repeat at the top of every page) */
+@media print {
+    .topbar,
+    .topbar-scrim {
+        display: none !important;
+    }
+    html {
+        scroll-padding-top: 0;
+    }
 }
 
 /* ----------------------------------------------------------
@@ -1124,7 +1553,8 @@ a.chip:hover {
     .sidebar-inner {
         max-width: 640px;
         margin: 0 auto;
-        padding: 48px 24px 32px;
+        /* the top bar lies over the top of the cover */
+        padding: calc(var(--topbar-h) + 40px) 24px 32px;
     }
     /* site links in three columns (two on phones) to keep the header short */
     .nav-list {
@@ -1148,6 +1578,8 @@ a.chip:hover {
 @media (max-width: 600px) {
     :root {
         --media-w: 120px;
+        --topbar-pad: 20px;
+        --drawer-w: calc(100% - 40px);
     }
     .sidebar {
         display: flex;
@@ -1159,7 +1591,7 @@ a.chip:hover {
         flex: 1;
         justify-content: center;
         width: 100%;
-        padding: 40px 24px 12px;
+        padding: calc(var(--topbar-h) + 16px) 24px 12px;
     }
     .avatar {
         width: 168px;
@@ -1195,6 +1627,10 @@ a.chip:hover {
     }
     .section {
         padding: 48px 0;
+    }
+    /* (the About section has the same top padding here: no extra margin) */
+    .hero {
+        scroll-margin-top: 0;
     }
     .section-title {
         margin-bottom: 22px;
@@ -1271,6 +1707,9 @@ a.chip:hover {
 
 /* small phones: slimmer gutters so that labels stay on one line */
 @media (max-width: 400px) {
+    :root {
+        --topbar-pad: 16px;
+    }
     .sidebar-inner {
         padding-left: 16px;
         padding-right: 16px;
@@ -1291,33 +1730,43 @@ a.chip:hover {
 @media (max-width: 359px) {
     :root {
         --media-w: 104px;
+        --fs-name: 34px;    /* the English name fits on one line */
     }
     .nav-link {
         font-size: var(--fs-small);
     }
 }
 
-/* short phones (portrait): a smaller photo, so the cover fits on the screen */
+/* short phones (portrait): a smaller photo and tighter spacing, so that
+   the cover fits on the screen below the top bar */
 @media (max-width: 600px) and (max-height: 700px) {
     .sidebar-inner {
-        padding-top: 28px;
+        padding-top: calc(var(--topbar-h) + 14px);
     }
     .avatar {
-        width: 136px;
-        height: 136px;
+        width: 120px;
+        height: 120px;
     }
 }
 @media (max-width: 600px) and (max-height: 600px) {
     .sidebar-inner {
-        padding-top: 20px;
+        gap: 14px;
+        padding-top: calc(var(--topbar-h) + 12px);
     }
     .avatar {
-        width: 104px;
-        height: 104px;
-        margin-bottom: 14px;
+        width: 88px;
+        height: 88px;
+        margin-bottom: 12px;
     }
     .social {
         margin-top: 8px;
+    }
+    .nav-link {
+        padding-top: 6px;
+        padding-bottom: 6px;
+    }
+    .scroll-cue {
+        margin-bottom: 16px;
     }
 }
 
@@ -1326,12 +1775,13 @@ a.chip:hover {
 @media (max-width: 960px) and (max-height: 500px) {
     :root {
         --fs-name: 30px;
+        --topbar-h: 48px;
     }
     .sidebar {
         min-height: 0;
     }
     .sidebar-inner {
-        padding-top: 24px;
+        padding-top: calc(var(--topbar-h) + 16px);
         padding-bottom: 20px;
     }
     .avatar {
@@ -1347,6 +1797,22 @@ a.chip:hover {
     }
     .scroll-cue {
         display: none;
+    }
+    /* the drawer: the sections in two columns of smaller rows, so that
+       more of the menu fits on the short screen */
+    .topbar-menu-inner {
+        padding-top: 16px;
+    }
+    .topbar-menu .toc-list {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 2px 8px;
+    }
+    .topbar-menu .toc-list a {
+        min-height: 40px;
+        padding-top: 4px;
+        padding-bottom: 4px;
+        font-size: 15px;
     }
 }
 

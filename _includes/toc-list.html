@@ -1,0 +1,18 @@
+{%- comment -%}
+  Table of contents: links to the sections of the page, in page order.
+  Shown in the sidebar (desktop) and in the menu of the top bar (tablets and
+  phones); js/style.js marks the section being read in both.
+  usage: {% include toc-list.html %}
+{%- endcomment -%}
+<ol class="toc-list">
+  <li><a href="#about">{{ data.headings.about }}</a></li>
+  <li><a href="#news">{{ data.headings.news }}</a></li>
+  <li><a href="#education">{{ data.headings.biography }}</a></li>
+  <li><a href="#experience">{{ data.headings.experience }}</a></li>
+  <li><a href="#publications">{{ data.headings.publications }}</a></li>
+  <li><a href="#projects">{{ data.headings.projects }}</a></li>
+  <li><a href="#awards">{{ data.headings.awards }}</a></li>
+  <li><a href="#talks">{{ data.headings.talks }}</a></li>
+  <li><a href="#activities">{{ data.headings.activities }}</a></li>
+  <li><a href="#skills">{{ data.headings.skills }}</a></li>
+</ol>

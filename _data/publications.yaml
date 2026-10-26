@@ -130,6 +130,8 @@ labels:
   copied: "Email address copied:"
   copy_failed: "Could not copy. Email:"
   scroll_down: "Scroll to content"
+  menu: "Menu"                # menu button of the top bar (tablets and phones)
+  close: "Close"              # the same button while the menu is open
   older_news: "Show older news"
   pub_note: "<u>Underline</u>: myself, *: equal contribution"
   cta_cv: "Download CV"

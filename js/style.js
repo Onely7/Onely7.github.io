@@ -27,26 +27,108 @@
   });
 })();
 
-// Highlight the section currently being read in the sidebar table of contents
+// Top bar (tablets and phones): the menu button opens a drawer with the table
+// of contents and the site links; the name appears in the bar once the name on
+// the cover has scrolled under it. Without JavaScript the bar shows the name
+// and no menu.
+(() => {
+  const bar = document.getElementById('topbar');
+  if (!bar) return;
+  const row = bar.querySelector('.topbar-bar');
+  const toggle = bar.querySelector('.topbar-toggle');
+  const menu = document.getElementById('topbar-menu');
+  const scrim = document.querySelector('.topbar-scrim');
+  const coverName = document.querySelector('.profile-name');
+  if (!row || !toggle || !menu) return;
+
+  const isOpen = () => bar.classList.contains('is-open');
+  const setOpen = (open) => {
+    bar.classList.toggle('is-open', open);
+    toggle.setAttribute('aria-expanded', String(open));
+    // the page does not scroll behind the open drawer
+    document.documentElement.classList.toggle('menu-open', open);
+  };
+  toggle.hidden = false;
+  toggle.addEventListener('click', () => setOpen(!isOpen()));
+  // a link in the bar or the menu closes the menu (the page then scrolls)
+  bar.addEventListener('click', (e) => {
+    if (e.target.closest('a')) setOpen(false);
+  });
+  if (scrim) scrim.addEventListener('click', () => setOpen(false));
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && isOpen()) {
+      setOpen(false);
+      toggle.focus();
+    }
+  });
+  // keyboard: moving the focus out of the bar closes the menu
+  bar.addEventListener('focusout', (e) => {
+    if (isOpen() && e.relatedTarget && !bar.contains(e.relatedTarget)) setOpen(false);
+  });
+  // the desktop layout has no top bar
+  const wide = window.matchMedia('(min-width: 961px)');
+  const onWide = () => {
+    if (wide.matches) setOpen(false);
+  };
+  if (wide.addEventListener) wide.addEventListener('change', onWide);
+  else if (wide.addListener) wide.addListener(onWide);
+
+  // .is-scrolled: a hairline below the bar; .has-title: the name in the bar
+  const update = () => {
+    if (wide.matches) return; // the bar is hidden
+    bar.classList.toggle('is-scrolled', window.scrollY > 2);
+    const below = row.getBoundingClientRect().bottom;
+    bar.classList.toggle('has-title', !coverName || coverName.getBoundingClientRect().bottom <= below);
+  };
+  let ticking = false;
+  const onScroll = () => {
+    if (ticking) return;
+    ticking = true;
+    window.requestAnimationFrame(() => {
+      update();
+      ticking = false;
+    });
+  };
+  window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', onScroll);
+  update();
+})();
+
+// Highlight the section currently being read in the table of contents
+// (in the sidebar on desktop, in the menu of the top bar on tablets and phones)
 (() => {
   const links = Array.from(document.querySelectorAll('.toc-list a[href^="#"]'));
   if (!links.length) return;
-  const items = links
-    .map((a) => ({ link: a, section: document.getElementById(a.getAttribute('href').slice(1)) }))
-    .filter((x) => x.section);
+  // one entry per section, with its links in every table of contents
+  const items = [];
+  links.forEach((a) => {
+    const id = a.getAttribute('href').slice(1);
+    let item = items.find((x) => x.id === id);
+    if (!item) {
+      const section = document.getElementById(id);
+      if (!section) return;
+      item = { id, section, links: [] };
+      items.push(item);
+    }
+    item.links.push(a);
+  });
   if (!items.length) return;
 
   let active = null;
   const setActive = (item) => {
     if (item === active) return;
     if (active) {
-      active.link.classList.remove('is-active');
-      active.link.removeAttribute('aria-current');
+      active.links.forEach((a) => {
+        a.classList.remove('is-active');
+        a.removeAttribute('aria-current');
+      });
     }
     active = item;
     if (active) {
-      active.link.classList.add('is-active');
-      active.link.setAttribute('aria-current', 'true');
+      active.links.forEach((a) => {
+        a.classList.add('is-active');
+        a.setAttribute('aria-current', 'true');
+      });
     }
   };
 
@@ -58,11 +140,13 @@
     clearTimeout(lockTimer);
   };
   items.forEach((item) => {
-    item.link.addEventListener('click', () => {
-      setActive(item);
-      locked = true;
-      clearTimeout(lockTimer);
-      lockTimer = setTimeout(unlock, 1200);
+    item.links.forEach((a) => {
+      a.addEventListener('click', () => {
+        setActive(item);
+        locked = true;
+        clearTimeout(lockTimer);
+        lockTimer = setTimeout(unlock, 1200);
+      });
     });
   });
   window.addEventListener('scrollend', () => {
@@ -144,21 +228,28 @@
     groups.forEach((group) => {
       hits[group.id] = 0;
     });
-    let shown = 0;
     pubs.forEach((pub) => {
       // every word of the query has to appear in the venue, title or authors
-      const match = terms.every((t) => pub.text.includes(t) || pub.compact.includes(t));
-      if (match) {
+      pub.match = terms.every((t) => pub.text.includes(t) || pub.compact.includes(t));
+      if (pub.match) {
         hits.all += 1;
         hits[pub.group.id] += 1;
       }
-      const visible = match && (filter === 'all' || filter === pub.group.id);
+    });
+    // a kind or a paper that comes back rises in briefly (css: .is-entering)
+    groups.forEach((group) => {
+      const show = (filter === 'all' || filter === group.id) && hits[group.id] > 0;
+      group.entering = show && group.el.hidden;
+      if (group.entering) group.el.classList.add('is-entering');
+      group.el.hidden = !show;
+      if (group.count) group.count.textContent = hits[group.id];
+    });
+    let shown = 0;
+    pubs.forEach((pub) => {
+      const visible = pub.match && (filter === 'all' || filter === pub.group.id);
+      if (visible && pub.el.hidden && !pub.group.entering) pub.el.classList.add('is-entering');
       pub.el.hidden = !visible;
       if (visible) shown += 1;
-    });
-    groups.forEach((group) => {
-      group.el.hidden = !((filter === 'all' || filter === group.id) && hits[group.id] > 0);
-      if (group.count) group.count.textContent = hits[group.id];
     });
     buttons.forEach((button) => {
       const id = button.dataset.filter;
@@ -176,6 +267,10 @@
           .replace('{total}', total)
       : '';
   };
+
+  tools.closest('section').addEventListener('animationend', (e) => {
+    e.target.classList.remove('is-entering');
+  });
 
   const reset = () => {
     input.value = '';

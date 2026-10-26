@@ -1,0 +1,21 @@
+{%- comment -%}
+  Site links with icons (home, CV, blog, labs, the other language), from
+  `nav_items` in the data files. Shown in the sidebar and in the menu of the
+  top bar (tablets and phones).
+  usage: {% include nav-list.html %}
+{%- endcomment -%}
+<ul class="nav-list">
+  {%- for item in data.nav_items %}
+  {%- assign nav_href = item.href %}
+  <li>
+    <a
+      class="nav-link"
+      href="{% if nav_href contains '://' %}{{ nav_href }}{% else %}{{ nav_href | relative_url }}{% endif %}"
+      {%- if item.hreflang %} hreflang="{{ item.hreflang }}"{% endif %}
+    >
+      {%- include icon.html src=item.icon %}
+      <span>{{ item.label }}</span>
+    </a>
+  </li>
+  {%- endfor %}
+</ul>
