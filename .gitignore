@@ -5,3 +5,4 @@ Gemfile.lock
 .jekyll-cache
 _site
 run_jekyll.sh
+/Claude outputs/
