@@ -4,8 +4,11 @@
    Design tokens
    The three brand colours are kept from the original design:
    base #eef0f3 / main #443322 / accent rgb(145, 180, 200)
+   The dark theme (with the OS set to dark) redefines the colours
+   below: see "Dark theme" after this block.
    ========================================================== */
 :root {
+    color-scheme: light;
     --base: #eef0f3;           /* base colour: sidebar, soft surfaces */
     --main: #443322;           /* main colour: text, headings, primary button */
     --accent: #91b4c8;         /* accent colour: markers, lines, focus */
@@ -19,6 +22,41 @@
     --line: rgba(68, 51, 34, 0.12);
     --line-strong: rgba(68, 51, 34, 0.22);
     --section-tint: #f9fafb;   /* every other section: a very light tint of the base colour */
+    --surface: #fff;           /* raised controls on the base colour: buttons, chips, search box */
+    --surface-hover: rgba(255, 255, 255, 0.8); /* a light wash over the base colour on hover */
+    --strong: var(--main);     /* filled controls: primary button, chosen filter, toast */
+    --strong-hover: #2d2217;
+    --on-strong: #fff;         /* text on them */
+    --on-strong-2: rgba(255, 255, 255, 0.75);
+    --figure-bg: #fff;         /* behind the paper figures */
+    --glass: rgba(238, 240, 243, 0.62);       /* the top bar on phones (the base colour) */
+    --glass-solid: rgba(238, 240, 243, 0.96);
+    --scrim: rgba(68, 51, 34, 0.32);          /* dims the page behind the drawer */
+    --shadow-rgb: 68, 51, 34;                 /* soft shadows (the main colour) */
+
+    /* the ASCII cherry tree above the About text (js/ascii-sakura.js),
+       through the seasons. Each season: three tones for the crown (lit,
+       middle, shaded) and one for what falls from it; all muted so that
+       they sit between the main brown and the accent blue. The branches
+       and the ground are a tint of the main colour. (The objects of the
+       seasons beside the tree have colours of their own, in the script) */
+    --tree-wood: rgba(68, 51, 34, 0.45);
+    --spring-light: #e6b6c3;   /* sakura (March to May) */
+    --spring: #d899ab;
+    --spring-deep: #c47a90;
+    --spring-fall: #d48a9f;
+    --summer-light: #c3d6b0;   /* fresh green (June to August) */
+    --summer: #a2bd8c;
+    --summer-deep: #7f9c6c;
+    --summer-fall: #93b17d;
+    --autumn-light: #e9c7a6;   /* autumn leaves (September to November) */
+    --autumn: #d6a274;
+    --autumn-deep: #bb7f53;
+    --autumn-fall: #cf9061;
+    --winter-light: #c7d4de;   /* snow (December to February) */
+    --winter: #a8bbca;
+    --winter-deep: #8aa3b5;
+    --winter-fall: #97adbe;
 
     /* Fonts (the same three families as otofu.org)
        serif: the name and headings      (Shippori Mincho)
@@ -58,8 +96,66 @@
     --radius-md: 16px;
     --radius-sm: 10px;
 
-    /* motion: short and decelerating; nothing loops except the scroll cue */
+    /* motion: short and decelerating; nothing loops except the scroll cue
+       and the sakura above the About text */
     --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+}
+/* ----------------------------------------------------------
+   Dark theme: with the OS set to dark. A warm charcoal with the
+   main colour lightened to a warm off-white for the text, the
+   accent blue kept, and the filled controls in a lighter brown.
+   Screens only: printing stays light.
+   ---------------------------------------------------------- */
+@media screen and (prefers-color-scheme: dark) {
+    :root {
+        color-scheme: dark;
+        --base: #252320;
+        --main: #e8e1d8;
+        --accent: #91b4c8;
+        --accent-soft: #263641;
+        --accent-ink: #a9c8da;
+
+        --text-2: #aaa49c;
+        --text-3: #9a948c;
+        --bg: #1c1a18;
+        --line: rgba(232, 225, 216, 0.12);
+        --line-strong: rgba(232, 225, 216, 0.22);
+        --section-tint: #211f1c;
+        --surface: #2d2b28;
+        --surface-hover: rgba(255, 255, 255, 0.06);
+        --strong: #6b5541;
+        --strong-hover: #7c634d;
+        --on-strong: #f6efe6;
+        --on-strong-2: rgba(246, 239, 230, 0.82);
+        --figure-bg: #f2efea;
+        --glass: rgba(37, 35, 32, 0.62);
+        --glass-solid: rgba(37, 35, 32, 0.96);
+        --scrim: rgba(0, 0, 0, 0.5);
+        --shadow-rgb: 0, 0, 0;
+
+        /* the tree: the same hues, a little lighter for the dark ground */
+        --tree-wood: rgba(232, 225, 216, 0.42);
+        --spring-light: #e5b9c6;
+        --spring: #cf98a9;
+        --spring-deep: #b27f90;
+        --spring-fall: #d79fb0;
+        --summer-light: #c6d9b4;
+        --summer: #9cb788;
+        --summer-deep: #7a9468;
+        --summer-fall: #a8c294;
+        --autumn-light: #ecc9a8;
+        --autumn: #d29e70;
+        --autumn-deep: #ad7850;
+        --autumn-fall: #d99b6b;
+        --winter-light: #eef3f6;
+        --winter: #cfdae2;
+        --winter-deep: #a9bac7;
+        --winter-fall: #dce5eb;
+    }
+    /* the paper figures (mostly on white): a little dimmer */
+    .pub-image {
+        filter: brightness(0.9);
+    }
 }
 @media (max-width: 560px) {
     :root {
@@ -138,8 +234,8 @@ summary:focus-visible {
     z-index: 200;
     padding: 8px 16px;
     border-radius: 999px;
-    background: var(--main);
-    color: #fff;
+    background: var(--strong);
+    color: var(--on-strong);
     font-size: var(--fs-small);
     font-weight: 700;
 }
@@ -267,8 +363,8 @@ summary:focus-visible {
     margin-bottom: 18px;
     padding: 5px;
     border-radius: 50%;
-    background: #fff;
-    box-shadow: 0 0 0 1px var(--accent), 0 12px 30px rgba(68, 51, 34, 0.12);
+    background: var(--surface);
+    box-shadow: 0 0 0 1px var(--accent), 0 12px 30px rgba(var(--shadow-rgb), 0.12);
     transition: transform 0.3s ease;
 }
 /* (hover effects only with a mouse: on touch screens they would stay after a tap) */
@@ -343,7 +439,7 @@ summary:focus-visible {
 }
 @media (hover: hover) {
     .icon-button:hover {
-        background: #fff;
+        background: var(--surface);
     }
     .icon-button:hover .icon {
         translate: 0 -1px;
@@ -374,7 +470,7 @@ summary:focus-visible {
 }
 @media (hover: hover) {
     .nav-link:hover {
-        background: rgba(255, 255, 255, 0.8);
+        background: var(--surface-hover);
     }
 }
 
@@ -576,12 +672,12 @@ summary:focus-visible {
     transform: scale(0.97);
 }
 .button-primary {
-    background: var(--main);
-    color: #fff;
+    background: var(--strong);
+    color: var(--on-strong);
 }
 @media (hover: hover) {
     .button-primary:hover {
-        background: #2d2217;
+        background: var(--strong-hover);
     }
     .button-primary:hover .icon {
         translate: 0 2px;
@@ -747,7 +843,7 @@ summary:focus-visible {
     min-height: 36px;
     padding: 6px 15px 6px 16px;
     border-radius: 999px;
-    background: #fff;
+    background: var(--surface);
     box-shadow: inset 0 0 0 1px var(--line-strong);
     font-size: var(--fs-filter);
     font-weight: 500;
@@ -766,9 +862,9 @@ summary:focus-visible {
     }
 }
 .filter-btn[aria-pressed="true"] {
-    background: var(--main);
+    background: var(--strong);
     box-shadow: none;
-    color: #fff;
+    color: var(--on-strong);
 }
 .filter-count {
     font-family: var(--mono);
@@ -778,7 +874,7 @@ summary:focus-visible {
     color: var(--text-3);
 }
 .filter-btn[aria-pressed="true"] .filter-count {
-    color: rgba(255, 255, 255, 0.75);
+    color: var(--on-strong-2);
 }
 /* a kind without any paper matching the search */
 .filter-btn.is-empty:not([aria-pressed="true"]) {
@@ -803,7 +899,7 @@ summary:focus-visible {
     min-height: 40px;
     padding: 8px 40px;
     border-radius: 999px;
-    background: #fff;
+    background: var(--surface);
     box-shadow: inset 0 0 0 1px var(--line-strong);
     font-size: var(--fs-small);
     line-height: 1.4;
@@ -864,7 +960,7 @@ summary:focus-visible {
 }
 .pub-reset {
     margin-top: 12px;
-    background: #fff;
+    background: var(--surface);
     color: var(--main);
 }
 
@@ -898,8 +994,8 @@ summary:focus-visible {
     aspect-ratio: 16 / 10;
     object-fit: contain;
     border-radius: 12px;
-    background: #fff;
-    box-shadow: 0 0 0 1px var(--line), 0 6px 18px rgba(68, 51, 34, 0.08);
+    background: var(--figure-bg);
+    box-shadow: 0 0 0 1px var(--line), 0 6px 18px rgba(var(--shadow-rgb), 0.08);
 }
 .pub-tile {
     display: flex;
@@ -981,7 +1077,7 @@ summary:focus-visible {
     min-height: 28px;
     padding: 4px 12px 4px 10px;
     border-radius: 999px;
-    background: #fff;
+    background: var(--surface);
     box-shadow: inset 0 0 0 1px var(--line-strong);
     font-family: var(--mono);
     font-size: var(--fs-chip);
@@ -1031,8 +1127,8 @@ a.chip:active {
     max-width: calc(100% - 32px);
     padding: 11px 20px;
     border-radius: 999px;
-    background: var(--main);
-    color: #fff;
+    background: var(--strong);
+    color: var(--on-strong);
     font-size: var(--fs-small);
     overflow-wrap: anywhere;
     opacity: 0;
@@ -1125,24 +1221,24 @@ a.chip:active {
         /* the menu button's label ends at the content margin */
         padding: 0 calc(var(--topbar-pad) - 12px) 0 var(--topbar-pad);
         /* the base colour, translucent, over the blurred page */
-        background: rgba(238, 240, 243, 0.62);
+        background: var(--glass);
         -webkit-backdrop-filter: blur(14px) saturate(170%);
         backdrop-filter: blur(14px) saturate(170%);
         transition: background-color 0.3s, box-shadow 0.3s;
     }
     /* a hairline and a soft shadow once the page has scrolled */
     .topbar.is-scrolled .topbar-bar {
-        box-shadow: 0 1px 0 var(--line), 0 6px 24px rgba(68, 51, 34, 0.06);
+        box-shadow: 0 1px 0 var(--line), 0 6px 24px rgba(var(--shadow-rgb), 0.06);
     }
     /* while the drawer is open the bar takes the drawer's colour */
     .topbar.is-open .topbar-bar {
-        background: rgba(238, 240, 243, 0.96);
+        background: var(--glass-solid);
         box-shadow: 0 1px 0 var(--line);
     }
     /* browsers without backdrop-filter: an almost opaque bar */
     @supports not ((-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px))) {
         .topbar-bar {
-            background: rgba(238, 240, 243, 0.96);
+            background: var(--glass-solid);
         }
     }
 
@@ -1210,7 +1306,7 @@ a.chip:active {
         letter-spacing: 0.08em;
     }
     .topbar.is-open .topbar-toggle {
-        background: #fff;
+        background: var(--surface);
     }
     .topbar-toggle:active {
         transform: scale(0.96);
@@ -1218,7 +1314,7 @@ a.chip:active {
     /* (hover only with a mouse: on touch screens it would stay after a tap) */
     @media (hover: hover) {
         .topbar-toggle:hover {
-            background: rgba(255, 255, 255, 0.7);
+            background: var(--surface-hover);
         }
     }
     /* the three lines: opening, they meet in the middle and then turn into
@@ -1293,7 +1389,7 @@ a.chip:active {
         bottom: 0;
         width: min(var(--drawer-w), 100%);
         background: var(--base);
-        box-shadow: -10px 0 32px rgba(68, 51, 34, 0.12);
+        box-shadow: -10px 0 32px rgba(var(--shadow-rgb), 0.12);
         visibility: hidden;
         transform: translateX(100%);
         transition: transform var(--drawer-close-time) var(--drawer-close-ease),
@@ -1354,17 +1450,17 @@ a.chip:active {
         transition: color 0.2s, background-color 0.2s, box-shadow 0.2s;
     }
     .topbar-menu .toc-list a.is-active {
-        background: #fff;
+        background: var(--surface);
         box-shadow: inset 3px 0 0 var(--accent);
         color: var(--main);
         font-weight: 600;
     }
     .topbar-menu .toc-list a:active {
-        background: rgba(255, 255, 255, 0.7);
+        background: var(--surface-hover);
     }
     @media (hover: hover) {
         .topbar-menu .toc-list a:hover {
-            background: rgba(255, 255, 255, 0.7);
+            background: var(--surface-hover);
             color: var(--main);
         }
     }
@@ -1382,7 +1478,7 @@ a.chip:active {
         inset: 0;
         z-index: 59;
         display: block;
-        background: rgba(68, 51, 34, 0.32);
+        background: var(--scrim);
         opacity: 0;
         visibility: hidden;
         touch-action: none;
@@ -1608,9 +1704,9 @@ a.chip:active {
         height: 52px;
         margin: 4px auto 28px;
         border-radius: 50%;
-        background: #fff;
+        background: var(--surface);
         color: var(--main);
-        box-shadow: 0 6px 18px rgba(68, 51, 34, 0.15);
+        box-shadow: 0 6px 18px rgba(var(--shadow-rgb), 0.15);
         animation: cue 1.8s ease-in-out infinite;
     }
     @keyframes cue {
@@ -1813,6 +1909,47 @@ a.chip:active {
         padding-top: 4px;
         padding-bottom: 4px;
         font-size: 15px;
+    }
+}
+
+/* ----------------------------------------------------------
+   Sakura: a cherry tree drawn in characters above the About text,
+   through the seasons (js/ascii-sakura.js; the colours are with the
+   design tokens). Decorative: hidden without JavaScript, in print,
+   and from screen readers (aria-hidden in the markup).
+   ---------------------------------------------------------- */
+.hero-sakura {
+    display: none;
+    height: 200px;
+    margin: -28px 0 20px;
+}
+html.js .hero-sakura {
+    display: block;
+}
+.ascii-sakura {
+    display: block;
+    width: 100%;
+    height: 100%;
+    /* the character grid: one cell is a character of this font and size */
+    font-family: var(--mono);
+    font-size: 12px;
+    line-height: 13px;
+}
+@media (max-width: 600px) {
+    .hero-sakura {
+        height: 170px;
+        margin-top: -16px;
+    }
+    .ascii-sakura {
+        font-size: 11px;
+        line-height: 12px;
+        /* a narrower screen: the tree takes more of the width */
+        --sakura-x: 0.4, 0.98;
+    }
+}
+@media print {
+    html.js .hero-sakura {
+        display: none;
     }
 }
 

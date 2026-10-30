@@ -22,6 +22,8 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- light and dark themes (the dark one follows the OS setting) -->
+    <meta name="color-scheme" content="light dark" />
     <!-- "js" on <html>: styles that apply only when js/style.js runs (top bar) -->
     <script>document.documentElement.classList.add("js");</script>
     <title>{{ data.site.title }}</title>
@@ -78,7 +80,8 @@
       color="#2fa1c2"
     />
     <meta name="msapplication-TileColor" content="#00bbdd" />
-    <meta name="theme-color" content="#eef0f3" />
+    <meta name="theme-color" content="#eef0f3" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#252320" media="(prefers-color-scheme: dark)" />
 
     <!-- reset css (version pinned so that future releases cannot change the layout) -->
     <link rel="stylesheet" href="https://unpkg.com/ress@5.0.2/dist/ress.min.css" />
@@ -97,6 +100,7 @@
 
     <!-- apply javascript -->
     <script src="{{ '/js/style.js' | relative_url }}" defer></script>
+    <script src="{{ '/js/ascii-sakura.js' | relative_url }}" defer></script>
 
     <!-- structured data for search engines -->
     {%- assign ld_first = true %}
@@ -259,6 +263,11 @@
       <main id="main" class="main" tabindex="-1">
         <!-- About -->
         <section class="section hero" id="about" aria-labelledby="about-title">
+          <!-- a cherry tree drawn in characters, through the seasons
+               (js/ascii-sakura.js); decorative -->
+          <div class="hero-sakura" aria-hidden="true">
+            <canvas class="ascii-sakura" data-seed="11" data-x="0.58,0.98"></canvas>
+          </div>
           <h2 class="eyebrow" id="about-title">{{ data.headings.about }}</h2>
           <!-- the About text in one block, one line per item -->
           <p class="lead">
