@@ -767,14 +767,17 @@
       for (const i of this.twigs.keys()) this.crownAt.add(i);
 
       // the object of the season: left of the tree's room, standing on the
-      // ground line, as tall as the band allows (less where it is narrow;
-      // none if there is too little room). Its own grid of smaller
-      // characters, in pixels from the canvas's corner
+      // ground line, at most half as tall as the tree (less where the band
+      // is narrow; none if there is too little room). Its own grid of
+      // smaller characters, in pixels from the canvas's corner
       this.object = null;
       const scene = SCENES[this.season];
       if (scene) {
         const right = Math.floor(cols * this.room[0]) - 2; // the tree's room starts after this column
-        let orows = Math.floor(((rows - 1) * this.lineH) / this.olh);
+        let top = rows - 1;
+        for (const b of this.blooms) top = Math.min(top, b.row);
+        for (const i of this.wood.keys()) top = Math.min(top, Math.floor(i / cols));
+        let orows = Math.floor((0.5 * (rows - 1 - top) * this.lineH) / this.olh);
         let ocols;
         let span; // in the tree's columns
         const fit = () => {
@@ -1176,9 +1179,9 @@
     // its own: in full once, then in each frame only where something moves
     // (the scene says where). Every cell of its grid is sampled 3 x 4 times;
     // where the outline of the scene or of one of its parts runs (found the
-    // way an image filter finds edges, so that it is about two characters
-    // thick), the cell gets a character that follows it, elsewhere one as
-    // dense as the light (dark theme) or the shade (light theme) there.
+    // way an image filter finds edges, one character thick), the cell gets
+    // a character that follows it, elsewhere one as dense as the light
+    // (dark theme) or the shade (light theme) there.
 
     // sample cell i
     sampleCell(i, t) {
@@ -1249,10 +1252,13 @@
       const r = Math.floor(i / C);
       const col = [rgb[i * 3], rgb[i * 3 + 1], rgb[i * 3 + 2]];
       const g = [0, 0];
-      // the scene's outline
+      // the scene's outline, one character thick: in the cells it runs
+      // through, or, where it runs between two cells, in the one inside
       sobel(cover, null, 0, C, R, q, r, g);
       let [gx, gy] = g;
       let mag = Math.hypot(gx, gy);
+      const bare = (qq, rr) => qq < 0 || rr < 0 || qq >= C || rr >= R || cover[rr * C + qq] < 1 / 6;
+      if (cover[i] >= 0.9 && !(bare(q - 1, r) || bare(q + 1, r) || bare(q, r - 1) || bare(q, r + 1))) mag = 0;
       let inner = false;
       let lightOf = -1;
       // the outlines of its parts: the strongest among the parts here and
@@ -1267,9 +1273,8 @@
       for (const p of ids) {
         sobel(share, part, p, C, R, q, r, g);
         const m = Math.hypot(g[0], g[1]);
-        // a glowing part is outlined on both sides of its edge, the others
-        // only round the outside
-        if (m <= mag || !(o.glowing.has(p) || part[i] !== p || share[i] < 0.5)) continue;
+        // the outline of a part runs round its outside
+        if (m <= mag || (part[i] === p && share[i] >= 0.5)) continue;
         [gx, gy] = g;
         mag = m;
         inner = true;
