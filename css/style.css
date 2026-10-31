@@ -854,10 +854,6 @@ summary:focus-visible {
     font-size: var(--fs-text);
     line-height: 1.7;
 }
-.more {
-    margin-top: 12px;
-}
-.more summary,
 .pub-reset {
     --icon-size: 11px;
     display: inline-flex;
@@ -875,34 +871,13 @@ summary:focus-visible {
     cursor: pointer;
     transition: background-color 0.2s, transform 0.15s;
 }
-.more summary::-webkit-details-marker {
-    display: none;
-}
-.more summary:active,
 .pub-reset:active {
     transform: scale(0.97);
 }
 @media (hover: hover) {
-    .more summary:hover,
     .pub-reset:hover {
         background: var(--base);
     }
-}
-.more .more-icon {
-    transition: transform 0.2s;
-}
-.more[open] .more-icon {
-    transform: rotate(180deg);
-}
-.more[open] > .news-list {
-    animation: rise-in 0.36s var(--ease-out) both;
-}
-.more > .news-list {
-    margin-top: 16px;
-}
-.more > .news-list .news-item:first-child {
-    padding-top: 14px;
-    border-top: 1px solid var(--line);
 }
 
 /* dated rows (education, experience, projects, awards, talks, activities) */
@@ -1270,8 +1245,8 @@ a.chip:active {
 /* ----------------------------------------------------------
    Motion (shared keyframes). The small motions of this page: buttons and
    chips sink a little while pressed, icons nudge on hover, content that
-   appears (papers brought back by the filter, older news, the search's
-   clear button, the empty message) rises or fades in once. All motion
+   appears (papers brought back by the filter, the search's clear
+   button, the empty message) rises or fades in once. All motion
    stops when the reader prefers reduced motion (end of this file).
    ---------------------------------------------------------- */
 @keyframes rise-in {

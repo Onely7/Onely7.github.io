@@ -140,7 +140,6 @@ labels:
   close: "閉じる"             # メニューを開いているときの同じボタン
   theme_dark: "ダークモードに切り替え"   # テーマボタン（ライトモードで表示する月のアイコン）
   theme_light: "ライトモードに切り替え"  # 同じボタン（ダークモードで表示する太陽のアイコン）
-  older_news: "過去のニュースを表示"
   pub_note: "<u>下線</u>: 本人, *: 共同第一著者"
   cta_cv: "CV をダウンロード"
   affiliation: "Affiliation"
@@ -179,7 +178,7 @@ research_interests:
   - "Vision & Language"
   - "NLP"
 
-# 新しい順に記載。先頭 6 件を表示し、残りは「過去のニュースを表示」に折りたたみます。
+# 新しい順に記載。先頭 6 件だけを表示します（それより後のものは表示されません）。
 news:
   - date: "2026.10"
     text_html: "ケンブリッジ大学の <a href=\"https://www.cst.cam.ac.uk/seminars/list/273207\"><strong>NLIP Seminar Series</strong></a> で「Large Vision-Language Models: How They See, Pass, and Answer」<span class=\"nowrap\">と題して講演しました。</span>"

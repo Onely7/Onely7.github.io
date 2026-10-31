@@ -142,7 +142,6 @@ labels:
   close: "Close"              # the same button while the menu is open
   theme_dark: "Switch to dark mode"    # the theme button (the moon, in the light theme)
   theme_light: "Switch to light mode"  # the same button (the sun, in the dark theme)
-  older_news: "Show older news"
   pub_note: "<u>Underline</u>: myself, *: equal contribution"
   cta_cv: "Download CV"
   affiliation: "Affiliation"
@@ -181,7 +180,7 @@ research_interests:
   - "Vision & Language"
   - "NLP"
 
-# Newest first. The first 6 items are shown; the rest go under "Show older news".
+# Newest first. Only the first 6 items are shown (older ones further down are not).
 news:
   - date: "2026.10"
     text_html: "Gave a talk titled “Large Vision-Language Models: How They See, Pass, and Answer” at the <a href=\"https://www.cst.cam.ac.uk/seminars/list/273207\"><strong>NLIP Seminar Series</strong></a>, University of Cambridge."

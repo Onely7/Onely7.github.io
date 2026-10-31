@@ -345,22 +345,6 @@
             </li>
             {%- endfor %}
           </ol>
-          {%- if data.news.size > 6 %}
-          <details class="more">
-            <summary>
-              <span>{{ data.labels.older_news }}</span>
-              {%- include icon.html src="images/chevron-down-solid.svg" class="more-icon" %}
-            </summary>
-            <ol class="news-list">
-              {%- for n in data.news offset: 6 %}
-              <li class="news-item">
-                <p class="news-date">{{ n.date }}</p>
-                <p class="news-text">{{ n.text_html }}</p>
-              </li>
-              {%- endfor %}
-            </ol>
-          </details>
-          {%- endif %}
         </section>
 
         <!-- Education -->
