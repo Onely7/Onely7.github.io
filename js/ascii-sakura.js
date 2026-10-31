@@ -1,5 +1,6 @@
-// ASCII sakura: a cherry tree drawn in characters above the About text,
-// through the seasons of the visitor's calendar:
+// ASCII sakura: a cherry tree drawn in fine characters above the About
+// text, the way a picture is turned into ASCII art, through the seasons of
+// the visitor's calendar:
 //   March to May           in bloom; petals fall and drift on the wind
 //   June to August         fresh green leaves; now and then a leaf falls
 //   September to November  autumn leaves; many fall and gather on the ground
@@ -7,13 +8,12 @@
 //                          settles on the ground
 // (?season=spring, summer, autumn or winter in the address shows another
 // season.) To the left of the tree stands something of the season, drawn
-// the way a picture is turned into ASCII art (lit from the upper left,
-// shaded and outlined, in smaller characters): Easter eggs in spring (the
-// big one rocks on its base now and then), a goldfish bowl in summer (the
-// fish swims to and fro, the weed sways, now and then a bubble rises), a
-// jack-o'-lantern in autumn (the candle inside makes its eyes, nose and
-// grin glow and flicker unevenly) and a snowman in winter (its scarf
-// flutters).
+// in the same characters (lit from the upper left, shaded and outlined):
+// Easter eggs in spring (the big one rocks on its base now and then), a
+// goldfish bowl in summer (the fish swims to and fro, the weed sways, now
+// and then a bubble rises), a jack-o'-lantern in autumn (the candle inside
+// makes its eyes, nose and grin glow and flicker unevenly) and a snowman
+// in winter (its scarf flutters).
 // Where the mouse passes over the crown (or a finger taps it), more petals,
 // leaves or snow come loose. Tossed out, petals and leaves drop under their
 // own weight, then a breeze catches them and carries them far to the left
@@ -30,20 +30,26 @@
 // Colours come from CSS custom properties: --tree-wood and, for the season,
 // --<season>-light, --<season>, --<season>-deep and --<season>-fall (the
 // dark theme redefines them); the objects have colours of their own (see
-// SCENES), made to suit the theme. The size of a character cell comes from
-// the canvas's font-size and line-height. The animation runs only while
-// the canvas is on screen and the tab is visible; with
-// prefers-reduced-motion a single still frame is drawn and the pointer does
-// nothing.
+// SCENES), made to suit the theme. The characters are GRAIN of the
+// canvas's font-size and line-height, which set the size of the motion.
+// The animation runs only while the canvas is on screen and the tab is
+// visible; with prefers-reduced-motion a single still frame is drawn and
+// the pointer does nothing.
 (() => {
   const FPS = 15;
-  const WIND = -0.6; // drift of what falls, columns per second (to the left)
-  // a petal's weight against the drag of the air, columns per second squared
+  // everything is drawn in fine characters, GRAIN of the canvas's
+  // font-size and line-height, the way a picture is turned into ASCII art.
+  // Motion is measured in steps, the size of a character at the font-size
+  // (Z of the fine ones)
+  const GRAIN = 0.4;
+  const Z = 1 / GRAIN;
+  const WIND = -0.6; // drift of what falls, steps per second (to the left)
+  // a petal's weight against the drag of the air, steps per second squared
   // (the drag of each petal sets the speed it falls at)
   const G = 3;
   // the crown: blob size, how quickly it fills in, how ragged its edge is,
   // the texture inside, and the curve from density to character
-  const LOOK = { sig: 0.47, sat: 1.05, drop: 1.5, tex0: 0.42, tex1: 0.58, gamma: 1.3 };
+  const LOOK = { sig: 0.47, sat: 1.05, drop: 1.5, tex0: 0.42, tex1: 0.58, gamma: 1.1 };
   // the seasons: the characters of the crown (sparse to dense) and how full
   // it is; what falls from it, face-on, turning and edge-on (two ways); how
   // much falls by itself and when shaken; what lies on the ground, and for
@@ -59,10 +65,14 @@
     const asked = new URLSearchParams(window.location.search).get('season');
     return SEASONS[asked] ? asked : MONTHS[new Date().getMonth()];
   };
-  const MAX_PETALS = 140; // in the air at once, including the shaken ones
-  const MAX_FALLEN = 90; // resting on the ground
-  const MAX_FLAKES = 90; // snowflakes
-  const REACH = 5; // how far the pointer stirs the crown, in columns
+  const MAX_PETALS = 280; // in the air at once, including the shaken ones
+  const MAX_FALLEN = 180; // resting on the ground
+  const MAX_FLAKES = 180; // snowflakes
+  const REACH = 5; // how far the pointer stirs the crown, in steps
+  // of the crown's characters a pointer shakes, the share that let a petal
+  // go (there are many small ones: twice as many petals as characters the
+  // size of a step would let go)
+  const EMIT = 2 * GRAIN * GRAIN;
 
   // small deterministic random generator: a seed always gives the same tree
   const rng = (seed) => () => {
@@ -95,9 +105,9 @@
 
   // ---- the objects of the seasons ----
   // To the left of the tree, standing on the ground, each season has a small
-  // scene, drawn the way a picture is turned into ASCII art, in characters
-  // smaller than the tree's (OBJ_SCALE of them). A scene has
-  //   w            its width (it is 1 high)
+  // scene, drawn the way a picture is turned into ASCII art. A scene has
+  //   w, size      its width (it is 1 high), and its size: of the most an
+  //                object may be (half the height of the tree)
   //   colors       its colours
   //   sample(x, y, t, c, st)
   //                what is at the point (x, y) of it at time t, in its own
@@ -115,11 +125,12 @@
   //   moving(st, t)
   //                where things move at time t: [x0, y0, x1, y1] boxes (and
   //                true for one where something changes but stays put)
+  //   marks(st, t) details too small to be sampled, as characters: [x, y,
+  //                character, colour]
   // Every character cell is sampled 3 x 4 times: a cell on an outline gets a
-  // character that follows it (_ - / \ |), a cell inside one of FILL, as
+  // character that follows it (_ - / \ | ( )), a cell inside one of FILL, as
   // dense as the light there (dark theme) or the shade (light theme), in the
   // colour there.
-  const OBJ_SCALE = 0.4;
   const FILL = ' .:-=+*#%@';
   const OUTLINED = 1;
   const GLOWING = 3;
@@ -130,10 +141,12 @@
   const SUN = unit3(-0.45, -0.65, 0.62); // the light comes from the upper left
   const hex = (h) => [1, 3, 5].map((k) => parseInt(h.slice(k, k + 2), 16) / 255);
   const mix = (a, b, k) => [a[0] + (b[0] - a[0]) * k, a[1] + (b[1] - a[1]) * k, a[2] + (b[2] - a[2]) * k];
-  // a colour lit for a surface facing n, with a highlight
+  // a colour lit for a surface facing n, with a highlight; the shade is
+  // softer on the light page (shade.ambient: the light in the shade)
+  const shade = { ambient: 0.36 };
   const lit = (c, n, shine = 0.3) => {
     const d = Math.max(0, n[0] * SUN[0] + n[1] * SUN[1] + n[2] * SUN[2]);
-    const k = 0.36 + 0.7 * d;
+    const k = shade.ambient + (1.06 - shade.ambient) * d;
     const s = shine * Math.max(0, 2 * d * n[2] - SUN[2]) ** 16;
     return [c[0] * k + s, c[1] * k + s, c[2] * k + s];
   };
@@ -198,100 +211,108 @@
 
   // the snowman's twig arms, raised, with fingers: segments [x0, y0, x1, y1]
   const ARMS = [
-    [-0.2, 0.69, -0.31, 0.6], [-0.31, 0.6, -0.39, 0.49], [-0.39, 0.49, -0.43, 0.43], [-0.39, 0.49, -0.375, 0.42], [-0.385, 0.505, -0.445, 0.49],
-    [0.2, 0.7, 0.32, 0.62], [0.32, 0.62, 0.405, 0.53], [0.405, 0.53, 0.44, 0.47], [0.405, 0.53, 0.385, 0.465], [0.4, 0.545, 0.455, 0.55],
+    [-0.22, 0.64, -0.33, 0.55], [-0.33, 0.55, -0.41, 0.45], [-0.41, 0.45, -0.445, 0.385], [-0.41, 0.45, -0.39, 0.38], [-0.405, 0.465, -0.465, 0.45],
+    [0.22, 0.64, 0.33, 0.56], [0.33, 0.56, 0.415, 0.46], [0.415, 0.46, 0.45, 0.4], [0.415, 0.46, 0.395, 0.395], [0.41, 0.475, 0.47, 0.475],
   ];
 
   const SCENES = {
-    // spring: Easter eggs in a tuft of grass. The big one rocks on its base
-    // for a moment every ten seconds or so
+    // spring: three Easter eggs on a patch of lawn, each in its own bright
+    // colour with a pattern. The big one rocks on its base for a moment
+    // every ten seconds or so
     spring: {
-      w: 1.05,
+      w: 1.3,
+      size: 2 / 3,
       colors: {
-        cream: '#f4ecdb', pink: '#df8ea6', green: '#90bf80', blue: '#86afcf', yellow: '#eccd6e',
-        lilac: '#b9a2d8', mint: '#97ccba', grass: '#8fb47b', grass2: '#739a5f',
+        yellow: '#f1c94e', green: '#79bf6c', blue: '#6faee0', pink: '#e9879f', white: '#fbf7ef',
+        grass: '#7cb466', grass2: '#5f9a4e',
       },
+      lawn: '#6fa95b', // the ground line under it
       frame(st, t) {
         const rock = 0.1 * Math.sin(t * 3.1) * Math.max(0, Math.sin(t * 0.6)) ** 24;
         st.rock = Math.abs(rock) > 0.002 ? rock : 0;
       },
       // what moves: the big egg, while it rocks
-      moving: (st) => (st.rock ? [[-0.5, 0.04, 0.28, 1]] : []),
+      moving: (st) => (st.rock ? [[-0.54, 0.0, 0.12, 0.92]] : []),
       sample(x, y, t, c, st) {
-        // a tuft of grass in front, shorter towards the ends
-        if (y > 0.82 && Math.abs(x) < 0.5) {
-          const k = Math.floor((x + 2) / 0.05);
-          const bx = -2 + (k + 0.5) * 0.05;
-          const end = 1 - (Math.abs(bx) / 0.5) ** 4;
-          const tip = 1 - (0.05 + 0.1 * tri(k * 0.61)) * end;
-          if (y > tip) {
-            const s = (1 - y) / (1 - tip); // 0 at the root, 1 at the tip
-            const lean = (0.012 + 0.018 * tri(k * 0.37)) * Math.sin(k * 2.1) * s * s;
-            if (Math.abs(x - bx - lean) < 0.02 * (1 - s) + 0.004) return lit(k % 2 ? c.grass : c.grass2, unit3(-0.3 * Math.sign(bx), -0.4, 1), 0);
+        // blades of grass in front of the eggs' feet
+        const k = Math.floor((x + 2) / 0.055);
+        const bx = -2 + (k + 0.5) * 0.055;
+        const tip = 0.83 + 0.05 * hash(k, 3, 5);
+        if (y > tip && Math.abs(bx) < 0.6) {
+          const s = (y - tip) / (1 - tip); // 0 at the tip
+          if (Math.abs(x - bx - 0.012 * (hash(k, 4, 5) - 0.5)) < 0.004 + 0.02 * s) {
+            return [...lit(k % 2 ? c.grass : c.grass2, unit3(0, -0.5, 1), 0), 1, OUTLINED, 5];
           }
         }
-        // the small egg, lying on its side in front, its narrow end to the
-        // right: lilac with cream stripes
+        // the small pink egg, lying in front on the right, with a white
+        // zigzag round it
         {
-          const v = -(x - 0.25) / 0.2;
+          const v = -(x - 0.37) / 0.2;
           if (v > -1 && v < 1) {
-            const u = (y - 0.835) / (0.12 * (1 + 0.14 * v));
+            const u = (y - 0.79) / (0.125 * (1 + 0.14 * v));
             const q = u * u + v * v;
-            if (q <= 1) return lit(tri(v * 3.4 + 0.5) < 0.32 ? c.cream : c.lilac, unit3(-v * 0.9, u, Math.sqrt(1 - q)));
+            if (q <= 1) {
+              const band = Math.abs(v - 0.1 + 0.18 * tri(u * 2.5)) < 0.17;
+              return [...lit(band ? c.white : c.pink, unit3(-v * 0.9, u, Math.sqrt(1 - q))), 1, OUTLINED, 2];
+            }
           }
         }
-        // the big egg, rocking
+        // the big yellow egg, rocking, with a green band round its middle
         const cs = Math.cos(st.rock);
         const sn = Math.sin(st.rock);
-        const xr = -0.12 + (x + 0.12) * cs + (y - 0.95) * sn;
-        const yr = 0.95 - (x + 0.12) * sn + (y - 0.95) * cs;
-        const e = egg(xr, yr, -0.12, 0.525, 0.27, 0.425);
+        const xr = -0.22 + (x + 0.22) * cs + (y - 0.89) * sn;
+        const yr = 0.89 - (x + 0.22) * sn + (y - 0.89) * cs;
+        const e = egg(xr, yr, -0.22, 0.48, 0.27, 0.4);
         if (e) {
-          const { u, v, n } = e;
-          const a = Math.asin(Math.max(-1, Math.min(1, u))); // round the egg
-          const zig = 0.07 * tri(a * 3.2);
-          let col = c.cream;
-          if (v > -0.66 + zig && v < -0.47 + zig) col = c.pink;
-          else if (v > -0.15 && v < 0.15) {
-            // a green band with yellow spots
-            const k = Math.round(a / 0.55);
-            col = Math.hypot((a - k * 0.55) * 0.75, v) < 0.085 ? c.yellow : c.green;
-          } else if (v > 0.36 - zig && v < 0.55 - zig) col = c.blue;
-          return lit(col, n);
+          const a = Math.asin(Math.max(-1, Math.min(1, e.u))); // round the egg
+          const zig = 0.09 * tri(a * 2.6);
+          const band = e.v > -0.14 + zig && e.v < 0.12 + zig;
+          return [...lit(band ? c.green : c.yellow, e.n), 1, OUTLINED, 3];
         }
-        // a mint egg with white spots, standing behind on the right
-        const m = egg(x, y, 0.29, 0.6, 0.135, 0.215);
+        // a blue egg with white spots, standing behind on the right
+        const m = egg(x, y, 0.18, 0.56, 0.16, 0.25);
         if (m) {
           const a = Math.asin(Math.max(-1, Math.min(1, m.u)));
-          const k = Math.round(a / 0.7);
-          const j = Math.round(m.v / 0.5);
-          const spot = Math.hypot((a - k * 0.7 - (j % 2) * 0.35) * 0.8, m.v - j * 0.5) < 0.13;
-          return lit(spot ? c.cream : c.mint, m.n);
+          const kk = Math.round(a / 0.8);
+          const j = Math.round(m.v / 0.55);
+          const spot = Math.hypot((a - kk * 0.8 - (j % 2) * 0.4) * 0.7, m.v - j * 0.55) < 0.17;
+          return [...lit(spot ? c.white : c.blue, m.n), 1, OUTLINED, 4];
+        }
+        // the lawn they sit on, its edge in blades of grass
+        const lx = x / 0.64;
+        if (Math.abs(lx) < 1) {
+          const edge = 1.03 - 0.2 * Math.sqrt(1 - lx * lx) - 0.03 * tri(x / 0.045) * (1 - lx * lx);
+          if (y > edge) {
+            const g = hash(Math.floor(x * 70 + 99), Math.floor(y * 40), 6) < 0.5 ? c.grass : c.grass2;
+            return [...lit(g, unit3(lx * 0.6, -0.8, 1), 0), 1, OUTLINED, 5];
+          }
         }
         return null;
       },
     },
-    // summer: a goldfish bowl; the fish swims to and fro, the weed sways, now
-    // and then a bubble rises
+    // summer: a wide goldfish bowl; a goldfish swims to and fro across it,
+    // the weed sways, now and then a bubble rises
     summer: {
-      w: 1.0,
+      w: 1.24,
+      size: 0.75,
       colors: {
-        glass: '#dceaf2', water: '#88b2c8', sand: '#dcc79d', pebble: '#ae9673', weed: '#8db57b',
-        fish: '#e2804f', fin: '#eea57b',
+        glass: '#a9d0e6', water: '#8cb9d1', sand: '#dcc79d', weed: '#86b874',
+        fish: '#f2803a', fin: '#f7b07c', eye: '#2c2420',
       },
       init: () => ({ bubbles: [], next: 1.2 }),
-      fish: (t) => ({ x: 0.19 * Math.sin(t * 0.45), y: 0.6 + 0.06 * Math.sin(t * 0.31), dir: Math.cos(t * 0.45) >= 0 ? 1 : -1 }),
+      fish: (t) => ({ x: 0.25 * Math.sin(t * 0.45), y: 0.61 + 0.06 * Math.sin(t * 0.31), dir: Math.cos(t * 0.45) >= 0 ? 1 : -1 }),
       step(st, t, dt, r) {
         st.next -= dt;
         if (st.next <= 0) {
           const f = this.fish(t);
-          st.bubbles.push({ x: f.x + f.dir * 0.11, y: f.y - 0.02, ph: r() * 6 });
+          st.bubbles.push({ x: f.x + f.dir * 0.14, y: f.y - 0.03, ph: r() * 6 });
           st.next = 2.5 + 2.5 * r();
         }
         for (const b of st.bubbles) b.y -= 0.12 * dt;
         st.bubbles = st.bubbles.filter((b) => b.y > 0.36);
       },
-      frame(st, t) {
+      frame(st, t, dark) {
+        st.dark = dark;
         st.f = this.fish(t);
         // the surface and the weed change 7.5 times a second
         const k = Math.floor(t * 7.5);
@@ -303,60 +324,63 @@
       // where they are
       moving(st) {
         const f = st.f;
-        const boxes = [[f.x - 0.22, f.y - 0.13, f.x + 0.22, f.y + 0.13]];
+        const boxes = [[f.x - 0.26, f.y - 0.12, f.x + 0.26, f.y + 0.12]];
         for (const b of st.bubbles) boxes.push([b.x - 0.05, b.y - 0.05, b.x + 0.05, b.y + 0.05]);
-        if (!st.calm) boxes.push([-0.45, 0.32, 0.45, 0.34, true], [-0.3, 0.5, -0.12, 0.79, true], [0.18, 0.5, 0.3, 0.79, true]);
+        if (!st.calm) boxes.push([-0.58, 0.32, 0.58, 0.34, true], [-0.43, 0.5, -0.25, 0.79, true], [0.27, 0.5, 0.43, 0.79, true]);
         return boxes;
       },
+      // the fish's eye
+      marks: (st) => [[st.f.x + st.f.dir * 0.075, st.f.y - 0.015, 'o', 'eye']],
       sample(x, y, t, c, st) {
-        const R = 0.43;
+        const RX = 0.56; // a bowl wider than tall
+        const RY = 0.43;
         const cy = 0.55;
         const top = 0.17;
-        const d = Math.hypot(x, y - cy);
+        const d = Math.hypot(x / RX, (y - cy) / RY);
         // the rim round the opening
-        const half = Math.sqrt(R * R - (top - cy) ** 2);
+        const half = RX * Math.sqrt(1 - ((top - cy) / RY) ** 2);
         const rq = (x / (half + 0.02)) ** 2 + ((y - top) / 0.035) ** 2;
         if (rq < 1 && rq > 0.35) return lit(c.glass, unit3(0, -1, 0.7), 0.6);
-        if (d > R || y < top) return null;
+        if (d > 1 || y < top) return null;
         // the glass, seen edge-on at the sides, with a highlight
-        if (d > R - 0.03) return lit(c.glass, unit3(x / R, (y - cy) / R, 0.25), 0.8);
-        if (((x + 0.22) / 0.04) ** 2 + ((y - 0.42) / 0.11) ** 2 < 1) return [0.97, 0.99, 1];
+        if (d > 1 - 0.04 / RY) return lit(c.glass, unit3(x / RX, (y - cy) / RY, 0.25), 0.8);
+        if (((x + 0.33) / 0.035) ** 2 + ((y - 0.42) / 0.1) ** 2 < 1) return [0.97, 0.99, 1];
         const surf = 0.33 + 0.008 * Math.sin(x * 18 + st.tw * 1.8);
         if (y < surf) return null; // air above the water
-        // the fish, facing the way it swims: a body, a tail and a fin
+        // the goldfish, facing the way it swims: a round body, a fanned
+        // tail that wags, a fin on its back
         const f = st.f;
         const fx = (x - f.x) * f.dir;
         const fy = y - f.y;
-        const body = (fx / 0.12) ** 2 + (fy / 0.065) ** 2;
-        if (body < 1) return [...lit(fy > 0.025 ? c.fin : c.fish, unit3(fx / 0.12, fy / 0.065, 0.8), 0.5), 1, OUTLINED, 2];
-        const wag = 0.014 * Math.sin(t * 6);
-        if (fx < -0.09 && fx > -0.2 && Math.abs(fy - wag) < (-fx - 0.09) * 0.9 + 0.012) return [...lit(c.fin, FLAT, 0), 1, OUTLINED, 2];
-        if (fx > -0.05 && fx < 0.035 && fy < -0.045 && fy > -0.09 + (fx + 0.05) * 0.45) return [...lit(c.fin, FLAT, 0), 1, OUTLINED, 2];
+        const body = (fx / 0.12) ** 2 + (fy / 0.068) ** 2;
+        if (body < 1) return [...lit(fy > 0.025 ? c.fin : c.fish, unit3(fx / 0.12, fy / 0.068, 0.8), 0.5), 1, OUTLINED, 2];
+        const wag = 0.018 * Math.sin(t * 7);
+        const tx = -fx - 0.1; // along the tail
+        if (tx > 0 && tx < 0.1 && Math.abs(fy - wag * tx / 0.1) < 0.015 + tx * 0.75) return [...lit(c.fish, FLAT, 0.2), 1, OUTLINED, 2];
+        if (fx > -0.05 && fx < 0.035 && fy < -0.05 && fy > -0.095 + (fx + 0.05) * 0.5) return [...lit(c.fin, FLAT, 0), 1, OUTLINED, 2];
         for (const b of st.bubbles) {
-          if (Math.hypot(x - b.x - 0.01 * Math.sin(t * 5 + b.ph), y - b.y) < 0.022) return [0.95, 0.98, 1];
+          if (Math.hypot(x - b.x - 0.01 * Math.sin(t * 5 + b.ph), y - b.y) < 0.025) return [0.95, 0.98, 1];
         }
         // the weed, swaying
-        for (const wx of [-0.24, -0.18, 0.24]) {
+        for (const wx of [-0.34, 0.35]) {
           const sway = 0.07 * Math.sin(y * 13 - st.tw * 1.4 + wx * 9) * Math.max(0, 0.78 - y); // only its upper part
-          if (y > 0.5 + Math.abs(wx) * 0.2 && Math.abs(x - wx - sway) < 0.016) return lit(c.weed, unit3(0.5 * Math.sin(y * 13 + wx * 9), 0, 1), 0);
+          if (y > 0.52 && Math.abs(x - wx - sway) < 0.018) return lit(c.weed, unit3(0.5 * Math.sin(y * 13 + wx * 9), 0, 1), 0);
         }
-        // sand and pebbles at the bottom
-        if (y > 0.86 + 0.015 * Math.sin(x * 9)) {
-          const p = Math.sin(x * 61) * Math.sin(y * 47) > 0.3;
-          return lit(p ? c.pebble : c.sand, unit3(0, -0.6, 1), 0);
-        }
-        // the water: brighter just under the surface, thin below
-        if (y < 0.36) return [...lit(c.water, unit3(0, -1, 1), 0.4), 0.75];
-        return [...lit(c.water, unit3(x / R * 0.6, (y - cy) / R * 0.6, 1), 0), 0.3];
+        // sand at the bottom
+        if (y > 0.87 + 0.015 * Math.sin(x * 9)) return lit(c.sand, unit3(0, -0.6, 1), 0);
+        // the water: thin, so that the fish shows (on the light page a
+        // little thicker, so that it shows too)
+        return [...lit(c.water, unit3(x / RX * 0.6, (y - cy) / RY * 0.6, 1), 0), y < 0.36 ? 0.55 : st.dark ? 0.22 : 0.42];
       },
     },
     // autumn: a jack-o'-lantern with a candle inside: its eyes, nose and
     // grin glow, flickering unevenly
     autumn: {
       w: 1.07,
-      colors: { skin: '#dc9255', groove: '#a8643a', stem: '#76714a' },
+      size: 2 / 3,
+      colors: { skin: '#e48a42', groove: '#b4602b', stem: '#6f7a3e' },
       // the candlelight, dim to bright, for each theme
-      glow: { light: [hex('#93401a'), hex('#f0aa3a')], dark: [hex('#94431a'), hex('#fff0c2')] },
+      glow: { light: [hex('#6e2410'), hex('#ffad14')], dark: [hex('#94431a'), hex('#fff0c2')] },
       frame(st, t, dark) {
         // the flame: its light wavers, slowly and quickly at once, and now
         // and then sinks low for a moment; it leans this way and that, so
@@ -375,8 +399,8 @@
       },
       sample(x, y, t, c, st) {
         // the stem, curving over to the right
-        if (toSeg(x, y, 0, 0.21, 0.03, 0.08) < 0.038 || toSeg(x, y, 0.03, 0.08, 0.105, 0.03) < 0.028) {
-          return lit(c.stem, unit3(-0.5 * Math.sign(x - 0.02), -0.2, 1), 0.2);
+        if (toSeg(x, y, 0, 0.21, 0.03, 0.08) < 0.042 || toSeg(x, y, 0.03, 0.08, 0.105, 0.03) < 0.03) {
+          return [...lit(c.stem, unit3(-0.5 * Math.sign(x - 0.02), -0.2, 1), 0.2), 1, OUTLINED, 2];
         }
         // a round body, a little wider than tall
         const u = x / 0.5;
@@ -390,71 +414,67 @@
           const d = Math.hypot(x - st.fx, (y - st.fy) * 1.2);
           return [...mix(st.g[0], st.g[1], 0.2 + 0.8 * clamp01(st.i * st.own[hole] * (1.3 - 1.1 * d))), 1, GLOWING];
         }
-        // the skin, darker in the grooves between the ribs, which bulge
+        // the skin, darker in the grooves between the ribs, which bulge;
+        // drawn a little thinner than the light in the face
         const q = Math.min(1, u * u + v * v);
         const n = unit3(u - 0.22 * Math.sin(a) * (1 - v * v), v, Math.sqrt(1 - q));
-        return lit(mix(c.groove, c.skin, 0.35 + 0.65 * (0.5 + 0.5 * rib) ** 0.6), n, 0.25);
+        return [...lit(mix(c.groove, c.skin, 0.35 + 0.65 * (0.5 + 0.5 * rib) ** 0.6), n, 0.25), 0.8];
       },
     },
-    // winter: a snowman in a knitted cap with a bobble, with big dark eyes, a
-    // scarf whose end flutters in the wind and twig arms raised
+    // winter: a snowman, a small ball on a big round one, in a red knitted
+    // cap with a bobble and a blue scarf whose end flutters in the wind,
+    // with coal eyes, smile and buttons, and twig arms raised
     winter: {
-      w: 0.92,
+      w: 0.96,
+      size: 1,
       colors: {
-        snow: '#f2f5f8', fur: '#f6f2ea', cap: '#b4645c', cap2: '#97524c', eye: '#3a302b',
-        scarf: '#8db1c6', scarf2: '#6a8ea6', stick: '#7d634a',
+        snow: '#eef4fa', fur: '#f7f3ec', cap: '#c4534b', cap2: '#a23f39', coal: '#2a2420',
+        scarf: '#86b0cb', scarf2: '#5f88a3', stick: '#7d634a',
       },
       // what moves: the end of the scarf
-      moving: () => [[-0.31, 0.65, -0.08, 0.89]],
+      moving: () => [[-0.33, 0.52, -0.07, 0.8]],
+      // the coal: eyes, a smile, buttons
+      marks: () => [
+        [-0.06, 0.37, '@', 'coal'], [0.06, 0.37, '@', 'coal'],
+        [-0.065, 0.44, '.', 'coal'], [-0.022, 0.46, '.', 'coal'], [0.022, 0.46, '.', 'coal'], [0.065, 0.44, '.', 'coal'],
+        [0, 0.65, 'o', 'coal'], [0, 0.75, 'o', 'coal'], [0, 0.85, 'o', 'coal'],
+      ],
       sample(x, y, t, c) {
         // the bobble on top
-        let n = ball(x, y, 0.015, 0.052, 0.05);
+        let n = ball(x, y, 0.02, 0.07, 0.05);
         if (n) return [...lit(c.fur, n, 0.25), 1, OUTLINED, 2];
         // the cap: a band of fur round the brim, and a cone knitted in ribs
-        const bu = x / 0.2;
-        const bv = (y - 0.285) / 0.042;
-        if (bu * bu + bv * bv < 1) {
-          const fuzz = hash(Math.floor(x * 130 + 99), Math.floor(y * 130), 4);
-          return [...lit(mix(c.fur, c.snow, fuzz), unit3(bu * 0.7, bv * 0.8, 1), 0.2), 1, OUTLINED, 3];
-        }
-        if (y > 0.09 && y < 0.285) {
-          const s = (y - 0.09) / 0.195;
-          const u = (x - 0.012 * (1 - s)) / (0.025 + 0.12 * s);
+        const bu = x / 0.18;
+        const bv = (y - 0.25) / 0.035;
+        if (bu * bu + bv * bv < 1) return [...lit(c.fur, unit3(bu * 0.7, bv * 0.8, 1), 0.2), 1, OUTLINED, 3];
+        if (y > 0.1 && y < 0.25) {
+          const s = (y - 0.1) / 0.15;
+          const u = (x - 0.015 * (1 - s)) / (0.03 + 0.12 * s);
           if (u > -1 && u < 1) {
-            const rib = Math.floor(Math.asin(u) / 0.32 + 10) % 2;
-            return [...lit(rib ? c.cap : c.cap2, unit3(u * 0.85, -0.35, Math.sqrt(1 - u * u)), 0.15), 1, OUTLINED, 4];
+            const rib = Math.floor(Math.asin(u) / 0.4 + 10) % 2;
+            return [...lit(rib ? c.cap : c.cap2, unit3(u * 0.85, -0.35, Math.sqrt(1 - u * u)), 0.15), 1, OUTLINED, 3];
           }
         }
-        // the eyes, tall and dark
-        if (((x + 0.075) / 0.031) ** 2 + ((y - 0.405) / 0.058) ** 2 < 1 || ((x - 0.06) / 0.031) ** 2 + ((y - 0.4) / 0.058) ** 2 < 1) {
-          return [...lit(c.eye, FLAT, 0.4), 1, OUTLINED, 6];
-        }
-        // the scarf's end, hanging down on the left and fluttering (with a
-        // fringe)
-        const se = (y - 0.67) / 0.2;
-        if (se > -0.06 && se < 1.06 && x < -0.08 && x > -0.32) {
+        // the scarf's end, hanging down on the left and fluttering
+        const se = (y - 0.55) / 0.22;
+        if (se > -0.05 && se < 1.05 && x < -0.06 && x > -0.34) {
           const k = clamp01(se);
-          const sx = -0.13 - 0.055 * k - 0.04 * k * k * (1 + Math.sin(t * 4.3 - k * 4));
-          if (Math.abs(x - sx) < 0.034 && !(k > 0.9 && Math.floor(x * 120) % 2)) {
-            return [...lit(Math.floor(k * 10) % 2 ? c.scarf2 : c.scarf, unit3(-0.3, 0, 1), 0.1), 1, OUTLINED, 7];
-          }
+          const sx = -0.12 - 0.06 * k - 0.045 * k * k * (1 + Math.sin(t * 4.3 - k * 4));
+          if (Math.abs(x - sx) < 0.04) return [...lit(Math.floor(k * 5) % 2 ? c.scarf2 : c.scarf, unit3(-0.3, 0, 1), 0.1), 1, OUTLINED, 4];
         }
-        // the scarf round the neck, knitted in slanting stripes
-        const sc = 0.635 + 0.025 * (x / 0.22) ** 2;
-        if (Math.abs(x) < 0.22 && Math.abs(y - sc) < 0.045) {
-          const stripe = Math.floor((x * 1.2 + y) / 0.032) % 2;
-          return [...lit(stripe ? c.scarf : c.scarf2, unit3(x / 0.26, (y - sc) / 0.09, 1), 0.15), 1, OUTLINED, 7];
+        // the scarf round the neck, striped
+        const sc = 0.525 + 0.02 * (x / 0.2) ** 2;
+        if (Math.abs(x) < 0.2 && Math.abs(y - sc) < 0.04) {
+          const stripe = Math.floor((x + 1) / 0.06) % 2;
+          return [...lit(stripe ? c.scarf : c.scarf2, unit3(x / 0.24, (y - sc) / 0.08, 1), 0.15), 1, OUTLINED, 4];
         }
         // the head and the body
-        n = ball(x, y, 0, 0.445, 0.2) || ball(x, y, 0, 0.785, 0.215);
+        n = ball(x, y, 0, 0.375, 0.165) || ball(x, y, 0, 0.73, 0.28, 0.265);
         if (n) return lit(c.snow, n, 0.25);
-        // the snow it stands in
-        n = ball(x, y, 0, 1.0, 0.33, 0.035);
-        if (n) return lit(c.snow, n, 0.2);
         // the twig arms
-        if (Math.abs(x) > 0.18 && y > 0.4 && y < 0.72) {
+        if (Math.abs(x) > 0.2 && y > 0.36 && y < 0.67) {
           for (const [ax, ay, bx, by] of ARMS) {
-            if (toSeg(x, y, ax, ay, bx, by) < 0.015) return lit(c.stick, unit3(-0.3, -0.5, 1), 0);
+            if (toSeg(x, y, ax, ay, bx, by) < 0.018) return [...lit(c.stick, unit3(-0.3, -0.5, 1), 0), 1, OUTLINED, 5];
           }
         }
         return null;
@@ -468,10 +488,10 @@
   // the character for a piece of outline, from the direction (gx, gy) in
   // which the scene (or the part) lies, per pixel, and how much of the cell
   // it fills
-  const edgeGlyph = (gx, gy, cover) => {
+  const edgeGlyph = (gx, gy, cover, inner) => {
     const ax = Math.abs(gx);
     const ay = Math.abs(gy);
-    if (ax > 2.4 * ay) return '|';
+    if (ax > 2.4 * ay) return inner ? '|' : gx > 0 ? '(' : ')';
     if (ay > 2.4 * ax) return gy > 0 ? (cover < 0.5 ? '_' : '-') : cover > 0.5 ? '_' : '-';
     return gx > 0 === gy > 0 ? '/' : '\\';
   };
@@ -494,13 +514,15 @@
   };
   // the change of a mask across cell (q, r) of a grid C wide and R high,
   // towards the right and downwards (an edge filter), into out: the mask is
-  // val (how much of each cell is the scene) or, with p, how much is part p
+  // val (how much of each cell is the scene) or, with p, how much is part p.
+  // Below the grid is the ground: the bottom row goes on into it, with no
+  // edge there
   const sobel = (val, part, p, C, R, q, r, out) => {
     let gx = 0;
     let gy = 0;
     for (let dr = -1; dr <= 1; dr++) {
-      const rr = r + dr;
-      if (rr < 0 || rr >= R) continue;
+      const rr = Math.min(R - 1, r + dr);
+      if (rr < 0) continue;
       for (let dq = -1; dq <= 1; dq++) {
         const qq = q + dq;
         if (qq < 0 || qq >= C || (!dq && !dr)) continue;
@@ -568,16 +590,18 @@
       this.canvas.height = Math.round(this.h * dpr);
       this.ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
       this.dpr = dpr;
-      this.fontSize = parseFloat(cs.fontSize) || 12;
+      const fs = parseFloat(cs.fontSize) || 12;
       const lh = parseFloat(cs.lineHeight);
-      this.lineH = Number.isFinite(lh) ? lh : this.fontSize * 1.15;
-      this.font = `400 ${this.fontSize}px ${cs.fontFamily}`;
+      this.fontSize = fs * GRAIN;
+      this.lineH = (Number.isFinite(lh) ? lh : fs * 1.15) * GRAIN;
+      this.font = `500 ${this.fontSize}px ${cs.fontFamily}`; // a little bolder: the characters are small
       this.ctx.font = this.font;
       this.cellW = this.ctx.measureText('M').width || this.fontSize * 0.6;
       this.cols = Math.max(4, Math.floor(this.w / this.cellW));
       this.rows = Math.max(4, Math.floor(this.h / this.lineH));
       this.aspect = this.lineH / this.cellW; // a row, in column units
-      this.fall = 1 + this.rows / 120; // taller canvases: things fall a little faster
+      this.steps = this.cols / Z; // the width, in steps
+      this.fall = 1 + this.rows / Z / 120; // taller canvases: things fall a little faster
       const v = (name, fallback) => cs.getPropertyValue(name).trim() || fallback;
       this.room = v('--sakura-x', this.canvas.dataset.x || '0.58,0.98').split(',').map(Number);
       const pre = `--${this.season}`;
@@ -590,12 +614,6 @@
         petal: v(`${pre}-fall`, mid),
       };
       this.dark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-      // the object's characters: smaller than the tree's
-      this.objFont = `400 ${this.fontSize * OBJ_SCALE}px ${cs.fontFamily}`;
-      this.ctx.font = this.objFont;
-      this.ocw = this.ctx.measureText('M').width || this.cellW * OBJ_SCALE;
-      this.olh = this.lineH * OBJ_SCALE;
-      this.ctx.font = this.font;
       this.build();
     }
 
@@ -665,7 +683,7 @@
         const len = Math.hypot(dx, dy) || 1;
         const nx = -dy / len;
         const ny = (dx / len) * 0.35;
-        const half = Math.max(0, (Math.min(g.thick, 4) - 1) / 2);
+        const half = Math.max(0, (Math.min(g.thick, 4 * Z) - 1) / 2);
         const steps = Math.ceil(len * 2);
         for (let k = 0; k <= steps; k++) {
           const t = k / steps;
@@ -745,31 +763,37 @@
           // towards the light on the lit side
           const gx = (f(col + 1, row) - f(col - 1, row)) * 0.5;
           const gy = (f(col, row + 1) - f(col, row - 1)) * 0.5;
-          const lit = (gx * 0.45 + gy * 0.9) * 2.2;
+          const lit = (gx * 0.45 + gy * 0.9) * 2.2 * Z;
           bloom(i, col, row, val, lit > 0.12 ? 'light' : lit < -0.12 ? 'deep' : 'bloom', n);
         }
       }
       if (cfg.snow) {
-        // snow lying on the branches: a little on top of most of the wood
+        // snow lying on the branches: a little on top of most of the wood,
+        // in places two characters deep
         const taken = new Set(this.blooms.map((b) => b.i));
+        const free = (i) => i >= 0 && !this.wood.has(i) && !this.twigs.has(i) && !taken.has(i);
         for (const [i, g] of this.wood) {
           const row = Math.floor(i / cols);
           const col = i % cols;
           const up = i - cols;
-          if (row === 0 || g === '|' || this.wood.has(up) || this.twigs.has(up) || taken.has(up)) continue;
+          if (row === 0 || g === '|' || !free(up)) continue;
           const n = hash(col, row, this.seed + 9);
           if (n < 0.45) continue;
           taken.add(up);
-          bloom(up, col, row - 1, 0.1 + 0.25 * n, 'light', n);
+          bloom(up, col, row - 1, 0.18 + 0.3 * n, 'light', n);
+          if (n > 0.7 && row > 1 && free(up - cols)) {
+            taken.add(up - cols);
+            bloom(up - cols, col, row - 2, 0.1 + 0.2 * n, 'light', n);
+          }
         }
       }
       this.crownAt = new Set(this.blooms.map((b) => b.i));
       for (const i of this.twigs.keys()) this.crownAt.add(i);
 
       // the object of the season: left of the tree's room, standing on the
-      // ground line, at most half as tall as the tree (less where the band
-      // is narrow; none if there is too little room). Its own grid of
-      // smaller characters, in pixels from the canvas's corner
+      // ground line, at most half as tall as the tree (its size of that;
+      // less where the band is narrow; none if there is too little room).
+      // Its grid of characters, in pixels from the canvas's corner
       this.object = null;
       const scene = SCENES[this.season];
       if (scene) {
@@ -777,31 +801,29 @@
         let top = rows - 1;
         for (const b of this.blooms) top = Math.min(top, b.row);
         for (const i of this.wood.keys()) top = Math.min(top, Math.floor(i / cols));
-        let orows = Math.floor((0.5 * (rows - 1 - top) * this.lineH) / this.olh);
-        let ocols;
-        let span; // in the tree's columns
-        const fit = () => {
-          ocols = Math.ceil((scene.w * orows * this.olh) / this.ocw);
-          span = Math.ceil((ocols * this.ocw) / this.cellW);
-        };
-        for (fit(); orows > 10 && span > right - 1; fit()) orows--;
-        if (span <= right - 1) {
-          const x0 = Math.max(1, Math.min(Math.round(cols * 0.17 - span / 2), right - span));
-          const px = (v) => Math.round(v * this.dpr) / this.dpr;
+        let orows = Math.floor(0.5 * scene.size * (rows - 1 - top));
+        const across = () => Math.ceil((scene.w * orows * this.lineH) / this.cellW);
+        let ocols = across();
+        while (orows > 10 && ocols > right - 1) {
+          orows--;
+          ocols = across();
+        }
+        if (ocols <= right - 1) {
+          const x0 = Math.max(1, Math.min(Math.round(cols * 0.17 - ocols / 2), right - ocols));
           const canvas = document.createElement('canvas');
-          canvas.width = Math.ceil(ocols * this.ocw * this.dpr);
-          canvas.height = Math.ceil(orows * this.olh * this.dpr);
+          canvas.width = Math.ceil(ocols * this.cellW * this.dpr);
+          canvas.height = Math.ceil(orows * this.lineH * this.dpr);
           const ctx = canvas.getContext('2d');
           ctx.setTransform(this.dpr, 0, 0, this.dpr, 0, 0);
-          ctx.font = this.objFont;
+          ctx.font = this.font;
           ctx.textBaseline = 'top';
           const n = orows * ocols;
           this.object = {
             scene,
             rows: orows,
             cols: ocols,
-            left: px(x0 * this.cellW + (span * this.cellW - ocols * this.ocw) / 2),
-            top: Math.floor(((rows - 1) * this.lineH - orows * this.olh) * this.dpr) / this.dpr, // clear of the ground line
+            left: x0 * this.cellW,
+            top: (rows - 1 - orows) * this.lineH, // on the ground line
             st: scene.init ? scene.init() : {},
             canvas, // its characters are drawn here, and copied onto the band
             ctx,
@@ -814,17 +836,28 @@
             share: new Float32Array(n), // how much of the cell it fills
             glow: new Uint8Array(n),
             glowing: new Set(), // the parts that give light
+            markAt: new Map(), // the details drawn as characters: cell -> [character, colour]
             glyph: new Array(n).fill(null), // [character, colour, opacity]
             solid: new Set(), // the tree's cells it covers: what falls passes behind it
           };
         }
       }
 
-      // a faint, broken ground line under the tree
+      // a faint, broken ground line under the tree; under an object on a
+      // lawn, grass
       this.ground = new Map();
+      this.lawn = new Set();
       const last = (rows - 1) * cols;
+      const o = this.object;
+      const grass = o && o.scene.lawn ? [Math.floor(o.left / this.cellW) - 1, Math.ceil(o.left / this.cellW + o.cols) + 1] : null;
+      this.lawnColor = grass && forTheme(hex(o.scene.lawn), this.dark);
       for (let col = 0; col < cols; col++) {
         const h = hash(col, rows, this.seed + 3);
+        if (grass && col >= grass[0] && col <= grass[1]) {
+          this.lawn.add(last + col);
+          this.ground.set(last + col, h < 0.3 ? ',' : h < 0.45 ? '\'' : '_');
+          continue;
+        }
         if (h < 0.18) continue;
         this.ground.set(last + col, h < 0.26 ? '.' : h < 0.31 ? ',' : '_');
       }
@@ -846,12 +879,14 @@
       }
     }
 
+    // how many petals (or leaves) are in the air by themselves, and how many
+    // snowflakes: twice as many as characters the size of a step would need
     petalTarget() {
-      return Math.max(0, Math.min(42, Math.round(((this.cols * this.rows) / 85) * this.cfg.trickle)));
+      return Math.max(0, Math.min(84, Math.round(((this.cols * this.rows) / (Z * Z * 85)) * 2 * this.cfg.trickle)));
     }
 
     flakeTarget() {
-      return Math.min(MAX_FLAKES, Math.round((this.cols * this.rows) / 40));
+      return Math.min(MAX_FLAKES, Math.round(((this.cols * this.rows) / (Z * Z * 40)) * 2));
     }
 
     // a petal (or a leaf, or a bit of snow): it falls at the speed its drag
@@ -894,14 +929,14 @@
       let y;
       if (this.clusters.length && r() < 0.88) {
         const c = this.clusters[Math.floor(r() * this.clusters.length)];
-        x = c.x + gauss(r) * c.r;
-        y = c.y + gauss(r) * c.r * 0.6;
+        x = (c.x + gauss(r) * c.r) / Z;
+        y = (c.y + gauss(r) * c.r * 0.6) / Z;
       } else {
-        x = between(r, -2, this.cols + 2) - WIND * 3;
+        x = between(r, -2, this.steps + 2) - WIND * 3;
         y = between(r, -3, 0);
       }
       if (anywhere) {
-        y += between(r, 0, this.rows * this.aspect * 0.9);
+        y += between(r, 0, (this.rows / Z) * this.aspect * 0.9);
         x += WIND * between(r, 0, 8);
       }
       this.petals.push(this.petal(x, y, { age: anywhere ? 2 : 0 }));
@@ -910,8 +945,8 @@
     // something shaken loose from the crown at blossom (or leaf, or snow) b
     loosen(b) {
       const r = this.rand;
-      const x = b.col + between(r, -0.4, 0.4);
-      const y = b.row * this.aspect + between(r, -0.5, 0.5);
+      const x = b.col / Z + between(r, -0.4, 0.4);
+      const y = (b.row * this.aspect) / Z + between(r, -0.5, 0.5);
       if (this.cfg.snow) {
         // a puff of snow: it falls almost straight down, spreading a little
         // and drifting only a short way to the left
@@ -964,8 +999,8 @@
       const r = this.rand;
       const d = r();
       this.flakes.push({
-        x: between(r, -2, this.cols + 10),
-        y: anywhere ? between(r, 0, this.rows * this.aspect) : between(r, -2, 0),
+        x: between(r, -2, this.steps + 10),
+        y: anywhere ? between(r, 0, (this.rows / Z) * this.aspect) : between(r, -2, 0),
         d,
         vy: (0.5 + 1.3 * d) * this.fall,
         sway: between(r, 0.3, 1),
@@ -984,9 +1019,9 @@
       const row = (e.clientY - rect.top) / this.lineH;
       const now = e.timeStamp || performance.now();
       const p = this.pointer;
-      let speed = 0; // columns per second
+      let speed = 0; // steps per second
       if (p && now > p.t && now - p.t < 250) {
-        speed = Math.hypot(col - p.col, (row - p.row) * this.aspect) / ((now - p.t) / 1000);
+        speed = Math.hypot(col - p.col, (row - p.row) * this.aspect) / Z / ((now - p.t) / 1000);
       }
       const push = tap ? 1.6 : Math.min(1.6, 0.55 + speed / 40);
       this.pointer = { col, row, t: now, energy: Math.max(p ? p.energy : 0, push) };
@@ -998,17 +1033,18 @@
       const p = this.pointer;
       const r = this.rand;
       const rate = 4 * this.cfg.shed;
+      const reach = REACH * Z; // in characters
       for (const b of this.blooms) {
         const dx = b.col - p.col;
         const dy = (b.row - p.row) * this.aspect;
         const d2 = dx * dx + dy * dy;
-        if (d2 > REACH * REACH) continue;
-        const w = 1 - Math.sqrt(d2) / REACH;
+        if (d2 > reach * reach) continue;
+        const w = 1 - Math.sqrt(d2) / reach;
         b.stir = Math.max(b.stir, w * Math.min(1, p.energy));
-        if (this.petals.length < MAX_PETALS && r() < p.energy * w * b.charge * rate * dt) {
-          b.charge = Math.max(0, b.charge - 0.26);
-          this.loosen(b);
-        }
+        // it thins out as it is shaken, and now and then a petal goes
+        const k = p.energy * w * b.charge * rate * dt;
+        b.charge = Math.max(0, b.charge - 0.26 * k);
+        if (this.petals.length < MAX_PETALS && r() < k * EMIT) this.loosen(b);
       }
     }
 
@@ -1028,8 +1064,9 @@
         if (b.stir > 0.01) b.stir *= Math.exp(-2.5 * dt);
         else b.stir = 0;
       }
-      const H = this.rows * this.aspect;
-      const groundY = (this.rows - 1) * this.aspect;
+      // in steps: the height, and the top of the ground line
+      const H = (this.rows / Z) * this.aspect;
+      const groundY = ((this.rows - 1) / Z) * this.aspect;
       const keep = [];
       for (const p of this.petals) {
         p.age += dt;
@@ -1055,11 +1092,11 @@
         p.x += (p.vx + Math.sin(t * p.freq + p.phase) * p.sway) * dt;
         p.y += p.vy * dt;
         p.rot += p.spin * dt * (0.7 + 0.6 * this.gust);
-        if (p.y >= groundY && p.x >= 0 && p.x < this.cols && r() < 0.75) {
-          this.settle(Math.round(p.x), 0); // it comes to rest on the ground
+        if (p.y >= groundY && p.x >= 0 && p.x < this.steps && r() < 0.75) {
+          this.settle(Math.round(p.x * Z), 0); // it comes to rest on the ground
           continue;
         }
-        if (p.y < H + 1 && p.x > -4 && p.x < this.cols + 4) keep.push(p);
+        if (p.y < H + 1 && p.x > -4 && p.x < this.steps + 4) keep.push(p);
       }
       this.petals = keep;
       // what goes on in the object's scene (the goldfish's bubbles)
@@ -1072,8 +1109,8 @@
           fl.age += dt;
           fl.x += (WIND * blow * (0.4 + fl.d) + Math.sin(t * fl.freq + fl.phase) * fl.sway) * dt;
           fl.y += fl.vy * dt;
-          if (fl.y >= groundY && fl.x >= 0 && fl.x < this.cols && r() < 0.6) {
-            this.settle(Math.round(fl.x), 0);
+          if (fl.y >= groundY && fl.x >= 0 && fl.x < this.steps && r() < 0.6) {
+            this.settle(Math.round(fl.x * Z), 0);
             continue;
           }
           if (fl.y < H + 1 && fl.x > -4) flakes.push(fl);
@@ -1107,7 +1144,7 @@
       if (this.object) this.updateObject(t);
       ctx.font = this.font;
       const cells = new Map();
-      for (const [i, g] of this.ground) cells.set(i, [g, this.colors.wood, 0.55]);
+      for (const [i, g] of this.ground) cells.set(i, this.lawn.has(i) ? [g, this.lawnColor, 0.9] : [g, this.colors.wood, 0.55]);
       // far snowflakes pass behind the tree
       for (const fl of this.flakes) {
         if (fl.d >= 0.5) continue;
@@ -1123,13 +1160,13 @@
       const ramp = cfg.ramp;
       const n = ramp.length;
       for (const b of this.blooms) {
-        const w = 0.5 + 0.5 * Math.sin(b.col * 0.21 + b.row * 0.3 + 1.1 * t);
+        const w = 0.5 + 0.5 * Math.sin((b.col * 0.21 + b.row * 0.3) / Z + 1.1 * t);
         let v = b.v * (0.45 + 0.55 * b.charge) * (0.84 + 0.16 * w * gust) + 0.05 * Math.sin(t * b.sp + b.ph);
         if (b.stir) v += 0.22 * b.stir * Math.sin(t * 19 + b.ph * 3);
         v = clamp01(v);
         if (v < 0.04) continue;
         const g = ramp[Math.min(n - 1, Math.floor(v ** LOOK.gamma * n))];
-        cells.set(b.i, [g, this.colors[b.tone], 0.4 + 0.6 * v]);
+        cells.set(b.i, [g, this.colors[b.tone], 0.5 + 0.5 * v]);
       }
       const last = (this.rows - 1) * cols;
       for (const f of this.fallen) {
@@ -1138,8 +1175,8 @@
       }
       const falls = cfg.falls;
       for (const p of this.petals) {
-        const col = Math.round(p.x);
-        const row = Math.round(p.y / this.aspect);
+        const col = Math.round(p.x * Z);
+        const row = Math.round((p.y * Z) / this.aspect);
         if (col < 0 || row < 0 || col >= cols || row >= this.rows) continue;
         if (this.object && this.object.solid.has(row * cols + col)) continue; // behind the object
         let g;
@@ -1152,7 +1189,7 @@
         }
         // faded in at first and out towards the side edges; a shaken one
         // drifting out of sight gets smaller, then is gone
-        let a = 0.9 * Math.min(1, p.age / p.appear, (col + 1) / 3, (cols - col) / 3);
+        let a = 0.9 * Math.min(1, p.age / p.appear, (col + 1) / (3 * Z), (cols - col) / (3 * Z));
         const left = p.life - p.age;
         if (left < 0.9) {
           a *= left / 0.9;
@@ -1186,9 +1223,10 @@
     // sample cell i
     sampleCell(i, t) {
       const o = this.object;
+      shade.ambient = this.dark ? 0.55 : 0.62;
       const { scene, st, cover, rgb, thick, part, share, glow } = o;
-      const ow = this.ocw;
-      const oh = this.olh;
+      const ow = this.cellW;
+      const oh = this.lineH;
       const unit = o.rows * oh; // the height of the scene, in pixels
       const half = (o.cols * ow) / 2;
       const q = i % o.cols;
@@ -1246,6 +1284,8 @@
       const o = this.object;
       const { cover, rgb, thick, part, share, glow } = o;
       const dark = this.dark;
+      const mark = o.markAt.get(i);
+      if (mark) return [mark[0], forTheme(o.scene.c[mark[1]], dark), 1];
       const C = o.cols;
       const R = o.rows;
       const q = i % C;
@@ -1257,7 +1297,7 @@
       sobel(cover, null, 0, C, R, q, r, g);
       let [gx, gy] = g;
       let mag = Math.hypot(gx, gy);
-      const bare = (qq, rr) => qq < 0 || rr < 0 || qq >= C || rr >= R || cover[rr * C + qq] < 1 / 6;
+      const bare = (qq, rr) => qq < 0 || rr < 0 || qq >= C || (rr < R && cover[rr * C + qq] < 1 / 6);
       if (cover[i] >= 0.9 && !(bare(q - 1, r) || bare(q + 1, r) || bare(q, r - 1) || bare(q, r + 1))) mag = 0;
       let inner = false;
       let lightOf = -1;
@@ -1291,18 +1331,27 @@
         }
       }
       if (mag > 0.16) {
-        const ch = edgeGlyph(gx / this.ocw, gy / this.olh, inner ? share[i] : cover[i]);
-        if (lightOf < 0) return [ch, forTheme(col.map((v) => v * (dark ? 1.2 : 0.78)), dark), 0.95];
+        // (a shape's own edge is rounded, ( or ), where it is wide)
+        const wide = !inner && (gx > 0 ? q + 2 < C && cover[i + 2] > 0.5 : q >= 2 && cover[i - 2] > 0.5);
+        const ch = edgeGlyph(gx / this.cellW, gy / this.lineH, inner ? share[i] : cover[i], !wide);
+        if (lightOf < 0) return [ch, forTheme(col.map((v) => v * (dark ? 1.25 : 0.5)), dark), 1];
         const lc = [rgb[lightOf * 3], rgb[lightOf * 3 + 1], rgb[lightOf * 3 + 2]];
         return [ch, forTheme(glow[i] ? lc : mix(col, lc, 0.7), dark, true), 1];
       }
       // inside: as dense as the light (or the shade) there
       const Y = 0.2126 * col[0] + 0.7152 * col[1] + 0.0722 * col[2];
+      // (on the light page even white things get some ink, and what glows
+      // is drawn dense, its colour telling how bright it is)
       let ink;
-      if (glow[i]) ink = 0.1 + 0.9 * clamp01(Y / 0.85) ** 0.9;
-      else ink = dark ? 0.06 + 0.94 * clamp01(Y / 0.78) ** 1.2 : 0.08 + 0.82 * clamp01((1 - Y) / 0.78) ** 1.1;
+      if (glow[i]) ink = dark ? 0.1 + 0.9 * clamp01(Y / 0.85) ** 0.9 : 0.72 + 0.28 * clamp01(Y / 0.7);
+      else if (dark) ink = 0.12 + 0.88 * clamp01(Y / 0.78) ** 1.2;
+      else {
+        // (more for a vivid colour, so that it shows)
+        const hi = Math.max(...col);
+        ink = 0.3 + 0.6 * clamp01((1 - Y) / 0.78) ** 1.1 + (hi ? 0.25 * (1 - Math.min(...col) / hi) : 0);
+      }
       ink = clamp01(ink * thick[i] + DITHER[(r & 1) * 2 + (q & 1)]);
-      const a = glow[i] ? 0.65 + 0.35 * ink : dark ? 0.5 + 0.5 * ink : 0.62 + 0.38 * ink;
+      const a = glow[i] ? 0.7 + 0.3 * ink : dark ? 0.55 + 0.45 * ink : 0.75 + 0.25 * ink;
       return [FILL[Math.max(1, Math.min(9, Math.round(ink * 9)))], forTheme(col, dark, glow[i]), a];
     }
 
@@ -1310,8 +1359,8 @@
     // them without one)
     paintObject(mask) {
       const o = this.object;
-      const ow = this.ocw;
-      const oh = this.olh;
+      const ow = this.cellW;
+      const oh = this.lineH;
       const C = o.cols;
       const c = o.ctx;
       const list = [];
@@ -1363,10 +1412,10 @@
       o.solid.clear();
       for (let i = 0; i < o.glyph.length; i++) {
         if (!o.glyph[i]) continue;
-        const x = o.left + (i % o.cols) * this.ocw;
-        const y = o.top + Math.floor(i / o.cols) * this.olh;
-        for (let row = Math.floor(y / this.lineH); row <= Math.floor((y + this.olh - 0.01) / this.lineH); row++) {
-          for (let c = Math.floor(x / this.cellW); c <= Math.floor((x + this.ocw - 0.01) / this.cellW); c++) o.solid.add(row * this.cols + c);
+        const x = o.left + (i % o.cols) * this.cellW;
+        const y = o.top + Math.floor(i / o.cols) * this.lineH;
+        for (let row = Math.floor(y / this.lineH); row <= Math.floor((y + this.lineH - 0.01) / this.lineH); row++) {
+          for (let c = Math.floor(x / this.cellW); c <= Math.floor((x + this.cellW - 0.01) / this.cellW); c++) o.solid.add(row * this.cols + c);
         }
       }
     }
@@ -1378,6 +1427,16 @@
       const { scene, st } = o;
       if (scene.frame) scene.frame(st, t, this.dark);
       const N = o.rows * o.cols;
+      const unit = o.rows * this.lineH; // the height of the scene, in pixels
+      const half = (o.cols * this.cellW) / 2;
+      // the details drawn as characters, in their cells now
+      const marked = o.markAt;
+      o.markAt = new Map();
+      for (const [mx, my, ch, name] of scene.marks ? scene.marks(st, t) : []) {
+        const q = Math.floor((mx * unit + half) / this.cellW);
+        const r = Math.floor((my * unit) / this.lineH);
+        if (q >= 0 && q < o.cols && r >= 0 && r < o.rows) o.markAt.set(r * o.cols + q, [ch, name]);
+      }
       if (!o.ready) {
         o.glowing = new Set();
         o.glyph.fill(null);
@@ -1396,16 +1455,14 @@
       // frame, when they have moved on), where they were in the last frame,
       // what changes where it is (a box marked so), and the glowing cells
       // when the light has changed
-      const unit = o.rows * this.olh;
-      const half = (o.cols * this.ocw) / 2;
       const now = new Uint8Array(N);
       const resample = st.key === o.key ? new Uint8Array(N) : o.lit.slice();
       o.key = st.key;
       for (const [x0, y0, x1, y1, still] of scene.moving ? scene.moving(st, t) : []) {
-        const q0 = Math.max(0, Math.floor((x0 * unit + half) / this.ocw) - 1);
-        const r0 = Math.max(0, Math.floor((y0 * unit) / this.olh) - 1);
-        const q1 = Math.min(o.cols - 1, Math.floor((x1 * unit + half) / this.ocw) + 1);
-        const r1 = Math.min(o.rows - 1, Math.floor((y1 * unit) / this.olh) + 1);
+        const q0 = Math.max(0, Math.floor((x0 * unit + half) / this.cellW) - 1);
+        const r0 = Math.max(0, Math.floor((y0 * unit) / this.lineH) - 1);
+        const q1 = Math.min(o.cols - 1, Math.floor((x1 * unit + half) / this.cellW) + 1);
+        const r1 = Math.min(o.rows - 1, Math.floor((y1 * unit) / this.lineH) + 1);
         for (let r = r0; r <= r1; r++) (still ? resample : now).fill(1, r * o.cols + q0, r * o.cols + q1 + 1);
       }
       let any = false;
@@ -1417,10 +1474,15 @@
         }
       }
       o.moved = now;
-      if (!any) return;
+      // the cells a detail came to or left
+      const shifted = [];
+      for (const [i, m] of o.markAt) if (!marked.has(i) || marked.get(i)[0] !== m[0]) shifted.push(i);
+      for (const i of marked.keys()) if (!o.markAt.has(i)) shifted.push(i);
+      if (!any && !shifted.length) return;
       // a cell's character depends on its neighbours too; only the ones
       // that changed are painted again
       const redo = this.grown(resample);
+      for (const i of shifted) redo[i] = 1;
       const changed = new Uint8Array(N);
       let some = 0;
       for (let i = 0; i < N; i++) {
@@ -1436,8 +1498,8 @@
     // the cell of a snowflake, or -1 off the canvas (far ones: also behind
     // the tree)
     flakeCell(fl) {
-      const col = Math.round(fl.x);
-      const row = Math.round(fl.y / this.aspect);
+      const col = Math.round(fl.x * Z);
+      const row = Math.round((fl.y * Z) / this.aspect);
       if (col < 0 || row < 0 || col >= this.cols || row >= this.rows - 1) return -1;
       const i = row * this.cols + col;
       if (fl.d < 0.5 && (this.wood.has(i) || this.crownAt.has(i))) return -1;
