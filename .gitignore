@@ -6,3 +6,24 @@ Gemfile.lock
 _site
 run_jekyll.sh
 /Claude outputs/
+
+# The CV (cv/, LaTeX: cv.tex and cv_ja.tex, compiled with XeLaTeX): only the
+# compiled PDFs are committed. The sources, fonts, build helpers (cv/.build)
+# and the files LaTeX writes while compiling stay local.
+/cv/*
+!/cv/cv.pdf
+!/cv/cv_ja.pdf
+
+# Files LaTeX writes while compiling, wherever it runs
+*.aux
+*.bbl
+*.bcf
+*.blg
+*.fdb_latexmk
+*.fls
+*.log
+*.out
+*.run.xml
+*.synctex.gz
+*.toc
+*.xdv
