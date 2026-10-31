@@ -570,6 +570,11 @@ summary:focus-visible {
     letter-spacing: 0.04em;
     transition: background-color 0.2s, transform 0.15s;
 }
+/* a label too long for its column (the lab's name in Japanese on the
+   narrowest phones) wraps into two even lines, not one character alone */
+.nav-link > span:not(.icon) {
+    text-wrap: balance;
+}
 .nav-link:active {
     transform: scale(0.98);
 }
