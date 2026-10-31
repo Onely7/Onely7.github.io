@@ -7,6 +7,14 @@
 # badges: - kind / label / icon         (award chips shown next to the links)
 #
 # Link chip names (keep to these when adding links):
+#   - the paper itself:
+#       its page at the publisher or in the proceedings (a journal, a
+#       conference site, ACL Anthology)
+#                                   -> "publisher" (icon images/book-solid.svg)
+#       a link straight to the PDF file
+#                                   -> "pdf" (icon images/file-pdf-solid.svg)
+#       its arXiv page              -> "arXiv" (icon images/arxiv.svg), right
+#                                      after the "publisher" or "pdf" chip
 #   - project page              -> label "project" (icon images/globe-solid.svg)
 #   - Hugging Face (icon images/hugging-face.svg), by what the URL holds:
 #       training dataset            -> "train dataset"
@@ -22,9 +30,7 @@
 #       training dataset            -> "train dataset"
 #       evaluation dataset          -> "eval dataset"
 #       training + evaluation data  -> "train/eval dataset"
-#   - arXiv page                -> label "arXiv" (icon images/arxiv.svg), placed
-#                                  right after "pdf"
-#   - others: "pdf", "poster", "slide", "code" (GitHub), "blog", ...
+#   - others: "poster", "slide", "code" (GitHub), "blog", ...
 # publications: `image` (640x400 figure, e.g. images/pubs/foo.webp) is shown on
 # the left; without it, a tile with venue_short + year is shown instead.
 # `title_lang: "ja"` marks a Japanese title (line breaks between phrases).
@@ -268,10 +274,10 @@ publications:
       authors_html: "<u>Daiki Shiono</u>, Shumpei Miyawaki, Ryota Tanaka, Jun Suzuki."
       venue_html: "<em>New Generation Computing</em>, Volume 44, Article 7, January 2026."
       links:
-        - kind: "pdf"
-          label: "pdf"
+        - kind: "publisher"
+          label: "publisher"
           href: "https://link.springer.com/article/10.1007/s00354-025-00308-2"
-          icon: "images/file-pdf-solid.svg"
+          icon: "images/book-solid.svg"
         - kind: "arxiv"
           label: "arXiv"
           href: "https://arxiv.org/abs/2512.23572"
@@ -288,10 +294,10 @@ publications:
       authors_html: "Shoji Moriya*, <u>Daiki Shiono*</u>, Riki Fujihara, Yosuke Kishinami, Subaru Kimura, Shusaku Sone, Reina Akama, Yuta Matsumoto, Jun Suzuki, Kentaro Inui. (*:&nbsp;equal&nbsp;contribution)"
       venue_html: "<em>Advanced Robotics</em>, Volume 37, Issue 21, pp.1392-1405, August 2023."
       links:
-        - kind: "pdf"
-          label: "pdf"
+        - kind: "publisher"
+          label: "publisher"
           href: "https://www.tandfonline.com/doi/full/10.1080/01691864.2023.2240883"
-          icon: "images/file-pdf-solid.svg"
+          icon: "images/book-solid.svg"
 
   international_conferences:
     - title: "It's Not RoPE That Creates Sinks: The Role of Self-Concentration and Value-Non-Mixing in Attention"
@@ -301,10 +307,10 @@ publications:
       authors_html: "Raito Kiya, Satoki Ohashi, Kosuke Sato, Go Kamoda, Ryosuke Takahashi, Yuji Yamamoto, <u>Daiki Shiono</u>, Keisuke Sakaguchi, Goro Kobayashi."
       venue_html: "Proceedings of <em>the 2026 Conference on Empirical Methods in Natural Language Processing (EMNLP 2026)</em>, Budapest, Hungary, pp.31160-31184, October 2026."
       links:
-        - kind: "pdf"
-          label: "pdf"
+        - kind: "publisher"
+          label: "publisher"
           href: "https://aclanthology.org/2026.emnlp-main.1366/"
-          icon: "images/file-pdf-solid.svg"
+          icon: "images/book-solid.svg"
         - kind: "arxiv"
           label: "arXiv"
           href: "https://arxiv.org/abs/2609.09085"
@@ -325,10 +331,10 @@ publications:
       authors_html: "Futa Waseda, Shojiro Yamabe, <u>Daiki Shiono</u>, Kento Sasaki, Tsubasa Takahashi."
       venue_html: "Proceedings of <em>the European Conference on Computer Vision (ECCV 2026)</em>, Malmö, Sweden, September 2026."
       links:
-        - kind: "pdf"
-          label: "pdf"
+        - kind: "publisher"
+          label: "publisher"
           href: "https://eccv.ecva.net/virtual/2026/poster/4589"
-          icon: "images/file-pdf-solid.svg"
+          icon: "images/book-solid.svg"
         - kind: "arxiv"
           label: "arXiv"
           href: "https://arxiv.org/abs/2512.11899"
@@ -361,10 +367,10 @@ publications:
       authors_html: "Shojiro Yamabe, Futa Waseda, <u>Daiki Shiono</u>, Tsubasa Takahashi."
       venue_html: "Proceedings of <em>the IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR 2026)</em>, Denver, USA, June 2026."
       links:
-        - kind: "pdf"
-          label: "pdf"
+        - kind: "publisher"
+          label: "publisher"
           href: "https://cvpr.thecvf.com/virtual/2026/poster/38263"
-          icon: "images/file-pdf-solid.svg"
+          icon: "images/book-solid.svg"
         - kind: "arxiv"
           label: "arXiv"
           href: "https://arxiv.org/abs/2512.03463"
@@ -385,10 +391,10 @@ publications:
       authors_html: "Keishi Ishihara*, Kento Sasaki*, Tsubasa Takahashi, <u>Daiki Shiono</u>, Yu Yamaguchi. (*:&nbsp;equal&nbsp;contribution)"
       venue_html: "Proceedings of <em>the AAAI Conference on Artificial Intelligence (AAAI 2026)</em>, Singapore, January 2026."
       links:
-        - kind: "pdf"
-          label: "pdf"
+        - kind: "publisher"
+          label: "publisher"
           href: "https://ojs.aaai.org/index.php/AAAI/article/view/37441"
-          icon: "images/file-pdf-solid.svg"
+          icon: "images/book-solid.svg"
         - kind: "arxiv"
           label: "arXiv"
           href: "https://arxiv.org/abs/2508.10427"
@@ -421,10 +427,10 @@ publications:
       authors_html: "Ko Yoshida, <u>Daiki Shiono</u>, Kai Sato, Toko Miura, Momoka Furuhashi, Jun Suzuki."
       venue_html: "Proceedings of <em>the First BabyLM Workshop</em>, Association for Computational Linguistics, Suzhou, China, pp.508-524, November 2025."
       links:
-        - kind: "pdf"
-          label: "pdf"
+        - kind: "publisher"
+          label: "publisher"
           href: "https://aclanthology.org/2025.babylm-main.36/"
-          icon: "images/file-pdf-solid.svg"
+          icon: "images/book-solid.svg"
         - kind: "poster"
           label: "poster"
           href: "materials/babylm2025_poster_yoshida.pdf"
@@ -437,10 +443,10 @@ publications:
       authors_html: "<u>Daiki Shiono</u>, Ana Brassard, Yukiko Ishizuki, Jun Suzuki."
       venue_html: "Proceedings of <em>the 31st International Conference on Computational Linguistics (COLING 2025)</em>, Abu Dhabi, UAE, January 2025."
       links:
-        - kind: "pdf"
-          label: "pdf"
+        - kind: "publisher"
+          label: "publisher"
           href: "https://aclanthology.org/2025.coling-main.757/"
-          icon: "images/file-pdf-solid.svg"
+          icon: "images/book-solid.svg"
         - kind: "poster"
           label: "poster"
           href: "materials/coling2025_poster_shiono.pdf"
@@ -469,10 +475,10 @@ publications:
       authors_html: "Ryohei Kamei, <u>Daiki Shiono</u>, Reina Akama, Jun Suzuki."
       venue_html: "Proceedings of <em>the 2024 Conference of the North American Chapter of the Association for Computational Linguistics Student Research Workshop (NAACL SRW 2024)</em>, Mexico City, Mexico, June 2024."
       links:
-        - kind: "pdf"
-          label: "pdf"
+        - kind: "publisher"
+          label: "publisher"
           href: "https://aclanthology.org/2024.naacl-srw.13/"
-          icon: "images/file-pdf-solid.svg"
+          icon: "images/book-solid.svg"
         - kind: "arxiv"
           label: "arXiv"
           href: "https://arxiv.org/abs/2406.09702"
