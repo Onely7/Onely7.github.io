@@ -1,0 +1,20 @@
+{%- comment -%}
+  The theme button: switches between the light and the dark theme
+  (js/style.js, which also shows it: without JavaScript it stays hidden).
+  It shows the moon in the light theme and the sun in the dark one, and its
+  label says what a click does. In the corner of the sidebar on desktop and
+  in the top bar on tablets and phones.
+  usage: {% include theme-toggle.html class="sidebar-theme" %}
+{%- endcomment -%}
+<button
+  type="button"
+  class="theme-toggle{% if include.class %} {{ include.class }}{% endif %}"
+  title="{{ data.labels.theme_dark }}"
+  aria-label="{{ data.labels.theme_dark }}"
+  data-label-dark="{{ data.labels.theme_dark }}"
+  data-label-light="{{ data.labels.theme_light }}"
+  hidden
+>
+  {%- include icon.html src="images/dark-mode.svg" class="theme-icon theme-moon" %}
+  {%- include icon.html src="images/light-mode.svg" class="theme-icon theme-sun" %}
+</button>

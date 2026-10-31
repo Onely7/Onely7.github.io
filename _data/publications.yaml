@@ -132,6 +132,8 @@ labels:
   scroll_down: "Scroll to content"
   menu: "Menu"                # menu button of the top bar (tablets and phones)
   close: "Close"              # the same button while the menu is open
+  theme_dark: "Switch to dark mode"    # the theme button (the moon, in the light theme)
+  theme_light: "Switch to light mode"  # the same button (the sun, in the dark theme)
   older_news: "Show older news"
   pub_note: "<u>Underline</u>: myself, *: equal contribution"
   cta_cv: "Download CV"

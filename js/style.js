@@ -94,6 +94,58 @@
   update();
 })();
 
+// Light and dark themes: the theme button (in the corner of the sidebar on
+// desktop, in the top bar on tablets and phones) switches from one to the
+// other and keeps the choice in localStorage, where the script in <head>
+// finds it on the next visit (window.setTheme there puts data-theme on
+// <html>). Until a choice is made the theme follows the OS setting. The page
+// fades from one theme to the other where the browser can (View Transitions),
+// at once with reduced motion.
+(() => {
+  const buttons = Array.from(document.querySelectorAll('.theme-toggle'));
+  if (!buttons.length || !window.setTheme) return;
+  const root = document.documentElement;
+  // the theme in use, from the style sheet (--dark: 1 in the dark theme)
+  const isDark = () => getComputedStyle(root).getPropertyValue('--dark').trim() === '1';
+  // the label says what a click does
+  const label = () => {
+    const dark = isDark();
+    buttons.forEach((b) => {
+      const text = (dark ? b.dataset.labelLight : b.dataset.labelDark) || '';
+      b.setAttribute('aria-label', text);
+      b.title = text;
+    });
+  };
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
+  // the theme asked for by a click whose change has not been made yet (a
+  // fade starts on the next frame): a quick second click goes back
+  let asked = null;
+  buttons.forEach((b) => {
+    b.hidden = false;
+    b.addEventListener('click', () => {
+      const next = (asked || (isDark() ? 'dark' : 'light')) === 'dark' ? 'light' : 'dark';
+      asked = next;
+      try {
+        localStorage.setItem('portfolio-theme', next);
+      } catch (e) {
+        // no storage (blocked): the choice lasts until the page is left
+      }
+      const go = () => {
+        window.setTheme(next);
+        if (asked === next) asked = null;
+        label();
+      };
+      if (document.startViewTransition && !reduce.matches) document.startViewTransition(go);
+      else go();
+    });
+  });
+  // the OS setting changed (it decides until a choice is made)
+  const os = window.matchMedia('(prefers-color-scheme: dark)');
+  if (os.addEventListener) os.addEventListener('change', label);
+  else if (os.addListener) os.addListener(label);
+  label();
+})();
+
 // Highlight the section currently being read in the table of contents
 // (in the sidebar on desktop, in the menu of the top bar on tablets and phones)
 (() => {

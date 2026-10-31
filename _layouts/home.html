@@ -22,10 +22,36 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <!-- light and dark themes (the dark one follows the OS setting) -->
+    <!-- light and dark themes: the OS setting, or the one chosen with the
+         theme button (js/style.js); the browser's bar takes its colour -->
     <meta name="color-scheme" content="light dark" />
-    <!-- "js" on <html>: styles that apply only when js/style.js runs (top bar) -->
-    <script>document.documentElement.classList.add("js");</script>
+    <meta name="theme-color" content="#eef0f3" media="(prefers-color-scheme: light)" data-theme="light" />
+    <meta name="theme-color" content="#252320" media="(prefers-color-scheme: dark)" data-theme="dark" />
+    <!-- before the page is drawn: "js" on <html> (styles that apply only
+         when js/style.js runs: the top bar, the theme button) and the theme
+         chosen earlier, if any (kept in localStorage) -->
+    <script>
+      (() => {
+        const root = document.documentElement;
+        root.classList.add("js");
+        // data-theme on <html> overrides the OS setting (css/style.css); the
+        // browser's own colours and its bar go with it. (Also used by
+        // js/style.js when the theme button is clicked)
+        window.setTheme = (theme) => {
+          root.dataset.theme = theme;
+          document.querySelector('meta[name="color-scheme"]').content = theme;
+          document.querySelectorAll('meta[name="theme-color"]').forEach((m) => {
+            m.media = m.dataset.theme === theme ? "all" : "not all";
+          });
+        };
+        try {
+          const theme = localStorage.getItem("portfolio-theme");
+          if (theme === "light" || theme === "dark") window.setTheme(theme);
+        } catch (e) {
+          // no storage (blocked): the OS setting
+        }
+      })();
+    </script>
     <title>{{ data.site.title }}</title>
     <meta name="description" content="{{ data.site.description | escape }}" />
     <meta name="author" content="{{ data.profile.name_en | default: data.profile.name }}" />
@@ -80,8 +106,6 @@
       color="#2fa1c2"
     />
     <meta name="msapplication-TileColor" content="#00bbdd" />
-    <meta name="theme-color" content="#eef0f3" media="(prefers-color-scheme: light)" />
-    <meta name="theme-color" content="#252320" media="(prefers-color-scheme: dark)" />
 
     <!-- reset css (version pinned so that future releases cannot change the layout) -->
     <link rel="stylesheet" href="https://unpkg.com/ress@5.0.2/dist/ress.min.css" />
@@ -138,7 +162,8 @@
          fixed to the top of the screen. The name appears in it once the name
          on the cover has scrolled under the bar; the menu button (shown by
          js/style.js) opens a drawer with the table of contents and the site
-         links. -->
+         links, and the theme button next to it switches between the light
+         and the dark theme. -->
     <header class="topbar" id="topbar">
       <div class="topbar-bar">
         <a class="topbar-brand" href="#top">
@@ -159,14 +184,18 @@
           </picture>
           <span class="topbar-name">{{ data.profile.name }}</span>
         </a>
-        <button type="button" class="topbar-toggle" aria-expanded="false" aria-controls="topbar-menu" hidden>
-          <span class="topbar-toggle-icon" aria-hidden="true"><span></span><span></span><span></span></span>
-          <!-- "Menu" while closed, "Close" while open (the other is hidden) -->
-          <span class="topbar-toggle-label">
-            <span class="label-menu">{{ data.labels.menu }}</span>
-            <span class="label-close">{{ data.labels.close }}</span>
-          </span>
-        </button>
+        <!-- the theme button and the menu button, on the right -->
+        <div class="topbar-actions">
+          {%- include theme-toggle.html class="topbar-theme" %}
+          <button type="button" class="topbar-toggle" aria-expanded="false" aria-controls="topbar-menu" hidden>
+            <span class="topbar-toggle-icon" aria-hidden="true"><span></span><span></span><span></span></span>
+            <!-- "Menu" while closed, "Close" while open (the other is hidden) -->
+            <span class="topbar-toggle-label">
+              <span class="label-menu">{{ data.labels.menu }}</span>
+              <span class="label-close">{{ data.labels.close }}</span>
+            </span>
+          </button>
+        </div>
       </div>
       <nav class="topbar-menu" id="topbar-menu" aria-label="{{ data.labels.menu }}">
         <div class="topbar-menu-scroll">
@@ -184,6 +213,9 @@
     <div class="page" id="top">
       <!-- (left column): navigation -->
       <nav class="sidebar">
+        <!-- the theme button, in the corner (desktop; on tablets and phones
+             it is in the top bar) -->
+        {%- include theme-toggle.html class="sidebar-theme" %}
         <div class="sidebar-inner">
           <div class="profile">
             {%- assign logo_href = data.profile.logo.href %}

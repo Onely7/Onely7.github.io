@@ -4,11 +4,12 @@
    Design tokens
    The three brand colours are kept from the original design:
    base #eef0f3 / main #443322 / accent rgb(145, 180, 200)
-   The dark theme (with the OS set to dark) redefines the colours
-   below: see "Dark theme" after this block.
+   The dark theme (with the OS set to dark, or chosen with the theme
+   button) redefines the colours below: see "Dark theme" after this block.
    ========================================================== */
 :root {
     color-scheme: light;
+    --dark: 0;                 /* 1 in the dark theme: the theme button and the scripts read it */
     --base: #eef0f3;           /* base colour: sidebar, soft surfaces */
     --main: #443322;           /* main colour: text, headings, primary button */
     --accent: #91b4c8;         /* accent colour: markers, lines, focus */
@@ -101,14 +102,18 @@
     --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
 }
 /* ----------------------------------------------------------
-   Dark theme: with the OS set to dark. A warm charcoal with the
-   main colour lightened to a warm off-white for the text, the
-   accent blue kept, and the filled controls in a lighter brown.
+   Dark theme: with the OS set to dark, or chosen with the theme button
+   (js/style.js puts data-theme="dark" or "light" on <html>; without a
+   choice the OS setting decides). A warm charcoal with the main colour
+   lightened to a warm off-white for the text, the accent blue kept, and
+   the filled controls in a lighter brown. The same values twice, once for
+   each way in: keep the two blocks alike.
    Screens only: printing stays light.
    ---------------------------------------------------------- */
 @media screen and (prefers-color-scheme: dark) {
-    :root {
+    :root:not([data-theme="light"]) {
         color-scheme: dark;
+        --dark: 1;
         --base: #252320;
         --main: #e8e1d8;
         --accent: #91b4c8;
@@ -153,7 +158,58 @@
         --winter-fall: #dce5eb;
     }
     /* the paper figures (mostly on white): a little dimmer */
-    .pub-image {
+    :root:not([data-theme="light"]) .pub-image {
+        filter: brightness(0.9);
+    }
+}
+@media screen {
+    :root[data-theme="dark"] {
+        color-scheme: dark;
+        --dark: 1;
+        --base: #252320;
+        --main: #e8e1d8;
+        --accent: #91b4c8;
+        --accent-soft: #263641;
+        --accent-ink: #a9c8da;
+
+        --text-2: #aaa49c;
+        --text-3: #9a948c;
+        --bg: #1c1a18;
+        --line: rgba(232, 225, 216, 0.12);
+        --line-strong: rgba(232, 225, 216, 0.22);
+        --section-tint: #211f1c;
+        --surface: #2d2b28;
+        --surface-hover: rgba(255, 255, 255, 0.06);
+        --strong: #6b5541;
+        --strong-hover: #7c634d;
+        --on-strong: #f6efe6;
+        --on-strong-2: rgba(246, 239, 230, 0.82);
+        --figure-bg: #f2efea;
+        --glass: rgba(37, 35, 32, 0.62);
+        --glass-solid: rgba(37, 35, 32, 0.96);
+        --scrim: rgba(0, 0, 0, 0.5);
+        --shadow-rgb: 0, 0, 0;
+
+        /* the tree: the same hues, a little lighter for the dark ground */
+        --tree-wood: rgba(232, 225, 216, 0.42);
+        --spring-light: #e5b9c6;
+        --spring: #cf98a9;
+        --spring-deep: #b27f90;
+        --spring-fall: #d79fb0;
+        --summer-light: #c6d9b4;
+        --summer: #9cb788;
+        --summer-deep: #7a9468;
+        --summer-fall: #a8c294;
+        --autumn-light: #ecc9a8;
+        --autumn: #d29e70;
+        --autumn-deep: #ad7850;
+        --autumn-fall: #d99b6b;
+        --winter-light: #eef3f6;
+        --winter: #cfdae2;
+        --winter-deep: #a9bac7;
+        --winter-fall: #dce5eb;
+    }
+    :root[data-theme="dark"] .pub-image {
         filter: brightness(0.9);
     }
 }
@@ -444,6 +500,52 @@ summary:focus-visible {
     .icon-button:hover .icon {
         translate: 0 -1px;
     }
+}
+
+/* the theme button (js/style.js): in the top right corner of the sidebar
+   on desktop, in the top bar on tablets and phones (see there). The moon
+   in the light theme, the sun in the dark one (--dark: 0 or 1); on a
+   click one turns away and shrinks as the other turns in */
+.theme-toggle {
+    --icon-size: 22px;
+    display: grid;
+    place-items: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    color: var(--main);
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+    transition: background-color 0.2s, transform 0.15s;
+}
+.theme-toggle:active {
+    transform: scale(0.92);
+}
+@media (hover: hover) {
+    .theme-toggle:hover {
+        background: var(--surface);
+    }
+}
+.theme-icon {
+    grid-area: 1 / 1;
+    transition: opacity 0.3s, rotate 0.5s var(--ease-out), scale 0.5s var(--ease-out);
+}
+.theme-moon {
+    opacity: calc(1 - var(--dark));
+    rotate: calc(var(--dark) * -90deg);
+    scale: calc(1 - 0.5 * var(--dark));
+}
+.theme-sun {
+    opacity: var(--dark);
+    rotate: calc((1 - var(--dark)) * 90deg);
+    scale: calc(0.5 + 0.5 * var(--dark));
+}
+/* desktop: in the corner, beside the photo */
+.sidebar-theme {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    z-index: 1;
 }
 
 /* site links */
@@ -1285,6 +1387,23 @@ a.chip:active {
         text-overflow: ellipsis;
     }
 
+    /* on the right: the theme button, then the menu button */
+    .topbar-actions {
+        display: flex;
+        align-items: center;
+        gap: 2px;
+        flex: none;
+    }
+    /* the theme button is in the bar, not in the sidebar */
+    .sidebar-theme {
+        display: none;
+    }
+    @media (hover: hover) {
+        .topbar-theme:hover {
+            background: var(--surface-hover);
+        }
+    }
+
     /* menu button: three lines and a label ("Menu" / "Close"; both are
        stacked so that the button keeps its width) */
     .topbar-toggle {
@@ -1498,10 +1617,12 @@ a.chip:active {
         transition: opacity var(--drawer-open-time) var(--drawer-open-ease);
     }
 }
-/* not on paper (a fixed bar would repeat at the top of every page) */
+/* not on paper (a fixed bar would repeat at the top of every page; the
+   theme button does nothing there) */
 @media print {
     .topbar,
-    .topbar-scrim {
+    .topbar-scrim,
+    .theme-toggle {
         display: none !important;
     }
     html {
@@ -1837,6 +1958,16 @@ a.chip:active {
     .nav-link {
         font-size: var(--fs-small);
     }
+    /* the top bar: the whole name beside the theme and menu buttons */
+    .topbar-bar {
+        gap: 8px;
+    }
+    .topbar-name {
+        font-size: 15px;
+    }
+    .topbar-theme {
+        width: 36px;
+    }
 }
 
 /* short phones (portrait): a smaller photo and tighter spacing, so that
@@ -1965,6 +2096,14 @@ html.js .hero-sakura {
     .pub-search input {
         font-size: 16px;
     }
+}
+
+/* switching the theme: the page fades from the one to the other
+   (js/style.js, in browsers with View Transitions; at once with reduced
+   motion) */
+::view-transition-old(root),
+::view-transition-new(root) {
+    animation-duration: 0.3s;
 }
 
 @media (prefers-reduced-motion: reduce) {

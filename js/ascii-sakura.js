@@ -602,8 +602,15 @@
       this.aspect = this.lineH / this.cellW; // a row, in column units
       this.steps = this.cols / Z; // the width, in steps
       this.fall = 1 + this.rows / Z / 120; // taller canvases: things fall a little faster
+      this.room = (cs.getPropertyValue('--sakura-x').trim() || this.canvas.dataset.x || '0.58,0.98').split(',').map(Number);
+      this.theme(cs);
+      this.build();
+    }
+
+    // the colours of the season in the theme in use (light or dark), from
+    // the style sheet
+    theme(cs = getComputedStyle(this.canvas)) {
       const v = (name, fallback) => cs.getPropertyValue(name).trim() || fallback;
-      this.room = v('--sakura-x', this.canvas.dataset.x || '0.58,0.98').split(',').map(Number);
       const pre = `--${this.season}`;
       const mid = v(pre, '#d899ab');
       this.colors = {
@@ -613,8 +620,19 @@
         deep: v(`${pre}-deep`, mid),
         petal: v(`${pre}-fall`, mid),
       };
-      this.dark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-      this.build();
+      this.dark = v('--dark', '0') === '1';
+    }
+
+    // the theme changed: the same picture in the other colours (what is in
+    // the air and the object's motion carry on)
+    retheme() {
+      this.theme();
+      const o = this.object;
+      if (o) {
+        o.ready = false; // drawn again in full
+        if (o.scene.lawn) this.lawnColor = forTheme(hex(o.scene.lawn), this.dark);
+      }
+      this.draw();
     }
 
     // the tree in column units (x: columns, y: rows * aspect)
@@ -1575,9 +1593,12 @@
       });
     });
     items.forEach((s) => ro.observe(s.canvas));
-    // the colours change with the theme (light or dark)
+    // the colours change with the theme: with the OS setting, or with the
+    // theme button (data-theme on <html>)
+    const retheme = () => items.forEach((s) => s.retheme());
     const dark = window.matchMedia('(prefers-color-scheme: dark)');
-    if (dark.addEventListener) dark.addEventListener('change', () => items.forEach(redo));
+    if (dark.addEventListener) dark.addEventListener('change', retheme);
+    new MutationObserver(retheme).observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
     // a font that arrives late changes the character cell: lay out again
     if (document.fonts) {
       document.fonts.addEventListener('loadingdone', () => {
