@@ -25,6 +25,7 @@
     --section-tint: #f9fafb;   /* every other section: a very light tint of the base colour */
     --surface: #fff;           /* raised controls on the base colour: buttons, chips, search box */
     --surface-hover: rgba(255, 255, 255, 0.8); /* a light wash over the base colour on hover */
+    --tag-bg: var(--base);     /* the research interest and skill tags */
     --strong: var(--main);     /* filled controls: primary button, chosen filter, toast */
     --strong-hover: #2d2217;
     --on-strong: #fff;         /* text on them */
@@ -128,6 +129,7 @@
         --section-tint: #211f1c;
         --surface: #2d2b28;
         --surface-hover: rgba(255, 255, 255, 0.06);
+        --tag-bg: #312e2a;
         --strong: #6b5541;
         --strong-hover: #7c634d;
         --on-strong: #f6efe6;
@@ -180,6 +182,7 @@
         --section-tint: #211f1c;
         --surface: #2d2b28;
         --surface-hover: rgba(255, 255, 255, 0.06);
+        --tag-bg: #312e2a;
         --strong: #6b5541;
         --strong-hover: #7c634d;
         --on-strong: #f6efe6;
@@ -813,7 +816,7 @@ summary:focus-visible {
 .tag {
     padding: 5px 15px;
     border-radius: 999px;
-    background: var(--base);
+    background: var(--tag-bg);
     font-size: var(--fs-text);
     font-weight: 500;
     line-height: 1.5;
