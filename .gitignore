@@ -27,3 +27,6 @@ run_jekyll.sh
 *.synctex.gz
 *.toc
 *.xdv
+
+# Folder settings that macOS Finder writes in every folder
+.DS_Store
