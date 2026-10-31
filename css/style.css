@@ -39,26 +39,27 @@
     /* the ASCII cherry tree above the About text (js/ascii-sakura.js),
        through the seasons. Each season: three tones for the crown (lit,
        middle, shaded) and one for what falls from it; all muted so that
-       they sit between the main brown and the accent blue. The branches
-       and the ground are a tint of the main colour. (The objects of the
-       seasons beside the tree have colours of their own, in the script) */
-    --tree-wood: rgba(68, 51, 34, 0.45);
-    --spring-light: #e6b6c3;   /* sakura (March to May) */
-    --spring: #d899ab;
-    --spring-deep: #c47a90;
-    --spring-fall: #d48a9f;
-    --summer-light: #c3d6b0;   /* fresh green (June to August) */
-    --summer: #a2bd8c;
-    --summer-deep: #7f9c6c;
-    --summer-fall: #93b17d;
-    --autumn-light: #e9c7a6;   /* autumn leaves (September to November) */
-    --autumn: #d6a274;
-    --autumn-deep: #bb7f53;
-    --autumn-fall: #cf9061;
-    --winter-light: #c7d4de;   /* snow (December to February) */
-    --winter: #a8bbca;
-    --winter-deep: #8aa3b5;
-    --winter-fall: #97adbe;
+       they sit between the main brown and the accent blue, yet deep enough
+       to stand out from the white page. The branches and the ground are a
+       tint of the main colour. (The objects of the seasons beside the tree
+       have colours of their own, in the script) */
+    --tree-wood: rgba(68, 51, 34, 0.62);
+    --spring-light: #ca9ba8;   /* sakura (March to May) */
+    --spring: #bc7f91;
+    --spring-deep: #a86076;
+    --spring-fall: #b87085;
+    --summer-light: #a8ba95;   /* fresh green (June to August) */
+    --summer: #87a272;
+    --summer-deep: #668253;
+    --summer-fall: #799664;
+    --autumn-light: #ccac8c;   /* autumn leaves (September to November) */
+    --autumn: #b9885b;
+    --autumn-deep: #9e663b;
+    --autumn-fall: #b27649;
+    --winter-light: #acb8c2;   /* snow (December to February) */
+    --winter: #8da0af;
+    --winter-deep: #70899a;
+    --winter-fall: #7d92a3;
 
     /* Fonts (the same three families as otofu.org)
        serif: the name and headings      (Shippori Mincho)
