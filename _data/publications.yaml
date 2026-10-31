@@ -166,8 +166,6 @@ affiliations:
     role: "Ph.D.&nbsp;Student, Fundamental Artificial Intelligence Laboratory"
   - org: "University of Cambridge, Department of Computer Science and Technology"
     role: "Visiting Researcher (Departmental Visiting Student)"
-  - org: "Turing Inc."
-    role: "Machine Learning Research Engineer (Intern / Contractor), Fundamental AI Group"
 
 research_interests:
   - "Vision & Language"
@@ -226,7 +224,7 @@ experience:
     lines:
       - "Fundamental AI Group"
       - "Contributed to <a href=\"https://huggingface.co/turing-motors/Heron-Idefics2-8B-v0.1\">training large-scale vision-language models (LVLMs)</a>, <a href=\"https://huggingface.co/datasets/turing-motors/MOMIJI\">building a large-scale Japanese vision-language pretraining dataset</a>, and <a href=\"https://huggingface.co/datasets/turing-motors/Cauldron-JA\">constructing a Japanese visual instruction-tuning dataset</a>."
-    date: "Apr 2024 – Present"
+    date: "Apr 2024 – Oct 2026"
   - title_html: "Research Assistant @ Center for Data-driven Science and Artificial Intelligence, Tohoku University"
     lines:
       - "Supported research activities through experimental setup, documentation, data maintenance, and related project operations."

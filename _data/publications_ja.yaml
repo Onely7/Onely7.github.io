@@ -165,8 +165,6 @@ affiliations:
     role: "<span class=\"nowrap\">鈴木(潤)研究室</span> <span class=\"nowrap\">博士後期課程 3&nbsp;年</span>"
   - org: "ケンブリッジ大学 Department of Computer Science and Technology"
     role: "Visiting Researcher (Departmental Visiting Student)"
-  - org: "Turing Inc."
-    role: "Machine Learning Research Engineer (Intern / Contractor), Fundamental AI Group"
 
 research_interests:
   - "Vision & Language"
@@ -225,7 +223,7 @@ experience:
     lines:
       - "Fundamental AI Group"
       - "<a href=\"https://huggingface.co/turing-motors/Heron-Idefics2-8B-v0.1\">大規模視覚言語モデル (LVLM) の学習</a> / <a href=\"https://huggingface.co/datasets/turing-motors/MOMIJI\">大規模日本語視覚-言語事前学習データセットの構築</a> / <a href=\"https://huggingface.co/datasets/turing-motors/Cauldron-JA\">日本語 Visual Instruction Tuning データセットの構築</a> に従事"
-    date: "2024.04 – 現在"
+    date: "2024.04 – 2026.10"
   - title_html: "Research Assistant @ 東北大学 データ駆動科学・AI教育研究センター"
     lines:
       - "実験環境の構築、ドキュメント・データの整備、関連プロジェクトの運営などを通じた<span class=\"nowrap\">研究活動の支援</span>"
