@@ -404,7 +404,7 @@
           {%- assign pub_items = data.publications[k] %}
           <div class="pub-group" data-group="{{ pub_id }}">
             <h3 class="subsection-title" id="{{ pub_id }}">
-              {{ data.headings[k] }}<span class="count">{{ pub_items.size }}</span>
+              {{ data.headings[k] | replace: "・", "・<wbr>" }}<span class="count">{{ pub_items.size }}</span>
             </h3>
             {% include pub-list.html pubs=pub_items %}
           </div>

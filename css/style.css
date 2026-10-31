@@ -13,11 +13,11 @@
     --main: #443322;           /* main colour: text, headings, primary button */
     --accent: #91b4c8;         /* accent colour: markers, lines, focus */
     --accent-soft: #d7eaf4;    /* light tint of the accent: award chips, hovers */
-    --accent-ink: #497792;     /* darker tint of the accent for small text */
+    --accent-ink: #44708a;     /* darker tint of the accent for small text (4.5:1 or more on the base colour) */
 
     --text: var(--main);
     --text-2: #686870;
-    --text-3: #85858d;
+    --text-3: #72727a;         /* (4.5:1 or more on the white and tinted sections) */
     --bg: #ffffff;
     --line: rgba(68, 51, 34, 0.12);
     --line-strong: rgba(68, 51, 34, 0.22);
@@ -551,7 +551,7 @@ summary:focus-visible {
     font-weight: 400;
     letter-spacing: 0.22em;
     text-transform: uppercase;
-    color: var(--text-3);
+    color: var(--text-2); /* on the base colour: the lighter grey would be too faint */
 }
 .section-note {
     margin: -16px 0 0;
@@ -580,6 +580,12 @@ summary:focus-visible {
     flex: 1;
     height: 1px;
     background: var(--line);
+}
+/* Japanese subsection titles break only between their terms (after a ・
+   or before a bracket), not in the middle of a word such as ワークショップ */
+.subsection-title:lang(ja) {
+    word-break: keep-all;
+    overflow-wrap: anywhere;
 }
 .subsection-title .count {
     min-width: 28px;
