@@ -46,7 +46,7 @@ profile:
   belongings: "Tohoku NLP Group"
   affiliation: "Tohoku University"
   email: "daiki.shiono.s1@dc.tohoku.ac.jp"
-  cv: "materials/cv_shiono.pdf"
+  cv: "cv/cv.pdf"
   cv_filename: "Daiki_Shiono_CV.pdf"
   blog: "https://onely7.github.io/my-dl-wiki/"
   photo:
@@ -90,7 +90,7 @@ nav_items:
     href: "index.html"
     icon: "images/house-solid.svg"
   - label: "CV (PDF)"
-    href: "materials/cv_shiono.pdf"
+    href: "cv/cv.pdf"
     icon: "images/file-arrow-down-solid.svg"
   - label: "Blog"
     href: "https://onely7.github.io/my-dl-wiki/"
