@@ -7,9 +7,16 @@
 
   const email = emailEl.textContent.trim();
   let timer;
-  const showToast = (message) => {
+  // the label, then the address: on a narrow screen the address goes to a
+  // line of its own, kept whole (or, if even that is too narrow, broken
+  // after the "@")
+  const showToast = (label) => {
     if (!toast) return;
-    toast.textContent = message;
+    const address = document.createElement('span');
+    address.className = 'toast-address';
+    const at = email.indexOf('@') + 1;
+    address.append(email.slice(0, at), document.createElement('wbr'), email.slice(at));
+    toast.replaceChildren(`${label} `, address);
     toast.classList.add('is-visible');
     clearTimeout(timer);
     timer = setTimeout(() => toast.classList.remove('is-visible'), 3000);
@@ -19,10 +26,10 @@
     // After clicking the button, write (=copy) the text to the clipboard
     try {
       await navigator.clipboard.writeText(email);
-      showToast(`${btn.dataset.copied || 'Copied:'} ${email}`);
+      showToast(btn.dataset.copied || 'Copied:');
     } catch (e) {
       // e.g. clipboard API unavailable: show the address instead
-      showToast(`${btn.dataset.failed || 'Email:'} ${email}`);
+      showToast(btn.dataset.failed || 'Email:');
     }
   });
 })();

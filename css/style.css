@@ -1226,18 +1226,23 @@ a.chip:active {
     margin: 0 6px;
 }
 
-/* toast for the e-mail copy button */
+/* toast for the e-mail copy button: as wide as its text, up to the width
+   of the screen less 16px on each side (with left: 50% alone it could only
+   take half the screen); a pill on one line, a rounded box when the text
+   wraps on a narrow screen (js/style.js puts the address in a span) */
 .toast {
     position: fixed;
     left: 50%;
     bottom: 24px;
     z-index: 100;
+    width: max-content;
     max-width: calc(100% - 32px);
     padding: 11px 20px;
-    border-radius: 999px;
+    border-radius: 23px;
     background: var(--strong);
     color: var(--on-strong);
     font-size: var(--fs-small);
+    text-align: center;
     overflow-wrap: anywhere;
     opacity: 0;
     pointer-events: none;
@@ -1247,6 +1252,10 @@ a.chip:active {
 .toast.is-visible {
     opacity: 1;
     transform: translate(-50%, 0);
+}
+/* the address: whole, on the next line if it does not fit after the label */
+.toast-address {
+    display: inline-block;
 }
 
 /* ----------------------------------------------------------
@@ -1385,6 +1394,13 @@ a.chip:active {
         letter-spacing: 0.1em;
         white-space: nowrap;
         text-overflow: ellipsis;
+    }
+
+    /* the keyboard focus ring close round the name and the buttons, so that
+       it stays on the screen (the bar is 48px tall on short screens, and
+       the menu button ends 4px from the edge on small phones) */
+    .topbar-bar :focus-visible {
+        outline-offset: 1px;
     }
 
     /* on the right: the theme button, then the menu button */
@@ -1962,11 +1978,33 @@ a.chip:active {
     .topbar-bar {
         gap: 8px;
     }
+    .topbar-brand {
+        gap: 8px;
+    }
     .topbar-name {
         font-size: 15px;
     }
+    .topbar-actions {
+        gap: 0;
+    }
     .topbar-theme {
         width: 36px;
+    }
+}
+/* the narrowest screens (below 320px, such as the cover screen of a folding
+   phone): the menu button without its label, which is still read out */
+@media (max-width: 319px) {
+    .topbar-toggle {
+        position: relative;
+        padding: 0 11px;
+    }
+    .topbar-toggle-label {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        overflow: hidden;
+        clip-path: inset(50%);
+        white-space: nowrap;
     }
 }
 
@@ -2009,6 +2047,10 @@ a.chip:active {
     :root {
         --fs-name: 30px;
         --topbar-h: 48px;
+    }
+    /* the name in the bar as tall as the buttons, inside the lower bar */
+    .topbar-brand {
+        min-height: 40px;
     }
     .sidebar {
         min-height: 0;

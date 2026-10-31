@@ -4,9 +4,10 @@
   item: date, title or title_html, lines (optional), note (optional),
         links (optional), badges (optional)
   Long Japanese compound words in the title get line-break hints
-  (_includes/ja-wbr.html).
+  (_includes/ja-wbr.html). An " @ " before the organisation (experience)
+  stays with it: the line breaks before the "@", not after it.
 {%- endcomment -%}
-{%- assign row_title = include.item.title_html | default: include.item.title -%}
+{%- assign row_title = include.item.title_html | default: include.item.title | replace: " @ ", " @&nbsp;" -%}
 <li class="row">
   <p class="row-date">{{ include.item.date }}</p>
   <div class="row-body">
