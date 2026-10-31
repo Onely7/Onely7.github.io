@@ -298,7 +298,7 @@ publications:
       year: "2026"
       image: "images/pubs/not-rope-sinks.webp"
       authors_html: "Raito Kiya, Satoki Ohashi, Kosuke Sato, Go Kamoda, Ryosuke Takahashi, Yuji Yamamoto, <u>Daiki Shiono</u>, Keisuke Sakaguchi, Goro Kobayashi."
-      venue_html: "Proceedings of <em>the 2026 Conference on Empirical Methods in Natural Language Processing (EMNLP 2026)</em>, Budapest, Hungary, October 2026."
+      venue_html: "Proceedings of <em>the 2026 Conference on Empirical Methods in Natural Language Processing (EMNLP 2026)</em>, Budapest, Hungary, pp.31160-31184, October 2026."
       links:
         - kind: "pdf"
           label: "pdf"
