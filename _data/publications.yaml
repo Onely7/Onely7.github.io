@@ -9,7 +9,7 @@
 # Link chip names (keep to these when adding links):
 #   - the paper itself:
 #       its page at the publisher or in the proceedings (a journal, a
-#       conference site, ACL Anthology)
+#       conference site, ACL Anthology, J-STAGE)
 #                                   -> "publisher" (icon images/book-solid.svg)
 #       a link straight to the PDF file
 #                                   -> "pdf" (icon images/file-pdf-solid.svg)
@@ -757,10 +757,10 @@ publications:
       authors_html: "Shoji Moriya*, <u>Daiki Shiono*</u>, Yosuke Kishinami, Riki Fujihara, Subaru Kimura, Yuta Matsumoto, Shusaku Sone, Reina Akama, Jun Suzuki, Kentaro Inui. (*:&nbsp;equal&nbsp;contribution)"
       venue_html: "<em>人工知能学会 音声・言語理解と対話処理研究会第96回研究会 (JSAI SIG-SLUD 96) 第13回対話システムシンポジウム</em>, Tachikawa, Tokyo, December 2022."
       links:
-        - kind: "pdf"
-          label: "pdf"
+        - kind: "publisher"
+          label: "publisher"
           href: "https://www.jstage.jst.go.jp/article/jsaislud/96/0/96_21/_article/-char/ja/"
-          icon: "images/file-pdf-solid.svg"
+          icon: "images/book-solid.svg"
         - kind: "slide"
           label: "slide"
           href: "materials/slud2022_slide.pdf"

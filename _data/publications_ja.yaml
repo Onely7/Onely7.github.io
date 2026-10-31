@@ -7,7 +7,7 @@
 #
 # リンクチップの名前（リンクを追加するときはこのルールに従います）:
 #   - 論文そのもの:
-#       出版社や論文集の論文ページ（論文誌、学会のサイト、ACL Anthology など）
+#       出版社や論文集の論文ページ（論文誌、学会のサイト、ACL Anthology、J-STAGE など）
 #                               -> "publisher"（icon images/book-solid.svg）
 #       PDF ファイルへの直接リンク
 #                               -> "pdf"（icon images/file-pdf-solid.svg）
@@ -741,10 +741,10 @@ publications:
       authors_html: "守屋 彰二*, <u>塩野 大輝*</u>, 岸波 洋介, 藤原 吏生, 木村 昴, 松本 悠太, 曾根 周作, 赤間 怜奈, 鈴木 潤, 乾 健太郎.（*: 共同主著）"
       venue_html: "<em>人工知能学会 音声・言語理解と対話処理研究会第96回研究会（JSAI SIG-SLUD 96）第13回対話システムシンポジウム</em>, 立川, December 2022."
       links:
-        - kind: "pdf"
-          label: "pdf"
+        - kind: "publisher"
+          label: "publisher"
           href: "https://www.jstage.jst.go.jp/article/jsaislud/96/0/96_21/_article/-char/ja/"
-          icon: "images/file-pdf-solid.svg"
+          icon: "images/book-solid.svg"
         - kind: "slide"
           label: "slide"
           href: "materials/slud2022_slide.pdf"
