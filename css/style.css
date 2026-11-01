@@ -374,18 +374,15 @@ summary:focus-visible {
 }
 /* Japanese: the About text, affiliations and section titles break between
    phrases (item titles: see above); paragraphs keep the normal Japanese line
-   breaking so that their lines stay evenly filled. No line starts with "ー"
-   or a small kana. */
+   breaking so that their lines stay evenly filled. */
 .lead:lang(ja),
 .affiliations li:lang(ja),
 .section-title:lang(ja) {
     word-break: auto-phrase;
 }
-.lead:lang(ja),
-.affiliations li:lang(ja),
-.section-title:lang(ja),
-.pub-title:lang(ja),
-.row-title:lang(ja) {
+/* All Japanese text (titles, paragraphs, venues, ...): no line starts with
+   "ー", a small kana or another character that should not begin a line */
+:lang(ja) {
     line-break: strict;
 }
 
