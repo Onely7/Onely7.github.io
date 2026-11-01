@@ -933,6 +933,71 @@ summary:focus-visible {
     border-radius: 10px;
     box-shadow: 0 0 0 1px var(--line), 0 6px 18px rgba(var(--shadow-rgb), 0.08);
 }
+/* projects: my pages on other sites (Knowledge Sharing) as cards with the
+   site's address and an arrow, rather than chips, so that the row reads as
+   a guide to those sites */
+.channels {
+    display: grid;
+    gap: 8px;
+    max-width: 420px;
+    margin-top: 14px;
+    list-style: none;
+}
+.channel {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-height: 52px;
+    padding: 9px 16px 9px 14px;
+    border-radius: 14px;
+    background: var(--surface);
+    box-shadow: inset 0 0 0 1px var(--line-strong);
+    color: var(--main);
+    transition: background-color 0.2s, box-shadow 0.2s, transform 0.15s;
+}
+.channel-icon {
+    --icon-size: 18px;
+}
+.channel-text {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    min-width: 0;
+}
+.channel-name {
+    font-size: var(--fs-sub);
+    font-weight: 500;
+    line-height: 1.45;
+}
+.channel-url {
+    overflow-wrap: anywhere;
+    font-family: var(--mono);
+    font-size: var(--fs-chip);
+    line-height: 1.5;
+    letter-spacing: 0.04em;
+    color: var(--text-3);
+}
+.channel-arrow {
+    --icon-size: 12px;
+    color: var(--text-3);
+    transition: translate 0.25s var(--ease-out), color 0.2s;
+}
+a.channel:active {
+    transform: scale(0.98);
+}
+@media (hover: hover) {
+    a.channel:hover {
+        background: var(--accent-soft);
+        box-shadow: inset 0 0 0 1px var(--accent);
+    }
+    a.channel:hover .channel-url {
+        color: var(--main);  /* 4.5:1 or more on the tinted background */
+    }
+    a.channel:hover .channel-arrow {
+        color: var(--main);
+        translate: 3px 0;
+    }
+}
 
 /* publications: filter buttons and search box (shown only with JavaScript) */
 .pub-tools {

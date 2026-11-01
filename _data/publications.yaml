@@ -35,9 +35,6 @@
 #       evaluation dataset          -> "eval dataset"
 #       training + evaluation data  -> "train/eval dataset"
 #   - PyPI page                 -> label "PyPI" (icon images/pypi.svg)
-#   - my pages on other sites:  my blog -> "Blog" (icon images/blog_mydlwiki_logo.svg),
-#                               Zenn -> "Zenn" (icon images/zenn.svg),
-#                               Speaker Deck -> "Speaker Deck" (icon images/speaker-deck.svg)
 #   - others: "poster", "slide", "code" (GitHub), "blog", ...
 # publications: `image` (640x400 figure, e.g. images/pubs/foo.webp) is shown on
 # the left; without it, a tile with venue_short + year is shown instead.
@@ -48,7 +45,9 @@
 # grouped under subsection titles (`category`, with its `items`). A project
 # may add `logo` (a square app icon, shown before the title) and `image` (a
 # screenshot shown below the links, with `image_alt`, `image_width` and
-# `image_height`).
+# `image_height`). A row may list `channels` instead of `links`: my pages on
+# other sites (`name`, `href`, `icon`), shown as cards with their address
+# (Knowledge Sharing: the blog, Zenn and Speaker Deck).
 
 site:
   title: "Daiki Shiono | 塩野 大輝"
@@ -865,17 +864,14 @@ projects:
     items:
       - title: "Sharing Notes, Articles and Slides"
         date: "Ongoing"
-        links:
-          - kind: "blog"
-            label: "Blog"
+        channels:
+          - name: "Blog"
             href: "https://onely7.dev/blog/en/"
             icon: "images/blog_mydlwiki_logo.svg"
-          - kind: "zenn"
-            label: "Zenn"
+          - name: "Zenn"
             href: "https://zenn.dev/onely7"
             icon: "images/zenn.svg"
-          - kind: "speakerdeck"
-            label: "Speaker Deck"
+          - name: "Speaker Deck"
             href: "https://speakerdeck.com/onely7"
             icon: "images/speaker-deck.svg"
 

@@ -33,9 +33,6 @@
 #       評価データセット        -> "eval dataset"
 #       学習/評価データセット   -> "train/eval dataset"
 #   - PyPI のページ             -> label "PyPI"（icon images/pypi.svg）
-#   - ほかのサイトにある自分のページ: 自分のブログ -> "Blog"（icon images/blog_mydlwiki_logo.svg）、
-#                               Zenn -> "Zenn"（icon images/zenn.svg）、
-#                               Speaker Deck -> "Speaker Deck"（icon images/speaker-deck.svg）
 #   - その他: "poster", "slide", "code"（GitHub）, "blog" など
 # publications: `image`（640x400 の図。例: images/pubs/foo.webp）を左側に表示します。
 # image が無い場合は venue_short と year のタイルを表示します。
@@ -45,6 +42,8 @@
 # （`category`）ごとに `items` をまとめます。projects の項目には `logo`（タイトルの
 # 前に表示する正方形のアプリアイコン）と `image`（リンクの下に表示するスクリーン
 # ショット。`image_alt`, `image_width`, `image_height` も指定）を付けられます。
+# `links` の代わりに `channels`（ほかのサイトにある自分のページ。`name`, `href`, `icon`）
+# を書くと、アドレス付きのカードとして表示します（知見の共有: ブログ、Zenn、Speaker Deck）。
 
 site:
   title: "塩野 大輝 | Daiki Shiono"
@@ -848,17 +847,14 @@ projects:
     items:
       - title_html: "ブログ・技術記事・<span class=\"nowrap\">スライドによる</span>情報発信"
         date: "継続中"
-        links:
-          - kind: "blog"
-            label: "Blog"
+        channels:
+          - name: "Blog"
             href: "https://onely7.dev/blog/"
             icon: "images/blog_mydlwiki_logo.svg"
-          - kind: "zenn"
-            label: "Zenn"
+          - name: "Zenn"
             href: "https://zenn.dev/onely7"
             icon: "images/zenn.svg"
-          - kind: "speakerdeck"
-            label: "Speaker Deck"
+          - name: "Speaker Deck"
             href: "https://speakerdeck.com/onely7"
             icon: "images/speaker-deck.svg"
 
