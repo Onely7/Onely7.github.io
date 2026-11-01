@@ -24,6 +24,9 @@
 #       model                       -> "model"
 #       a model plus datasets, or any other mix of two or more of the above
 #                                   -> "collection"  (e.g. an organization page)
+#       a Hugging Face Collections page (huggingface.co/collections/...)
+#                                   -> "collections"; number them when a paper
+#                                      has several ("collections ①", "collections ②")
 #     A validation split used only during training is not evaluation data
 #     (e.g. STRIDE-QA-Dataset is "train dataset"; its benchmark is separate).
 #   - datasets hosted elsewhere (icon images/database-solid.svg):
@@ -676,6 +679,14 @@ publications:
           label: "pdf"
           href: "https://www.anlp.jp/proceedings/annual_meeting/2025/pdf_dir/Q8-5.pdf"
           icon: "images/file-pdf-solid.svg"
+        - kind: "collection"
+          label: "collections ①"
+          href: "https://huggingface.co/collections/tohoku-nlp/bybert-jp"
+          icon: "images/hugging-face.svg"
+        - kind: "collection"
+          label: "collections ②"
+          href: "https://huggingface.co/collections/tohoku-nlp/bygpt-jp"
+          icon: "images/hugging-face.svg"
 
     - title: "大規模視覚言語モデル<wbr><span class=\"nowrap\">に関する</span>指示追従能力の検証"
       title_lang: "ja"
