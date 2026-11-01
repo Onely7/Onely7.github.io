@@ -160,8 +160,9 @@
         --winter-deep: #a9bac7;
         --winter-fall: #dce5eb;
     }
-    /* the paper figures (mostly on white): a little dimmer */
-    :root:not([data-theme="light"]) .pub-image {
+    /* the paper figures and screenshots (mostly on white): a little dimmer */
+    :root:not([data-theme="light"]) .pub-image,
+    :root:not([data-theme="light"]) .row-image {
         filter: brightness(0.9);
     }
 }
@@ -213,7 +214,8 @@
         --winter-deep: #a9bac7;
         --winter-fall: #dce5eb;
     }
-    :root[data-theme="dark"] .pub-image {
+    :root[data-theme="dark"] .pub-image,
+    :root[data-theme="dark"] .row-image {
         filter: brightness(0.9);
     }
 }
@@ -913,6 +915,26 @@ summary:focus-visible {
     margin-top: 2px;
     font-size: var(--fs-sub);
     color: var(--text-2);
+}
+/* projects: an app icon before the title, and a screenshot below the
+   links, framed like the paper figures */
+.row-logo {
+    display: inline-block;
+    width: 28px;
+    height: 28px;
+    margin-right: 10px;
+    border-radius: 6px;
+    box-shadow: 0 0 0 1px var(--line);
+    vertical-align: -7px;  /* centred on the title's text */
+}
+.row-image {
+    display: block;
+    width: 100%;
+    max-width: 560px;
+    height: auto;
+    margin-top: 16px;
+    border-radius: 10px;
+    box-shadow: 0 0 0 1px var(--line), 0 6px 18px rgba(var(--shadow-rgb), 0.08);
 }
 
 /* publications: filter buttons and search box (shown only with JavaScript) */
@@ -1900,7 +1922,8 @@ a.chip:active {
         margin: 3px 14px 10px 0;
     }
     .pub-image,
-    .pub-tile {
+    .pub-tile,
+    .row-image {
         border-radius: 8px;
     }
     .pub-tile {

@@ -2,7 +2,10 @@
   A dated row (education, experience, projects, talks, activities, awards).
   usage: {% include item.html item=it %}
   item: date, title or title_html, lines (optional), note (optional),
-        links (optional), badges (optional)
+        links (optional), badges (optional),
+        logo (optional: a square app icon shown before the title),
+        image (optional: a screenshot shown below the links; with
+        image_alt, image_width and image_height)
   Long Japanese compound words in the title get line-break hints
   (_includes/ja-wbr.html). An " @ " before the organisation (experience)
   stays with it: the line breaks before the "@", not after it.
@@ -12,6 +15,9 @@
   <p class="row-date">{{ include.item.date }}</p>
   <div class="row-body">
     <p class="row-title">
+      {%- if include.item.logo -%}
+      <img class="row-logo" src="{{ include.item.logo | relative_url }}" alt="" width="28" height="28" decoding="async" />
+      {%- endif -%}
       {%- include ja-wbr.html text=row_title -%}
     </p>
     {%- for line in include.item.lines %}
@@ -21,5 +27,16 @@
     <p class="row-text">{{ include.item.note }}</p>
     {%- endif %}
     {%- include link-buttons.html links=include.item.links badges=include.item.badges %}
+    {%- if include.item.image %}
+    <img
+      class="row-image"
+      src="{{ include.item.image | relative_url }}"
+      alt="{{ include.item.image_alt }}"
+      width="{{ include.item.image_width }}"
+      height="{{ include.item.image_height }}"
+      loading="lazy"
+      decoding="async"
+    />
+    {%- endif %}
   </div>
 </li>

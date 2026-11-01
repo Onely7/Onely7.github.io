@@ -34,6 +34,7 @@
 #       training dataset            -> "train dataset"
 #       evaluation dataset          -> "eval dataset"
 #       training + evaluation data  -> "train/eval dataset"
+#   - PyPI page                 -> label "PyPI" (icon images/pypi.svg)
 #   - others: "poster", "slide", "code" (GitHub), "blog", ...
 # publications: `image` (640x400 figure, e.g. images/pubs/foo.webp) is shown on
 # the left; without it, a tile with venue_short + year is shown instead.
@@ -41,7 +42,10 @@
 # `<wbr>` in a Japanese title marks where a long word may break across lines.
 # experience / projects / talks / activities / biography: `date` is shown in
 # the left column; `lines` are the description. projects and activities are
-# grouped under subsection titles (`category`, with its `items`).
+# grouped under subsection titles (`category`, with its `items`). A project
+# may add `logo` (a square app icon, shown before the title) and `image` (a
+# screenshot shown below the links, with `image_alt`, `image_width` and
+# `image_height`).
 
 site:
   title: "Daiki Shiono | 塩野 大輝"
@@ -801,6 +805,27 @@ publications:
           icon: "images/book-solid.svg"
 
 projects:
+  - category: "Software & Tools"
+    items:
+      - title: "Local Data Studio"
+        logo: "images/projects/local-data-studio-logo.webp"
+        lines:
+          - "An application for browsing and analyzing local multimodal datasets in your browser."
+        date: "Jul 2026"
+        image: "images/projects/local-data-studio.webp"
+        image_alt: "Screenshot of Local Data Studio"
+        image_width: 1138
+        image_height: 715
+        links:
+          - kind: "code"
+            label: "code"
+            href: "https://github.com/Onely7/local_data_studio"
+            icon: "images/github.svg"
+          - kind: "pypi"
+            label: "PyPI"
+            href: "https://pypi.org/project/local-data-studio/"
+            icon: "images/pypi.svg"
+
   - category: "Model & Dataset Development"
     items:
       - title: "Building a Large-Scale Collection of SFT Datasets Translated into Japanese"
