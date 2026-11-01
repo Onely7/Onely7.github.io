@@ -435,11 +435,14 @@
         <!-- Projects -->
         <section class="section" id="projects" aria-labelledby="projects-title">
           {% include section-title.html key="projects" id="projects-title" %}
+          {%- for cat in data.projects %}
+          <h3 class="subsection-title">{{ cat.category }}</h3>
           <ol class="row-list">
-            {%- for it in data.projects %}
+            {%- for it in cat.items %}
             {% include item.html item=it %}
             {%- endfor %}
           </ol>
+          {%- endfor %}
         </section>
 
         <!-- Awards -->

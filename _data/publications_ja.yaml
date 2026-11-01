@@ -37,7 +37,8 @@
 # image が無い場合は venue_short と year のタイルを表示します。
 # タイトル中の `<wbr>` は、長い語を行末で区切ってよい位置を示します。
 # experience / projects / talks / activities / biography: `date` は左の列に、
-# `lines` は説明文として表示されます。
+# `lines` は説明文として表示されます。projects と activities は、小見出し
+# （`category`）ごとに `items` をまとめます。
 
 site:
   title: "塩野 大輝 | Daiki Shiono"
@@ -783,46 +784,50 @@ publications:
           icon: "images/book-solid.svg"
 
 projects:
-  - title: "日本語に翻訳した大規模 SFT データセット群の構築"
-    lines:
-      - "個人プロジェクト（FineVision_JA）"
-    date: "継続中"
-    links:
-      - kind: "dataset"
-        label: "train dataset"
-        href: "https://huggingface.co/datasets/Onely7/FineVision_JA"
-        icon: "images/hugging-face.svg"
+  - category: "モデル・データセット開発"
+    items:
+      - title: "日本語に翻訳した大規模 SFT データセット群の構築"
+        lines:
+          - "個人プロジェクト（FineVision_JA）"
+        date: "継続中"
+        links:
+          - kind: "dataset"
+            label: "train dataset"
+            href: "https://huggingface.co/datasets/Onely7/FineVision_JA"
+            icon: "images/hugging-face.svg"
 
-  - title_html: "LVLM に関する最新知見（2024年時点）を<span class=\"nowrap\">まとめた</span>スライドの公開"
-    lines:
-      - "個人プロジェクト:「Large Vision Language Model (LVLM) に関する最新知見まとめ (Part 1)」"
-    date: "2024.11"
-    links:
-      - kind: "slide"
-        label: "slide"
-        href: "https://speakerdeck.com/onely7/large-vision-language-model-lvlm-niguan-suruzui-xin-zhi-jian-matome-part-1"
-        icon: "images/speaker-deck.svg"
+      - title: "日本語 LVLM 向け SFT データセットの構築"
+        lines:
+          - "<a href=\"https://tur.ing/\">Turing Inc.</a> でのインターンの成果（The Cauldron JA, Wikipedia Vision JA）"
+          - "ブログ:【日本語V&Lデータセット】The Cauldron JA, Wikipedia Vision JA を公開しました！"
+        date: "2024.09"
+        links:
+          - kind: "blog"
+            label: "blog"
+            href: "https://zenn.dev/turing_motors/articles/23df51c37967f0"
+            icon: "images/zenn.svg"
 
-  - title: "日本語 LVLM 向け SFT データセットの構築"
-    lines:
-      - "<a href=\"https://tur.ing/\">Turing Inc.</a> でのインターンの成果（The Cauldron JA, Wikipedia Vision JA）"
-      - "ブログ:【日本語V&Lデータセット】The Cauldron JA, Wikipedia Vision JA を公開しました！"
-    date: "2024.09"
-    links:
-      - kind: "blog"
-        label: "blog"
-        href: "https://zenn.dev/turing_motors/articles/23df51c37967f0"
-        icon: "images/zenn.svg"
+      - title: "長系列処理に対応した日本語 BERT モデルの構築"
+        lines:
+          - "スーパーコンピュータ TSUBAME4.0 上で Megatron-LM を用いた、長系列入力に対応する日本語 BERT モデルの開発・分散事前学習に<span class=\"nowrap\">共同で従事</span>"
+        date: "2024.06"
+        links:
+          - kind: "model"
+            label: "model"
+            href: "https://huggingface.co/tohoku-nlp/tohokunlp-bert-500m-sq4096-alpha/blob/main/README.md"
+            icon: "images/hugging-face.svg"
 
-  - title: "長系列処理に対応した日本語 BERT モデルの構築"
-    lines:
-      - "スーパーコンピュータ TSUBAME4.0 上で Megatron-LM を用いた、長系列入力に対応する日本語 BERT モデルの開発・分散事前学習に<span class=\"nowrap\">共同で従事</span>"
-    date: "2024.06"
-    links:
-      - kind: "model"
-        label: "model"
-        href: "https://huggingface.co/tohoku-nlp/tohokunlp-bert-500m-sq4096-alpha/blob/main/README.md"
-        icon: "images/hugging-face.svg"
+  - category: "知見の共有"
+    items:
+      - title_html: "LVLM に関する最新知見（2024年時点）を<span class=\"nowrap\">まとめた</span>スライドの公開"
+        lines:
+          - "個人プロジェクト:「Large Vision Language Model (LVLM) に関する最新知見まとめ (Part 1)」"
+        date: "2024.11"
+        links:
+          - kind: "slide"
+            label: "slide"
+            href: "https://speakerdeck.com/onely7/large-vision-language-model-lvlm-niguan-suruzui-xin-zhi-jian-matome-part-1"
+            icon: "images/speaker-deck.svg"
 
 awards:
   - title_html: "<a href=\"https://llm-jp.github.io/tuning-competition/2026/feature.html\">FT-LLM2026</a> 数学タスクにて <strong>オープン部門 1位・総合部門 2位</strong>"
