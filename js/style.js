@@ -150,6 +150,27 @@
   const os = window.matchMedia('(prefers-color-scheme: dark)');
   if (os.addEventListener) os.addEventListener('change', label);
   else if (os.addListener) os.addListener(label);
+  // The blog (/blog/, on the same origin) shares the choice: its theme button
+  // stores the theme under "portfolio-theme" too. A theme chosen in another
+  // tab (on the blog or on this page) shows here at once; one chosen while
+  // this page was in the back/forward cache shows when the page comes back.
+  const follow = () => {
+    let theme = null;
+    try {
+      theme = localStorage.getItem('portfolio-theme');
+    } catch (e) {
+      return;
+    }
+    if ((theme !== 'light' && theme !== 'dark') || root.dataset.theme === theme) return;
+    window.setTheme(theme);
+    label();
+  };
+  window.addEventListener('storage', (e) => {
+    if (e.key === 'portfolio-theme') follow();
+  });
+  window.addEventListener('pageshow', (e) => {
+    if (e.persisted) follow();
+  });
   label();
 })();
 
