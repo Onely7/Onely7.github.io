@@ -35,6 +35,9 @@
 #       evaluation dataset          -> "eval dataset"
 #       training + evaluation data  -> "train/eval dataset"
 #   - PyPI page                 -> label "PyPI" (icon images/pypi.svg)
+#   - my pages on other sites:  my blog -> "blog" (icon images/blog_mydlwiki_logo.svg),
+#                               Zenn -> "Zenn" (icon images/zenn.svg),
+#                               Speaker Deck -> "Speaker Deck" (icon images/speaker-deck.svg)
 #   - others: "poster", "slide", "code" (GitHub), "blog", ...
 # publications: `image` (640x400 figure, e.g. images/pubs/foo.webp) is shown on
 # the left; without it, a tile with venue_short + year is shown instead.
@@ -860,6 +863,24 @@ projects:
 
   - category: "Knowledge Sharing"
     items:
+      - title: "Sharing Notes, Articles and Slides"
+        lines:
+          - "A blog explaining deep learning terms, technical articles on Zenn, and slides on Speaker Deck."
+        date: "Ongoing"
+        links:
+          - kind: "blog"
+            label: "blog"
+            href: "https://onely7.dev/blog/en/"
+            icon: "images/blog_mydlwiki_logo.svg"
+          - kind: "zenn"
+            label: "Zenn"
+            href: "https://zenn.dev/onely7"
+            icon: "images/zenn.svg"
+          - kind: "speakerdeck"
+            label: "Speaker Deck"
+            href: "https://speakerdeck.com/onely7"
+            icon: "images/speaker-deck.svg"
+
       - title: "Sharing Slides Summarizing Insights on LVLMs as of 2024"
         lines:
           - "Independent project: “Large Vision Language Model (LVLM) に関する最新知見まとめ (Part 1)”"

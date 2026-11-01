@@ -33,6 +33,9 @@
 #       評価データセット        -> "eval dataset"
 #       学習/評価データセット   -> "train/eval dataset"
 #   - PyPI のページ             -> label "PyPI"（icon images/pypi.svg）
+#   - ほかのサイトにある自分のページ: 自分のブログ -> "blog"（icon images/blog_mydlwiki_logo.svg）、
+#                               Zenn -> "Zenn"（icon images/zenn.svg）、
+#                               Speaker Deck -> "Speaker Deck"（icon images/speaker-deck.svg）
 #   - その他: "poster", "slide", "code"（GitHub）, "blog" など
 # publications: `image`（640x400 の図。例: images/pubs/foo.webp）を左側に表示します。
 # image が無い場合は venue_short と year のタイルを表示します。
@@ -843,6 +846,24 @@ projects:
 
   - category: "知見の共有"
     items:
+      - title_html: "ブログ・技術記事・<span class=\"nowrap\">スライドによる</span>情報発信"
+        lines:
+          - "深層学習の用語を解説するブログのほか、Zenn で技術記事を、Speaker Deck でスライドを公開"
+        date: "継続中"
+        links:
+          - kind: "blog"
+            label: "blog"
+            href: "https://onely7.dev/blog/"
+            icon: "images/blog_mydlwiki_logo.svg"
+          - kind: "zenn"
+            label: "Zenn"
+            href: "https://zenn.dev/onely7"
+            icon: "images/zenn.svg"
+          - kind: "speakerdeck"
+            label: "Speaker Deck"
+            href: "https://speakerdeck.com/onely7"
+            icon: "images/speaker-deck.svg"
+
       - title_html: "LVLM に関する最新知見（2024年時点）を<span class=\"nowrap\">まとめた</span>スライドの公開"
         lines:
           - "個人プロジェクト:「Large Vision Language Model (LVLM) に関する最新知見まとめ (Part 1)」"
