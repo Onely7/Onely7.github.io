@@ -21,10 +21,11 @@
 #                                  評価用の両方のデータを含むもの。例: 学習用と評価用の split）
 #       モデル                  -> "model"
 #       モデルとデータセットの両方を含むなど、上記のうち 2 つ以上を含むもの
-#                               -> "collection"（組織ページなど）
+#                               -> "collections"（組織ページなど）
 #       Hugging Face の Collections のページ（huggingface.co/collections/...）
-#                               -> "collections"。1 つの論文に複数あるときは番号を付けます
-#                                  （"collections ①", "collections ②"）
+#                               -> "collections"
+#     1 つの論文に "collections" が複数あるときは、空白を入れずに番号を付けます
+#     （"collections①", "collections②"）
 #     学習中にだけ使う validation split は評価データとみなしません
 #     （例: STRIDE-QA-Dataset は "train dataset"。評価用は別のベンチマーク）。
 #   - Hugging Face 以外で公開しているデータセット（icon images/database-solid.svg）:
@@ -601,7 +602,7 @@ publications:
           href: "https://llm-jp.github.io/tuning-competition/2026/pdfs/math_team003_slide.pdf"
           icon: "images/file-powerpoint-regular.svg"
         - kind: "collection"
-          label: "collection"
+          label: "collections"
           href: "https://huggingface.co/team-dentaku"
           icon: "images/hugging-face.svg"
         - kind: "code"
@@ -669,11 +670,11 @@ publications:
           href: "https://www.anlp.jp/proceedings/annual_meeting/2025/pdf_dir/Q8-5.pdf"
           icon: "images/file-pdf-solid.svg"
         - kind: "collection"
-          label: "collections ①"
+          label: "collections①"
           href: "https://huggingface.co/collections/tohoku-nlp/bybert-jp"
           icon: "images/hugging-face.svg"
         - kind: "collection"
-          label: "collections ②"
+          label: "collections②"
           href: "https://huggingface.co/collections/tohoku-nlp/bygpt-jp"
           icon: "images/hugging-face.svg"
 

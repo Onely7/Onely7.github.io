@@ -23,10 +23,11 @@
 #                                      dataset with a training and an evaluation split)
 #       model                       -> "model"
 #       a model plus datasets, or any other mix of two or more of the above
-#                                   -> "collection"  (e.g. an organization page)
+#                                   -> "collections"  (e.g. an organization page)
 #       a Hugging Face Collections page (huggingface.co/collections/...)
-#                                   -> "collections"; number them when a paper
-#                                      has several ("collections ①", "collections ②")
+#                                   -> "collections"
+#     When a paper has more than one "collections" link, number them with no
+#     space: "collections①", "collections②", ...
 #     A validation split used only during training is not evaluation data
 #     (e.g. STRIDE-QA-Dataset is "train dataset"; its benchmark is separate).
 #   - datasets hosted elsewhere (icon images/database-solid.svg):
@@ -608,7 +609,7 @@ publications:
           href: "https://llm-jp.github.io/tuning-competition/2026/pdfs/math_team003_slide.pdf"
           icon: "images/file-powerpoint-regular.svg"
         - kind: "collection"
-          label: "collection"
+          label: "collections"
           href: "https://huggingface.co/team-dentaku"
           icon: "images/hugging-face.svg"
         - kind: "code"
@@ -680,11 +681,11 @@ publications:
           href: "https://www.anlp.jp/proceedings/annual_meeting/2025/pdf_dir/Q8-5.pdf"
           icon: "images/file-pdf-solid.svg"
         - kind: "collection"
-          label: "collections ①"
+          label: "collections①"
           href: "https://huggingface.co/collections/tohoku-nlp/bybert-jp"
           icon: "images/hugging-face.svg"
         - kind: "collection"
-          label: "collections ②"
+          label: "collections②"
           href: "https://huggingface.co/collections/tohoku-nlp/bygpt-jp"
           icon: "images/hugging-face.svg"
 
