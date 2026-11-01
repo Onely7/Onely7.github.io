@@ -46,7 +46,7 @@
 # may add `logo` (a square app icon, shown before the title) and `image` (a
 # screenshot shown below the links, with `image_alt`, `image_width` and
 # `image_height`). A row may list `channels` instead of `links`: my pages on
-# other sites (`name`, `href`, `icon`), shown as cards with their address
+# other sites (`name`, `href`, `icon`), shown side by side as cards with their domain
 # (Knowledge Sharing: the blog, Zenn and Speaker Deck).
 
 site:

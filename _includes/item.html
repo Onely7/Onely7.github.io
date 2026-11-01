@@ -7,7 +7,7 @@
         image (optional: a screenshot shown below the links; with
         image_alt, image_width and image_height),
         channels (optional: my pages on other sites, name / href / icon,
-        shown as cards with their address instead of chips)
+        shown side by side as cards with their domain instead of chips)
   Long Japanese compound words in the title get line-break hints
   (_includes/ja-wbr.html). An " @ " before the organisation (experience)
   stays with it: the line breaks before the "@", not after it.
@@ -32,15 +32,13 @@
     {%- if include.item.channels %}
     <ul class="channels">
       {%- for ch in include.item.channels %}
-      {%- assign ch_url = ch.href | remove_first: "https://" | remove_first: "http://" %}
-      {%- assign ch_end = ch_url | slice: -1, 1 %}
-      {%- if ch_end == "/" %}{% assign ch_len = ch_url.size | minus: 1 %}{% assign ch_url = ch_url | slice: 0, ch_len %}{% endif %}
+      {%- assign ch_parts = ch.href | split: "/" %}
       <li>
         <a class="channel" href="{{ ch.href }}">
           {%- include icon.html src=ch.icon class="channel-icon" %}
           <span class="channel-text">
             <span class="channel-name">{{ ch.name }}</span>
-            <span class="channel-url">{{ ch_url }}</span>
+            <span class="channel-url">{{ ch_parts[2] }}</span>
           </span>
           {%- include icon.html src="images/arrow-right-solid.svg" class="channel-arrow" %}
         </a>
