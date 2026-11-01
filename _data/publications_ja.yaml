@@ -33,7 +33,7 @@
 #       評価データセット        -> "eval dataset"
 #       学習/評価データセット   -> "train/eval dataset"
 #   - PyPI のページ             -> label "PyPI"（icon images/pypi.svg）
-#   - ほかのサイトにある自分のページ: 自分のブログ -> "blog"（icon images/blog_mydlwiki_logo.svg）、
+#   - ほかのサイトにある自分のページ: 自分のブログ -> "Blog"（icon images/blog_mydlwiki_logo.svg）、
 #                               Zenn -> "Zenn"（icon images/zenn.svg）、
 #                               Speaker Deck -> "Speaker Deck"（icon images/speaker-deck.svg）
 #   - その他: "poster", "slide", "code"（GitHub）, "blog" など
@@ -847,12 +847,10 @@ projects:
   - category: "知見の共有"
     items:
       - title_html: "ブログ・技術記事・<span class=\"nowrap\">スライドによる</span>情報発信"
-        lines:
-          - "深層学習の用語を解説するブログのほか、Zenn で技術記事を、Speaker Deck でスライドを公開"
         date: "継続中"
         links:
           - kind: "blog"
-            label: "blog"
+            label: "Blog"
             href: "https://onely7.dev/blog/"
             icon: "images/blog_mydlwiki_logo.svg"
           - kind: "zenn"

@@ -35,7 +35,7 @@
 #       evaluation dataset          -> "eval dataset"
 #       training + evaluation data  -> "train/eval dataset"
 #   - PyPI page                 -> label "PyPI" (icon images/pypi.svg)
-#   - my pages on other sites:  my blog -> "blog" (icon images/blog_mydlwiki_logo.svg),
+#   - my pages on other sites:  my blog -> "Blog" (icon images/blog_mydlwiki_logo.svg),
 #                               Zenn -> "Zenn" (icon images/zenn.svg),
 #                               Speaker Deck -> "Speaker Deck" (icon images/speaker-deck.svg)
 #   - others: "poster", "slide", "code" (GitHub), "blog", ...
@@ -864,12 +864,10 @@ projects:
   - category: "Knowledge Sharing"
     items:
       - title: "Sharing Notes, Articles and Slides"
-        lines:
-          - "A blog explaining deep learning terms, technical articles on Zenn, and slides on Speaker Deck."
         date: "Ongoing"
         links:
           - kind: "blog"
-            label: "blog"
+            label: "Blog"
             href: "https://onely7.dev/blog/en/"
             icon: "images/blog_mydlwiki_logo.svg"
           - kind: "zenn"
