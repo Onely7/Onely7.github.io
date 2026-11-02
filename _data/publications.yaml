@@ -828,6 +828,20 @@ projects:
             href: "https://pypi.org/project/local-data-studio/"
             icon: "images/pypi.svg"
 
+      - title: "Cosense Zenn Style"
+        lines:
+          - "A collection of unofficial UserCSS, UserScripts and Tampermonkey scripts that make <a href=\"https://scrapbox.io/product\">Cosense (formerly Scrapbox)</a> look like <a href=\"https://zenn.dev/zenn/articles/markdown-guide\">Zenn</a>. It also supports importing and exporting Markdown files, switching between light and dark mode, and embedding GitHub files and X posts as cards."
+        date: "Jul 2026"
+        image: "images/projects/cosense-zenn-style.webp"
+        image_alt: "Screenshot of Cosense Zenn Style"
+        image_width: 1138
+        image_height: 714
+        links:
+          - kind: "code"
+            label: "code"
+            href: "https://github.com/Onely7/cosense-zenn-style"
+            icon: "images/github.svg"
+
   - category: "Model & Dataset Development"
     items:
       - title: "Building a Large-Scale Collection of SFT Datasets Translated into Japanese"
